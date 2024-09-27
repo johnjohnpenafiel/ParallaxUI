@@ -1,25 +1,12 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import reactElementToJSXString from "react-element-to-jsx-string";
 
-import {
-  AppBar,
-  Box,
-  Button,
-  Drawer,
-  TextField,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import reactElementToJSXString from "react-element-to-jsx-string";
+import { Box, Drawer, Toolbar, Typography } from "@mui/material";
 
 import TiltBox from "./components/TiltBox";
-
-interface FormData {
-  height: number;
-  width: number;
-  text?: string;
-  image?: string;
-}
+import Form from "./components/Form";
+import NavBar from "./components/NavBar";
+import { FormData } from "./components/Form";
 
 function App() {
   const [height, setHeight] = useState(400);
@@ -27,8 +14,6 @@ function App() {
   const [text, setText] = useState("BOX");
   const [image, setImage] = useState("");
   const [open, setOpen] = useState(true);
-
-  const { register, handleSubmit, reset } = useForm<FormData>();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -68,20 +53,7 @@ function App() {
 
   return (
     <Box sx={{ backgroundColor: "grey", display: "flex" }}>
-      <AppBar
-        position="fixed"
-        sx={{
-          backgroundColor: "grey",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Tilt
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
+      <NavBar />
       <Drawer
         open={open}
         onClose={toggleDrawer(false)}
@@ -97,78 +69,7 @@ function App() {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
-          <Box
-            p={2.5}
-            component="form"
-            onSubmit={handleSubmit((data) => {
-              onSubmit(data);
-              reset();
-            })}
-          >
-            <Box mb={2}>
-              <TextField
-                label="Height"
-                {...register("height")}
-                id="height"
-                type="number"
-                fullWidth
-              />
-            </Box>
-
-            <Box mb={2}>
-              <TextField
-                label="Width"
-                {...register("width")}
-                id="width"
-                type="number"
-                fullWidth
-              />
-            </Box>
-
-            <Box mb={2}>
-              <TextField
-                label="Text"
-                {...register("text")}
-                id="text"
-                type="string"
-                fullWidth
-              />
-            </Box>
-
-            <Box mb={2}>
-              <TextField
-                label="Image"
-                {...register("image")}
-                id="image"
-                type="string"
-                fullWidth
-              />
-            </Box>
-
-            <Box>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
-              >
-                Enter
-              </Button>
-            </Box>
-
-            <Box>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
-                onClick={onExport}
-              >
-                Export
-              </Button>
-            </Box>
-          </Box>
-        </Box>
+        <Form onSubmit={onSubmit} />
       </Drawer>
 
       <Box
