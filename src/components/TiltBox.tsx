@@ -35,6 +35,7 @@ const TiltBox: React.FC<Props> = ({
         width: `${width}px`,
         backgroundColor: backgroundColor,
         transformStyle: "preserve-3d",
+        borderRadius: '1rem',
       }}
     >
       {children}
