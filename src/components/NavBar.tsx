@@ -8,6 +8,7 @@ import AnimationIcon from '@mui/icons-material/Animation';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
+
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -65,7 +66,7 @@ const NavBar = ({ open, setOpen }: Props) => {
         </IconButton>
       </Toolbar>
     </AppBar>
-  )
+  );
 };
 
 export default NavBar;
