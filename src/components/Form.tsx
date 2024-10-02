@@ -13,6 +13,10 @@ export type FormData = {
   image?: string;
 };
 
+interface Props {
+  onSubmit: (data: FormData) => void;
+}
+
 const Form = ({ onSubmit }: Props) => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   return (
@@ -65,26 +69,15 @@ const Form = ({ onSubmit }: Props) => {
             fullWidth
           />
         </Box>
-
         <Box>
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            color="secondary"
+            fullWidth
             sx={{ mt: 2 }}
           >
-            Enter
-          </Button>
-        </Box>
-
-        <Box>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2 }}
-            onClick={() => {}} //onExport goes here
-          >
-            Export
+            Render
           </Button>
         </Box>
       </Box>
