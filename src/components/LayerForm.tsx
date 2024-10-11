@@ -2,10 +2,6 @@ import { useForm } from "react-hook-form";
 
 import { Box, Button, TextField } from "@mui/material";
 
-interface Props {
-  onSubmit: (data: FormData) => void;
-}
-
 export type FormData = {
   height: number;
   width: number;
@@ -17,7 +13,7 @@ interface Props {
   onSubmit: (data: FormData) => void;
 }
 
-const Form = ({ onSubmit }: Props) => {
+const LayerForm = ({ onSubmit }: Props) => {
   const { register, handleSubmit, reset } = useForm<FormData>();
   return (
     <Box sx={{ overflow: "auto" }}>
@@ -29,7 +25,6 @@ const Form = ({ onSubmit }: Props) => {
           reset();
         })}
       >
-        {/* HEIGHT */}
         <Box mb={2}>
           <TextField
             label="Height"
@@ -39,7 +34,7 @@ const Form = ({ onSubmit }: Props) => {
             fullWidth
           />
         </Box>
-        {/* WIDTH */}
+
         <Box mb={2}>
           <TextField
             label="Width"
@@ -49,7 +44,7 @@ const Form = ({ onSubmit }: Props) => {
             fullWidth
           />
         </Box>
-        {/* TEXT */}
+
         <Box mb={2}>
           <TextField
             label="Text"
@@ -59,7 +54,7 @@ const Form = ({ onSubmit }: Props) => {
             fullWidth
           />
         </Box>
-        {/* IMAGE */}
+
         <Box mb={2}>
           <TextField
             label="Image"
@@ -69,20 +64,9 @@ const Form = ({ onSubmit }: Props) => {
             fullWidth
           />
         </Box>
-        <Box>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            fullWidth
-            sx={{ mt: 2 }}
-          >
-            Render
-          </Button>
-        </Box>
       </Box>
     </Box>
   );
 };
 
-export default Form;
+export default LayerForm;

@@ -1,26 +1,50 @@
-import { Drawer, Toolbar } from "@mui/material";
+import { Box, Button, Drawer, Toolbar } from "@mui/material";
 
-import Form from "./Form";
-import { FormData } from "./Form";
+import Layer from "./Layer";
+
+import { Layer as LayerType } from "../App";
 
 interface Props {
   open: boolean;
-  onSubmit: (formData: FormData) => void;
+  layers: LayerType[];
+  addLayer: () => void;
+  removeLayer: (uid: number) => void;
 }
 
-const SideBar = ({ open, onSubmit }: Props) => {
+const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
   return (
-
     <Drawer
       open={open}
       variant="persistent"
-      PaperProps={{ sx: { backgroundColor: '#eeefea', borderRight: '0.25px solid #d0d1c9' } }}
+      PaperProps={{
+        sx: {
+          borderRight: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
+          backgroundColor: (theme) => `${theme.palette.primary.main}`
+        }
+      }}
     >
       <Toolbar />
-      <Form onSubmit={onSubmit} />
-    </Drawer>
-  )
 
+      <Box p={2.5} sx={{ width: "300px" }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          fullWidth
+          sx={{ textTransform: 'none', marginBottom: 2.5 }}
+          onClick={addLayer}
+        >
+          Add Layer
+        </Button>
+
+        {layers.map((layer) => {
+          return (
+            <Layer layer={layer} removeLayer={removeLayer} />
+          );
+        })}
+      </Box>
+
+    </Drawer>
+  );
 };
 
 export default SideBar;
