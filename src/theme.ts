@@ -27,23 +27,23 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: "#1e1e1e", // Soft light blue-grey for primary elements
-      contrastText: "#1c1c1c", // Dark text for contrast on primary buttons
+      main: "#1e1e1e",
+      contrastText: "#1c1c1c",
     },
     secondary: {
-      main: "#ffb74d", // Warm orange for accents like buttons or highlights
-      contrastText: "#282828", // A deep dark contrast for readability
+      main: "#ffb74d",
+      contrastText: "#282828",
     },
     background: {
-      default: "#121212", // Dark background for the theme
-      paper: "#1e1e1e", // Slightly lighter background for surfaces like cards
+      default: "#121212",
+      paper: "#1e1e1e",
     },
     text: {
-      primary: "#e0e0e0", // Light text for the primary content
-      secondary: "#b0bec5", // Slightly muted text for secondary elements
+      primary: "#e0e0e0",
+      secondary: "#b0bec5",
     },
     error: {
-      main: red.A200, // Lighter red for error states that stands out on dark background
+      main: red.A200,
     },
   },
 });
