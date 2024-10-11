@@ -12,9 +12,11 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
+  darkMode: boolean;
+  setDarkMode: (darkMode: boolean) => void;
 }
 
-const NavBar = ({ open, setOpen }: Props) => {
+const NavBar = ({ open, setOpen, darkMode, setDarkMode }: Props) => {
   return (
     <AppBar
       color="primary"
@@ -22,7 +24,7 @@ const NavBar = ({ open, setOpen }: Props) => {
       elevation={0}
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        borderBottom: '0.25px solid #d0d1c9', // Figure out how to extract this color from the color palette.
+        borderBottom: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
       }}
     >
       <Toolbar>
@@ -45,7 +47,9 @@ const NavBar = ({ open, setOpen }: Props) => {
             <MenuOpenIcon />
           </IconButton>
         )}
+
         <AnimationIcon sx={{ mr: 1 }} />
+
         <Typography
           variant="h5"
           noWrap
@@ -57,9 +61,10 @@ const NavBar = ({ open, setOpen }: Props) => {
         >
           Parallax
         </Typography>
+
         <IconButton
           size="large"
-          onClick={() => { }}
+          onClick={() => setDarkMode(!darkMode)}
           color="inherit"
         >
           <DarkModeIcon />
