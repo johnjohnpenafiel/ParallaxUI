@@ -5,18 +5,19 @@ import {
   AccordionDetails,
   Button,
 } from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import LayerForm from "./LayerForm";
+import LayerForm, { LayerFormData } from "./LayerForm";
 
 import { Layer as LayerType } from "../App";
 
 interface Props {
   layer: LayerType;
   removeLayer: (uid: number) => void;
+  handleLayerSubmit: (uid: number, data: LayerFormData) => void;
 }
 
-const Layer = ({ layer, removeLayer }: Props) => {
+const Layer = ({ layer, removeLayer, handleLayerSubmit }: Props) => {
   return (
     <Accordion>
       <AccordionSummary
@@ -28,11 +29,16 @@ const Layer = ({ layer, removeLayer }: Props) => {
       </AccordionSummary>
 
       <AccordionDetails>
-        <LayerForm onSubmit={() => { }} />
+        <LayerForm
+          handleLayerSubmit={(data) => handleLayerSubmit(layer.uid, data)}
+          layer={layer}
+        />
       </AccordionDetails>
 
       <AccordionActions>
-        <Button onClick={() => removeLayer(layer.uid)} color="error">Remove</Button>
+        <Button onClick={() => removeLayer(layer.uid)} color="error">
+          Remove
+        </Button>
       </AccordionActions>
     </Accordion>
   );

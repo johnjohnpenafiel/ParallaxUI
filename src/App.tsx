@@ -8,6 +8,7 @@ import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 
 import { lightTheme, darkTheme } from "./theme";
+import { LayerFormData } from "./components/LayerForm";
 
 export type Layer = {
   uid: number;
@@ -15,14 +16,13 @@ export type Layer = {
   height?: number;
   width?: number;
   color?: string;
-  translateZ?: number;
+  depth?: number;
 };
 
 function App() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
-  // State which holds multiple layers
   const [layers, setLayers] = useState<Layer[]>([]);
 
   const addLayer = (): void => {
@@ -32,13 +32,21 @@ function App() {
       height: 300,
       width: 300,
       color: "blue",
-      translateZ: 50,
+      depth: 50,
     };
     setLayers([...layers, newLayer]);
   };
 
   const removeLayer = (uid: number): void => {
     setLayers(layers.filter((layer: Layer) => layer.uid !== uid));
+  };
+
+  const handleLayerSubmit = (uid: number, data: LayerFormData) => {
+    setLayers((prevLayers) =>
+      prevLayers.map((layer) =>
+        layer.uid === uid ? { ...layer, ...data } : layer
+      )
+    );
   };
 
   return (
@@ -58,6 +66,7 @@ function App() {
           layers={layers}
           addLayer={addLayer}
           removeLayer={removeLayer}
+          handleLayerSubmit={handleLayerSubmit}
         />
 
         <Box
@@ -79,7 +88,7 @@ function App() {
                     width: layer.width,
                     height: layer.height,
                     backgroundColor: layer.color,
-                    transform: `translateZ(${layer.translateZ}px)`,
+                    transform: `translateZ(${layer.depth}px)`,
                   }}
                 />
               );

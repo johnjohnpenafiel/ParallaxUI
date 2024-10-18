@@ -3,15 +3,23 @@ import { Box, Button, Drawer, Toolbar } from "@mui/material";
 import Layer from "./Layer";
 
 import { Layer as LayerType } from "../App";
+import { LayerFormData } from "./LayerForm";
 
 interface Props {
   open: boolean;
   layers: LayerType[];
   addLayer: () => void;
   removeLayer: (uid: number) => void;
+  handleLayerSubmit: (uid: number, data: LayerFormData) => void;
 }
 
-const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
+const SideBar = ({
+  open,
+  layers,
+  addLayer,
+  removeLayer,
+  handleLayerSubmit,
+}: Props) => {
   return (
     <Drawer
       open={open}
@@ -38,7 +46,12 @@ const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
 
         {layers.map((layer) => {
           return (
-            <Layer key={layer.uid} layer={layer} removeLayer={removeLayer} />
+            <Layer
+              key={layer.uid}
+              layer={layer}
+              removeLayer={removeLayer}
+              handleLayerSubmit={handleLayerSubmit}
+            />
           );
         })}
       </Box>
