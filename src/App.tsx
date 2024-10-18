@@ -14,13 +14,40 @@ export type Layer = {
   name?: string;
   height?: number;
   width?: number;
+  color?: string;
+  translateZ?: number;
+  zIndex?: number;
 }
 
 function App() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
-  const [layers, setLayers] = useState<Layer[]>([]);
+  const [layers, setLayers] = useState<Layer[]>([{
+    uid: Date.now(),
+    name: "Layer 1",
+    height: 250,
+    width: 500,
+    color: "blue",
+    translateZ: 20,
+  },
+  {
+    uid: Date.now(),
+    name: "Layer 2",
+    height: 150,
+    width: 100,
+    color: "green",
+    translateZ: 100,
+  },
+  {
+    uid: Date.now(),
+    name: "Layer 2",
+    height: 100,
+    width: 50,
+    color: "orange",
+    translateZ: 50,
+  }
+  ]);
 
   const addLayer = (): void => {
     const newLayer: Layer = {
@@ -28,6 +55,8 @@ function App() {
       name: undefined,
       height: undefined,
       width: undefined,
+      color: undefined,
+      translateZ: undefined,
     };
 
     setLayers([...layers, newLayer]);
@@ -51,6 +80,7 @@ function App() {
           removeLayer={removeLayer}
         />
 
+
         <Box
           sx={{
             display: "flex",
@@ -61,19 +91,17 @@ function App() {
             backgroundColor: (theme) => `${theme.palette.primary.light}`,
           }}
         >
-          <TiltBox height={100} width={100} backgroundColor="#f64e00">
-            <Typography
-              sx={{
-                fontSize: "6rem",
-                zIndex: 2,
-                color: "#000",
-                transform: "translateZ(40px) scale(0.8)",
-                transformStyle: "preserve-3d",
-                marginLeft: "25%",
-                width: "70%",
-              }}
-            >
-            </Typography>
+          <TiltBox>
+            {layers.map((layer) => {
+              return (
+                <Box sx={{
+                  width: layer.width,
+                  height: layer.height,
+                  backgroundColor: layer.color,
+                  transform: `translateZ(${layer.translateZ}px)`,
+                }} />
+              );
+            })}
           </TiltBox>
         </Box>
       </Box>
