@@ -30,8 +30,8 @@ function App() {
     const newLayer: Layer = {
       uid: Date.now(),
       name: `Layer ${layerCount}`,
-      height: 300,
-      width: 300,
+      height: 200,
+      width: 200,
       color: "gray",
       depth: 50,
     };
@@ -90,6 +90,8 @@ function App() {
                     height: layer.height,
                     backgroundColor: layer.color,
                     transform: `translateZ(${layer.depth}px)`,
+                    border: "5px solid dimgray",
+                    borderRadius: 5,
                   }}
                 />
               );
