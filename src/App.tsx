@@ -12,11 +12,11 @@ import { LayerFormData } from "./components/LayerForm";
 
 export type Layer = {
   uid: number;
-  name?: string;
-  height?: number;
-  width?: number;
-  color?: string;
-  depth?: number;
+  name: string;
+  height: number;
+  width: number;
+  color: string;
+  depth: number;
 };
 
 function App() {
@@ -26,12 +26,13 @@ function App() {
   const [layers, setLayers] = useState<Layer[]>([]);
 
   const addLayer = (): void => {
+    const layerCount = layers.length + 1;
     const newLayer: Layer = {
       uid: Date.now(),
-      name: undefined,
+      name: `Layer ${layerCount}`,
       height: 300,
       width: 300,
-      color: "blue",
+      color: "gray",
       depth: 50,
     };
     setLayers([...layers, newLayer]);

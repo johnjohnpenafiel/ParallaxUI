@@ -25,7 +25,7 @@ const Layer = ({ layer, removeLayer, handleLayerSubmit }: Props) => {
         aria-controls="panel3-content"
         id="panel3-header"
       >
-        Layer {layer.uid}
+        {layer.name}
       </AccordionSummary>
 
       <AccordionDetails>
