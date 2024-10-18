@@ -4,9 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const TiltBox: React.FC<Props> = ({
-  children,
-}) => {
+const TiltBox: React.FC<Props> = ({ children }) => {
   return (
     <Tilt
       perspective={500}
@@ -19,7 +17,7 @@ const TiltBox: React.FC<Props> = ({
         width: `500px`,
         backgroundColor: "transparent",
         transformStyle: "preserve-3d",
-        borderRadius: '1rem',
+        borderRadius: "1rem",
       }}
     >
       {children}

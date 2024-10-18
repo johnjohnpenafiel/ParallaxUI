@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 export type FormData = {
   height: number;

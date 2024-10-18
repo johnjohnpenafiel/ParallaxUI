@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // import reactElementToJSXString from "react-element-to-jsx-string";
-import { Box, Typography, CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 
 import TiltBox from "./components/TiltBox";
 import NavBar from "./components/NavBar";
@@ -16,49 +16,24 @@ export type Layer = {
   width?: number;
   color?: string;
   translateZ?: number;
-  zIndex?: number;
-}
+};
 
 function App() {
   const [open, setOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
-  const [layers, setLayers] = useState<Layer[]>([{
-    uid: Date.now(),
-    name: "Layer 1",
-    height: 250,
-    width: 500,
-    color: "blue",
-    translateZ: 20,
-  },
-  {
-    uid: Date.now(),
-    name: "Layer 2",
-    height: 150,
-    width: 100,
-    color: "green",
-    translateZ: 100,
-  },
-  {
-    uid: Date.now(),
-    name: "Layer 2",
-    height: 100,
-    width: 50,
-    color: "orange",
-    translateZ: 50,
-  }
-  ]);
+  // State which holds multiple layers
+  const [layers, setLayers] = useState<Layer[]>([]);
 
   const addLayer = (): void => {
     const newLayer: Layer = {
       uid: Date.now(),
       name: undefined,
-      height: undefined,
-      width: undefined,
-      color: undefined,
-      translateZ: undefined,
+      height: 300,
+      width: 300,
+      color: "blue",
+      translateZ: 50,
     };
-
     setLayers([...layers, newLayer]);
   };
 
@@ -71,7 +46,12 @@ function App() {
       <CssBaseline />
 
       <Box sx={{ display: "flex" }}>
-        <NavBar open={open} setOpen={setOpen} setDarkMode={setDarkMode} darkMode={darkMode} />
+        <NavBar
+          open={open}
+          setOpen={setOpen}
+          setDarkMode={setDarkMode}
+          darkMode={darkMode}
+        />
 
         <SideBar
           open={open}
@@ -79,7 +59,6 @@ function App() {
           addLayer={addLayer}
           removeLayer={removeLayer}
         />
-
 
         <Box
           sx={{
@@ -94,12 +73,15 @@ function App() {
           <TiltBox>
             {layers.map((layer) => {
               return (
-                <Box sx={{
-                  width: layer.width,
-                  height: layer.height,
-                  backgroundColor: layer.color,
-                  transform: `translateZ(${layer.translateZ}px)`,
-                }} />
+                <Box
+                  key={layer.uid}
+                  sx={{
+                    width: layer.width,
+                    height: layer.height,
+                    backgroundColor: layer.color,
+                    transform: `translateZ(${layer.translateZ}px)`,
+                  }}
+                />
               );
             })}
           </TiltBox>

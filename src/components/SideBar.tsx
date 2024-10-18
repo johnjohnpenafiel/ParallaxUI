@@ -19,8 +19,8 @@ const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
       PaperProps={{
         sx: {
           borderRight: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
-          backgroundColor: (theme) => `${theme.palette.primary.main}`
-        }
+          backgroundColor: (theme) => `${theme.palette.primary.main}`,
+        },
       }}
     >
       <Toolbar />
@@ -30,7 +30,7 @@ const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
           variant="contained"
           color="secondary"
           fullWidth
-          sx={{ textTransform: 'none', marginBottom: 2.5 }}
+          sx={{ textTransform: "none", marginBottom: 2.5 }}
           onClick={addLayer}
         >
           Add Layer
@@ -38,11 +38,10 @@ const SideBar = ({ open, layers, addLayer, removeLayer }: Props) => {
 
         {layers.map((layer) => {
           return (
-            <Layer layer={layer} removeLayer={removeLayer} />
+            <Layer key={layer.uid} layer={layer} removeLayer={removeLayer} />
           );
         })}
       </Box>
-
     </Drawer>
   );
 };
