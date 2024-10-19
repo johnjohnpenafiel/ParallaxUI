@@ -17,6 +17,8 @@ export type Layer = {
   width: number;
   color: string;
   depth: number;
+  x: number;
+  y: number;
 };
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
       width: 200,
       color: "gray",
       depth: 50,
+      x: 0,
+      y: 0,
     };
     setLayers([...layers, newLayer]);
   };

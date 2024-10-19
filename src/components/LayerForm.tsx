@@ -9,6 +9,8 @@ export type LayerFormData = {
   width: number;
   color: string;
   depth: number;
+  x: number;
+  y: number;
 };
 
 interface Props {
@@ -23,6 +25,8 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
       width: layer.width || 0,
       color: layer.color || "",
       depth: layer.depth || 0,
+      x: layer.x || 0,
+      y: layer.y || 0,
     },
   });
 
@@ -43,6 +47,8 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
         height: Number(formData.height),
         width: Number(formData.width),
         depth: Number(formData.depth),
+        x: Number(formData.x),
+        y: Number(formData.y),
       };
 
       handleLayerSubmit(updatedData);
@@ -134,6 +140,46 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
                   handleKeyPress(
                     e as React.KeyboardEvent<HTMLInputElement>,
                     "depth"
+                  ),
+              },
+            }}
+          />
+        </Box>
+
+        <Box mb={2}>
+          <TextField
+            defaultValue={layer.x}
+            label="X Position"
+            {...register("x")}
+            id="x"
+            type="number"
+            fullWidth
+            slotProps={{
+              input: {
+                onKeyDown: (e) =>
+                  handleKeyPress(
+                    e as React.KeyboardEvent<HTMLInputElement>,
+                    "x"
+                  ),
+              },
+            }}
+          />
+        </Box>
+
+        <Box mb={2}>
+          <TextField
+            defaultValue={layer.y}
+            label="Y Position"
+            {...register("y")}
+            id="y"
+            type="number"
+            fullWidth
+            slotProps={{
+              input: {
+                onKeyDown: (e) =>
+                  handleKeyPress(
+                    e as React.KeyboardEvent<HTMLInputElement>,
+                    "y"
                   ),
               },
             }}

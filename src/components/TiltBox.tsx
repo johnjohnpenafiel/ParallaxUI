@@ -20,6 +20,7 @@ const TiltBox = ({ layers }: Props) => {
         backgroundColor: "transparent",
         transformStyle: "preserve-3d",
         borderRadius: "1rem",
+        position: "relative",
       }}
     >
       {layers.map((layer: Layer) => {
@@ -27,12 +28,17 @@ const TiltBox = ({ layers }: Props) => {
           <Box
             key={layer.uid}
             sx={{
+              postion: "absolute",
               width: layer.width,
               height: layer.height,
               backgroundColor: layer.color,
-              transform: `translateZ(${layer.depth}px)`,
               border: "5px solid dimgray",
               borderRadius: 5,
+              transform: `
+              translateX(${layer.x}px)
+              translateY(${layer.y}px)
+              translateZ(${layer.depth}px)
+              `,
             }}
           />
         );
