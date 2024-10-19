@@ -1,10 +1,12 @@
 import Tilt from "react-parallax-tilt";
+import { Layer } from "../App";
+import { Box } from "@mui/material";
 
 interface Props {
-  children: React.ReactNode;
+  layers: Layer[];
 }
 
-const TiltBox: React.FC<Props> = ({ children }) => {
+const TiltBox = ({ layers }: Props) => {
   return (
     <Tilt
       perspective={500}
@@ -20,7 +22,21 @@ const TiltBox: React.FC<Props> = ({ children }) => {
         borderRadius: "1rem",
       }}
     >
-      {children}
+      {layers.map((layer: Layer) => {
+        return (
+          <Box
+            key={layer.uid}
+            sx={{
+              width: layer.width,
+              height: layer.height,
+              backgroundColor: layer.color,
+              transform: `translateZ(${layer.depth}px)`,
+              border: "5px solid dimgray",
+              borderRadius: 5,
+            }}
+          />
+        );
+      })}
     </Tilt>
   );
 };

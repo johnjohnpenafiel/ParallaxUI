@@ -1,13 +1,7 @@
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-} from "@mui/material";
-import AnimationIcon from '@mui/icons-material/Animation';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-
+import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
+import AnimationIcon from "@mui/icons-material/Animation";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 interface Props {
   open: boolean;
@@ -33,6 +27,7 @@ const NavBar = ({ open, setOpen, darkMode, setDarkMode }: Props) => {
             size="large"
             onClick={() => setOpen(false)}
             color="inherit"
+            sx={{ marginLeft: "-10px" }}
           >
             <MenuOpenIcon />
           </IconButton>
@@ -43,19 +38,20 @@ const NavBar = ({ open, setOpen, darkMode, setDarkMode }: Props) => {
             size="large"
             onClick={() => setOpen(true)}
             color="inherit"
+            sx={{ marginLeft: "-10px" }}
           >
             <MenuOpenIcon />
           </IconButton>
         )}
 
-        <AnimationIcon sx={{ mr: 1 }} />
+        <AnimationIcon sx={{ fontSize: "1.3rem", mr: 1, ml: 1 }} />
 
         <Typography
-          variant="h5"
+          variant="h6"
           noWrap
           sx={{
             fontWeight: 500,
-            letterSpacing: '.1rem',
+            letterSpacing: ".1rem",
             flexGrow: 1,
           }}
         >

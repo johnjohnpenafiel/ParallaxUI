@@ -80,23 +80,7 @@ function App() {
             backgroundColor: (theme) => `${theme.palette.primary.light}`,
           }}
         >
-          <TiltBox>
-            {layers.map((layer) => {
-              return (
-                <Box
-                  key={layer.uid}
-                  sx={{
-                    width: layer.width,
-                    height: layer.height,
-                    backgroundColor: layer.color,
-                    transform: `translateZ(${layer.depth}px)`,
-                    border: "5px solid dimgray",
-                    borderRadius: 5,
-                  }}
-                />
-              );
-            })}
-          </TiltBox>
+          <TiltBox layers={layers} />
         </Box>
       </Box>
     </ThemeProvider>

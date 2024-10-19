@@ -33,7 +33,7 @@ const SideBar = ({
     >
       <Toolbar />
 
-      <Box p={2.5} sx={{ width: "300px" }}>
+      <Box p={2.5} sx={{ width: "240px" }}>
         <Button
           variant="contained"
           color="secondary"
