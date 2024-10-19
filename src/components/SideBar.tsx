@@ -2,7 +2,7 @@ import { Box, Button, Drawer, Toolbar } from "@mui/material";
 
 import Layer from "./Layer";
 
-import { Layer as LayerType } from "../App";
+import { LayerType } from "../App";
 import { LayerFormData } from "./LayerForm";
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
   addLayer: () => void;
   removeLayer: (uid: number) => void;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
+  onSelectedLayer: (layer: LayerType) => void;
 }
 
 const SideBar = ({
@@ -18,7 +19,7 @@ const SideBar = ({
   layers,
   addLayer,
   removeLayer,
-  handleLayerSubmit,
+  onSelectedLayer,
 }: Props) => {
   return (
     <Drawer
@@ -50,7 +51,7 @@ const SideBar = ({
               key={layer.uid}
               layer={layer}
               removeLayer={removeLayer}
-              handleLayerSubmit={handleLayerSubmit}
+              onSelectedLayer={() => onSelectedLayer(layer)}
             />
           );
         })}

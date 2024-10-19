@@ -9,8 +9,9 @@ import SideBar from "./components/SideBar";
 
 import { lightTheme, darkTheme } from "./theme";
 import { LayerFormData } from "./components/LayerForm";
+import RightSidebar from "./components/RightSidebar";
 
-export type Layer = {
+export type LayerType = {
   uid: number;
   name: string;
   height: number;
@@ -25,11 +26,12 @@ function App() {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
-  const [layers, setLayers] = useState<Layer[]>([]);
+  const [layers, setLayers] = useState<LayerType[]>([]);
+  const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
 
   const addLayer = (): void => {
     const layerCount = layers.length + 1;
-    const newLayer: Layer = {
+    const newLayer: LayerType = {
       uid: Date.now(),
       name: `Layer ${layerCount}`,
       height: 200,
@@ -43,7 +45,7 @@ function App() {
   };
 
   const removeLayer = (uid: number): void => {
-    setLayers(layers.filter((layer: Layer) => layer.uid !== uid));
+    setLayers(layers.filter((layer: LayerType) => layer.uid !== uid));
   };
 
   const handleLayerSubmit = (uid: number, data: LayerFormData) => {
@@ -52,6 +54,10 @@ function App() {
         layer.uid === uid ? { ...layer, ...data } : layer
       )
     );
+  };
+
+  const onSelectedLayer = (layer: LayerType) => {
+    setSelectedLayer(layer);
   };
 
   return (
@@ -72,6 +78,7 @@ function App() {
           addLayer={addLayer}
           removeLayer={removeLayer}
           handleLayerSubmit={handleLayerSubmit}
+          onSelectedLayer={onSelectedLayer}
         />
 
         <Box
@@ -86,6 +93,11 @@ function App() {
         >
           <TiltBox layers={layers} />
         </Box>
+
+        <RightSidebar
+          selectedLayer={selectedLayer}
+          handleLayerSubmit={handleLayerSubmit}
+        />
       </Box>
     </ThemeProvider>
   );

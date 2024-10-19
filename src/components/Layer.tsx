@@ -1,46 +1,41 @@
-import {
-  Accordion,
-  AccordionActions,
-  AccordionSummary,
-  AccordionDetails,
-  Button,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-import LayerForm, { LayerFormData } from "./LayerForm";
-
-import { Layer as LayerType } from "../App";
+import { Box, Button } from "@mui/material";
+import { LayerType } from "../App";
 
 interface Props {
   layer: LayerType;
   removeLayer: (uid: number) => void;
-  handleLayerSubmit: (uid: number, data: LayerFormData) => void;
+  onSelectedLayer: () => void; // To handle selection of this layer
 }
 
-const Layer = ({ layer, removeLayer, handleLayerSubmit }: Props) => {
+const Layer = ({ layer, removeLayer, onSelectedLayer }: Props) => {
   return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel3-content"
-        id="panel3-header"
+    <Box
+      onClick={onSelectedLayer}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 2,
+        borderBottom: (theme) => `1px solid ${theme.palette.primary.dark}`,
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: (theme) => `${theme.palette.primary.light}`,
+        },
+      }}
+    >
+      <Box>{layer.name}</Box>
+      <Button
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent onSelectedLayer from triggering
+          removeLayer(layer.uid);
+        }}
+        color="error"
+        variant="text"
+        size="small"
       >
-        {layer.name}
-      </AccordionSummary>
-
-      <AccordionDetails>
-        <LayerForm
-          handleLayerSubmit={(data) => handleLayerSubmit(layer.uid, data)}
-          layer={layer}
-        />
-      </AccordionDetails>
-
-      <AccordionActions>
-        <Button onClick={() => removeLayer(layer.uid)} color="error">
-          Remove
-        </Button>
-      </AccordionActions>
-    </Accordion>
+        x
+      </Button>
+    </Box>
   );
 };
 

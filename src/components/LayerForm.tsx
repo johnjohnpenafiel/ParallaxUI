@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 
 import { Box, TextField } from "@mui/material";
 
-import { Layer as LayerType } from "../App";
+import { LayerType } from "../App";
+import { useEffect } from "react";
 
 export type LayerFormData = {
   height: number;
@@ -15,20 +16,31 @@ export type LayerFormData = {
 
 interface Props {
   handleLayerSubmit: (data: LayerFormData) => void;
-  layer: LayerType;
+  selectedLayer: LayerType;
 }
 
-const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
+const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
   const { register, handleSubmit, reset, getValues } = useForm<LayerFormData>({
     defaultValues: {
-      height: layer.height || 0,
-      width: layer.width || 0,
-      color: layer.color || "",
-      depth: layer.depth || 0,
-      x: layer.x || 0,
-      y: layer.y || 0,
+      height: selectedLayer.height || 0,
+      width: selectedLayer.width || 0,
+      color: selectedLayer.color || "",
+      depth: selectedLayer.depth || 0,
+      x: selectedLayer.x || 0,
+      y: selectedLayer.y || 0,
     },
   });
+
+  useEffect(() => {
+    reset({
+      height: selectedLayer.height || 0,
+      width: selectedLayer.width || 0,
+      color: selectedLayer.color || "",
+      depth: selectedLayer.depth || 0,
+      x: selectedLayer.x || 0,
+      y: selectedLayer.y || 0,
+    });
+  }, [selectedLayer, reset]);
 
   const handleKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -68,7 +80,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
       >
         <Box mb={2}>
           <TextField
-            defaultValue={layer.height}
+            defaultValue={selectedLayer.height}
             label="Height"
             {...register("height")}
             id="height"
@@ -88,7 +100,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
 
         <Box mb={2}>
           <TextField
-            defaultValue={layer.width}
+            defaultValue={selectedLayer.width}
             label="Width"
             {...register("width")}
             id="width"
@@ -108,7 +120,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
 
         <Box mb={2}>
           <TextField
-            defaultValue={layer.color}
+            defaultValue={selectedLayer.color}
             label="Color"
             {...register("color")}
             id="color"
@@ -128,7 +140,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
 
         <Box mb={2}>
           <TextField
-            defaultValue={layer.depth}
+            defaultValue={selectedLayer.depth}
             label="Depth"
             {...register("depth")}
             id="depth"
@@ -148,7 +160,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
 
         <Box mb={2}>
           <TextField
-            defaultValue={layer.x}
+            defaultValue={selectedLayer.x}
             label="X Position"
             {...register("x")}
             id="x"
@@ -168,7 +180,7 @@ const LayerForm = ({ handleLayerSubmit, layer }: Props) => {
 
         <Box mb={2}>
           <TextField
-            defaultValue={layer.y}
+            defaultValue={selectedLayer.y}
             label="Y Position"
             {...register("y")}
             id="y"
