@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 
 import { LayerType } from "../App";
 import { useEffect } from "react";
@@ -78,6 +78,9 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           reset();
         })}
       >
+        <Box sx={{ mb: 3 }}>
+          <Typography>{selectedLayer.name}</Typography>
+        </Box>
         <Box mb={2}>
           <TextField
             defaultValue={selectedLayer.height}
