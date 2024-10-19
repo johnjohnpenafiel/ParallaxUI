@@ -28,7 +28,7 @@ const TiltBox = ({ layers }: Props) => {
           <Box
             key={layer.uid}
             sx={{
-              postion: "absolute",
+              position: "absolute",
               width: layer.width,
               height: layer.height,
               backgroundColor: layer.color,

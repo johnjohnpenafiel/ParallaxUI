@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import AnimationIcon from "@mui/icons-material/Animation";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
