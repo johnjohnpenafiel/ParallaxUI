@@ -72,7 +72,7 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
         })}
       >
         <Box sx={{ mb: 3 }}>
-          <Typography>{selectedLayer.name}</Typography>
+          <Typography variant="h6">{selectedLayer.name}</Typography>
         </Box>
         <Box mb={2}>
           <TextField

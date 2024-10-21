@@ -1,9 +1,9 @@
 import Tilt from "react-parallax-tilt";
-import { Layer } from "../App";
+import { LayerType } from "../App";
 import { Box } from "@mui/material";
 
 interface Props {
-  layers: Layer[];
+  layers: LayerType[];
 }
 
 const TiltBox = ({ layers }: Props) => {
@@ -23,7 +23,7 @@ const TiltBox = ({ layers }: Props) => {
         position: "relative",
       }}
     >
-      {layers.map((layer: Layer) => {
+      {layers.map((layer: LayerType) => {
         return (
           <Box
             key={layer.uid}

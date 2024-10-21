@@ -8,6 +8,7 @@ import { LayerFormData } from "./LayerForm";
 interface Props {
   open: boolean;
   layers: LayerType[];
+  selectedLayer: LayerType | null;
   addLayer: () => void;
   removeLayer: (uid: number) => void;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
@@ -17,6 +18,7 @@ interface Props {
 const LeftSidebar = ({
   open,
   layers,
+  selectedLayer,
   addLayer,
   removeLayer,
   onSelectedLayer,
@@ -52,6 +54,7 @@ const LeftSidebar = ({
               layer={layer}
               removeLayer={removeLayer}
               onSelectedLayer={() => onSelectedLayer(layer)}
+              isSelected={layer.uid === selectedLayer?.uid ? true : false}
             />
           );
         })}

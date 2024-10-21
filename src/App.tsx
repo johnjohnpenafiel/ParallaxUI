@@ -79,6 +79,7 @@ function App() {
           removeLayer={removeLayer}
           handleLayerSubmit={handleLayerSubmit}
           onSelectedLayer={onSelectedLayer}
+          selectedLayer={selectedLayer}
         />
 
         <Box
