@@ -17,6 +17,7 @@ const NavBar = ({ open, setOpen, darkMode, setDarkMode }: Props) => {
       position="fixed"
       elevation={0}
       sx={{
+        backgroundColor: (theme) => `${theme.palette.primary.main}`,
         zIndex: (theme) => theme.zIndex.drawer + 1,
         borderBottom: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
       }}
