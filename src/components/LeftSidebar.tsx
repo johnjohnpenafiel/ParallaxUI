@@ -14,7 +14,7 @@ interface Props {
   onSelectedLayer: (layer: LayerType) => void;
 }
 
-const SideBar = ({
+const LeftSidebar = ({
   open,
   layers,
   addLayer,
@@ -60,4 +60,4 @@ const SideBar = ({
   );
 };
 
-export default SideBar;
+export default LeftSidebar;

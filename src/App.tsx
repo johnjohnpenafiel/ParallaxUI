@@ -3,13 +3,13 @@ import { useState } from "react";
 // import reactElementToJSXString from "react-element-to-jsx-string";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 
-import TiltBox from "./components/TiltBox";
 import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
+import LeftSidebar from "./components/LeftSidebar";
+import RightSidebar from "./components/RightSidebar";
+import TiltBox from "./components/TiltBox";
 
 import { lightTheme, darkTheme } from "./theme";
 import { LayerFormData } from "./components/LayerForm";
-import RightSidebar from "./components/RightSidebar";
 
 export type LayerType = {
   uid: number;
@@ -72,7 +72,7 @@ function App() {
           darkMode={darkMode}
         />
 
-        <SideBar
+        <LeftSidebar
           open={open}
           layers={layers}
           addLayer={addLayer}

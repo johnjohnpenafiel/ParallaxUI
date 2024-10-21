@@ -20,16 +20,9 @@ interface Props {
 }
 
 const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
-  const { register, handleSubmit, reset, getValues } = useForm<LayerFormData>({
-    defaultValues: {
-      height: selectedLayer.height || 0,
-      width: selectedLayer.width || 0,
-      color: selectedLayer.color || "",
-      depth: selectedLayer.depth || 0,
-      x: selectedLayer.x || 0,
-      y: selectedLayer.y || 0,
-    },
-  });
+  const { register, handleSubmit, reset, getValues } = useForm<LayerFormData>(
+    {}
+  );
 
   useEffect(() => {
     reset({

@@ -4,7 +4,7 @@ import { LayerType } from "../App";
 interface Props {
   layer: LayerType;
   removeLayer: (uid: number) => void;
-  onSelectedLayer: () => void; // To handle selection of this layer
+  onSelectedLayer: () => void;
 }
 
 const Layer = ({ layer, removeLayer, onSelectedLayer }: Props) => {
@@ -26,7 +26,7 @@ const Layer = ({ layer, removeLayer, onSelectedLayer }: Props) => {
       <Box>{layer.name}</Box>
       <Button
         onClick={(e) => {
-          e.stopPropagation(); // Prevent onSelectedLayer from triggering
+          e.stopPropagation();
           removeLayer(layer.uid);
         }}
         color="error"
