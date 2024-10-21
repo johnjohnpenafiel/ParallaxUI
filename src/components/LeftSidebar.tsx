@@ -1,6 +1,6 @@
 import { Box, Button, Drawer, Toolbar } from "@mui/material";
 
-import Layer from "./Layer";
+import LayerItem from "./LayerItem";
 
 import { LayerType } from "../App";
 import { LayerFormData } from "./LayerForm";
@@ -47,7 +47,7 @@ const LeftSidebar = ({
 
         {layers.map((layer) => {
           return (
-            <Layer
+            <LayerItem
               key={layer.uid}
               layer={layer}
               removeLayer={removeLayer}
