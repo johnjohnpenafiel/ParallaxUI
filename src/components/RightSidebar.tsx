@@ -24,13 +24,22 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
       }}
     >
       <Toolbar />
+
       {selectedLayer ? (
-        <LayerForm
-          selectedLayer={selectedLayer}
-          handleLayerSubmit={(data) =>
-            handleLayerSubmit(selectedLayer.uid, data)
-          }
-        />
+        <Box
+          sx={{
+            backgroundColor: (theme) => `${theme.palette.background.paper}`,
+            p: 2,
+            borderRadius: 2,
+          }}
+        >
+          <LayerForm
+            selectedLayer={selectedLayer}
+            handleLayerSubmit={(data) =>
+              handleLayerSubmit(selectedLayer.uid, data)
+            }
+          />
+        </Box>
       ) : (
         <Box>Select a layer to edit its properties</Box>
       )}

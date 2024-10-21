@@ -12,7 +12,11 @@ export const lightTheme = createTheme({
     },
     secondary: {
       main: "#eb9d2a",
-      contrastText: "#1f1507"
+      contrastText: "#1f1507",
+    },
+    background: {
+      default: "#121212",
+      paper: "#d3d3d3",
     },
     error: {
       main: red.A400,
@@ -25,7 +29,7 @@ export const darkTheme = createTheme({
     fontFamily: "Poppins",
   },
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
       main: "#1e1e1e",
       contrastText: "#1c1c1c",
@@ -36,7 +40,7 @@ export const darkTheme = createTheme({
     },
     background: {
       default: "#121212",
-      paper: "#1e1e1e",
+      paper: "#2a2a2a",
     },
     text: {
       primary: "#e0e0e0",
