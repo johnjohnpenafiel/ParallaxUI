@@ -29,7 +29,6 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
         <Box
           sx={{
             backgroundColor: (theme) => `${theme.palette.background.paper}`,
-            p: 2,
             borderRadius: 2,
           }}
         >
