@@ -77,7 +77,6 @@ function App() {
           layers={layers}
           addLayer={addLayer}
           removeLayer={removeLayer}
-          handleLayerSubmit={handleLayerSubmit}
           onSelectedLayer={onSelectedLayer}
           selectedLayer={selectedLayer}
         />

@@ -8,7 +8,6 @@ interface Props {
 }
 
 const TiltBox = ({ layers, selectedLayer }: Props) => {
-  console.log(selectedLayer?.name);
   return (
     <Tilt
       perspective={500}

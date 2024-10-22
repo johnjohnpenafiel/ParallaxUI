@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-
-import { Box, TextField, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 import { LayerType } from "../App";
-import { useEffect } from "react";
+
+import { Box, TextField, Typography } from "@mui/material";
 
 export type LayerFormData = {
   height: number;
