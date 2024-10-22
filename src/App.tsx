@@ -92,7 +92,7 @@ function App() {
             backgroundColor: (theme) => `${theme.palette.primary.light}`,
           }}
         >
-          <TiltBox layers={layers} />
+          <TiltBox layers={layers} selectedLayer={selectedLayer} />
         </Box>
 
         <RightSidebar

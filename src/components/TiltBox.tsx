@@ -4,9 +4,11 @@ import { Box } from "@mui/material";
 
 interface Props {
   layers: LayerType[];
+  selectedLayer: LayerType | null;
 }
 
-const TiltBox = ({ layers }: Props) => {
+const TiltBox = ({ layers, selectedLayer }: Props) => {
+  console.log(selectedLayer?.name);
   return (
     <Tilt
       perspective={500}
@@ -32,7 +34,12 @@ const TiltBox = ({ layers }: Props) => {
               width: layer.width,
               height: layer.height,
               backgroundColor: layer.color,
-              border: "5px solid dimgray",
+              border:
+                selectedLayer?.uid === layer.uid ? "4px solid #4169E1" : "none",
+              boxShadow:
+                selectedLayer?.uid === layer.uid
+                  ? "0px 0px 15px rgba(65, 105, 225, 0.5)"
+                  : "none",
               borderRadius: 5,
               transform: `
               translateX(${layer.x}px)
