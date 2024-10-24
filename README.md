@@ -41,11 +41,21 @@ While there is still more work to be done, the next major focus will be on enabl
   - The interface is designed to be intuitive and modern, with a focus on providing a seamless experience similar to tools like Canva or Figma.
   - Real-time previews ensure that users can see their changes immediately.
 
-## Current State
+## Project State Log
 
-- **Basic Customization:**
-  - Users can adjust height, width, and add text or images to the object.
+- **Project Starts**
+
+  - Users can adjust height, width the object.
   - Basic export functionality is available to console log the code.
+
+- **Project 1 Update**
+
+  - Added support for basic depth adjustment, giving a more layered parallax effect.
+  - UI enhancements to improve usability.
+
+- **Project 2 Update**
+  - Introduced the ability to customize the object's color and position along the X and Y axes.
+  - Ability to add layers
 
 ## Future Enhancements
 
