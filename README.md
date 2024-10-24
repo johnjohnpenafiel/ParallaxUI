@@ -4,7 +4,14 @@
 
 ## Progress
 
-The user interface has been upgraded from previous versions, offering more customization options for creating parallax layers. Although there is still more to be done, the next major focus will be on enabling users to export the generated code to make it reusable in their own projects.
+The user interface has been significantly upgraded from previous versions, offering enhanced customization options for creating parallax layers. The improvements include:
+
+- A refined user interface with two dedicated sidebars: one for managing layers and another for configuring design settings.
+- Support for both dark and light modes.
+- The ability to add layers of depth to the parallax design, making it more visually dynamic.
+- Expanded customization options for creating unique and compelling designs.
+
+While there is still more work to be done, the next major focus will be on enabling users to export the generated code, making it reusable in their own projects. This will mark the completion of the MVP (Minimum Viable Product), allowing future development to focus on creating a more dynamic and interactive user experience.
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
   <img src="./src/assets/Screenshot%202024-10-23%20at%2011.11.34%E2%80%AFPM.png" alt="ParallaxUI Interface Progress" width="400"/>
