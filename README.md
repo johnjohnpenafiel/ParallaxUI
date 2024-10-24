@@ -2,6 +2,12 @@
 
 **ParallaxUI** is a graphical user interface designed to help developers and users with basic programming knowledge create customizable objects that feature dynamic parallax effects. Through an intuitive and modern interface, users can create objects with multiple layers that move at different speeds based on mouse hover or animation, adding depth and a 3D-like experience. After completing their design, users can export the generated code to integrate the object into their own projects or websites.
 
+## Progress
+
+The user interface has been upgraded from previous versions, offering more customization options for creating parallax layers. Although there is still more to be done, the next major focus will be on enabling users to export the generated code to make it reusable in their own projects.
+
+![ParallaxUI Interface Progress](./Screenshot%202024-10-23%20at%2011.11.16%E2%80%AFPM.png)
+
 ## Key Features
 
 - **Customizable Objects:**

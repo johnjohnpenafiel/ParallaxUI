@@ -34,14 +34,15 @@ function App() {
     const newLayer: LayerType = {
       uid: Date.now(),
       name: `Layer ${layerCount}`,
-      height: 200,
-      width: 200,
+      height: 100,
+      width: 100,
       color: "gray",
-      depth: 50,
+      depth: 10,
       x: 0,
       y: 0,
     };
     setLayers([...layers, newLayer]);
+    setSelectedLayer(newLayer);
   };
 
   const removeLayer = (uid: number): void => {
