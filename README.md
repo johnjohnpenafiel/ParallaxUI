@@ -6,8 +6,8 @@
 
 The user interface has been upgraded from previous versions, offering more customization options for creating parallax layers. Although there is still more to be done, the next major focus will be on enabling users to export the generated code to make it reusable in their own projects.
 
-![ParallaxUI Interface Progress](./src/assets/Screenshot%202024-10-23%20at%2011.11.16 PM.png)
-
+<img src="./src/assets/Screenshot 2024-10-23 at 11.11.34 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
+<img src="./src/assets/Screenshot%202024-10-23%20at%2011.11.16 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
 ## Key Features
 
 - **Customizable Objects:**
