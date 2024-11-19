@@ -19,7 +19,7 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
         borderLeft: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
         backgroundColor: (theme) => `${theme.palette.primary.main}`,
         overflow: "auto",
-        p: 2.5,
+        p: 0,
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -29,7 +29,7 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
         <Box
           sx={{
             backgroundColor: (theme) => `${theme.palette.background.paper}`,
-            borderRadius: 2,
+            borderRadius: 0,
           }}
         >
           <LayerForm
