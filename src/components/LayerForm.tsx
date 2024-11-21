@@ -64,7 +64,7 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
   return (
     <Box sx={{ overflow: "auto" }}>
       <Box
-        p={2.5}
+        m={2.5}
         component="form"
         onSubmit={handleSubmit((data) => {
           handleLayerSubmit(data);
@@ -83,16 +83,20 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             Position
           </Typography>
           <Typography sx={{ my: 2, fontSize: 10 }}>Position</Typography>
-          <Box sx={{ display: "flex" }}>
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
             <Box>
               <TextField
+                sx={{ width: "9ch", mr: 1 }}
                 size="small"
                 defaultValue={selectedLayer.x}
                 label="X"
                 {...register("x")}
                 id="x"
                 type="number"
-                fullWidth
                 slotProps={{
                   input: {
                     onKeyDown: (e) =>
@@ -106,13 +110,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             </Box>
             <Box>
               <TextField
+                sx={{ width: "9ch" }}
                 size="small"
                 defaultValue={selectedLayer.y}
                 label="Y"
                 {...register("y")}
                 id="y"
                 type="number"
-                fullWidth
                 slotProps={{
                   input: {
                     onKeyDown: (e) =>
@@ -129,13 +133,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           <Typography sx={{ my: 2, fontSize: 10 }}>Depth</Typography>
           <Box>
             <TextField
+              sx={{ width: "9ch" }}
               size="small"
               defaultValue={selectedLayer.depth}
               label="Z"
               {...register("depth")}
               id="depth"
               type="number"
-              fullWidth
               slotProps={{
                 input: {
                   onKeyDown: (e) =>
@@ -159,13 +163,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           <Box sx={{ display: "flex" }}>
             <Box>
               <TextField
+                sx={{ width: "9ch", mr: 1 }}
                 size="small"
                 defaultValue={selectedLayer.width}
                 label="W"
                 {...register("width")}
                 id="width"
                 type="number"
-                fullWidth
                 slotProps={{
                   input: {
                     onKeyDown: (e) =>
@@ -179,13 +183,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             </Box>
             <Box>
               <TextField
+                sx={{ width: "9ch" }}
                 size="small"
                 defaultValue={selectedLayer.height}
                 label="H"
                 {...register("height")}
                 id="height"
                 type="number"
-                fullWidth
                 slotProps={{
                   input: {
                     onKeyDown: (e) =>
@@ -210,13 +214,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           <Box>
             <Box>
               <TextField
+                sx={{ width: "9ch" }}
                 size="small"
                 defaultValue={selectedLayer.color}
                 label="Color"
                 {...register("color")}
                 id="color"
                 type="string"
-                fullWidth
                 slotProps={{
                   input: {
                     onKeyDown: (e) =>
