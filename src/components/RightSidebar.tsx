@@ -1,13 +1,30 @@
-import { Box, Toolbar } from "@mui/material";
+import { Box, Button, Toolbar } from "@mui/material";
 import { LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
 
 interface Props {
   selectedLayer: LayerType | null;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
+  exportDesign: () => string | null;
 }
 
-const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
+const RightSidebar = ({
+  selectedLayer,
+  handleLayerSubmit,
+  exportDesign,
+}: Props) => {
+  // -----------------------------------------------------------------------------------------------
+  const handleExportClick = () => {
+    const url = exportDesign();
+    if (url) {
+      const embedCode = `<iframe src="${url}" width="800" height="600" frameborder="0"></iframe>`;
+      navigator.clipboard.writeText(embedCode);
+      alert("Embed code copied to clipboard!");
+    } else {
+      alert("Failed to export design.");
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
   return (
     <Box
       sx={{
@@ -32,6 +49,17 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
             borderRadius: 0,
           }}
         >
+          {/* EXPORT BUTTON */}
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={handleExportClick}
+          >
+            Export Design
+          </Button>
+          {/* LAYER CONFIGURATION */}
           <LayerForm
             selectedLayer={selectedLayer}
             handleLayerSubmit={(data) =>
@@ -40,7 +68,14 @@ const RightSidebar = ({ selectedLayer, handleLayerSubmit }: Props) => {
           />
         </Box>
       ) : (
-        <Box>Select a layer to edit its properties</Box>
+        <Box
+          sx={{
+            textAlign: "center",
+            margin: "20px",
+          }}
+        >
+          Select a layer to edit its properties
+        </Box>
       )}
     </Box>
   );

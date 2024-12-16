@@ -61,6 +61,22 @@ function App() {
     setSelectedLayer(layer);
   };
 
+  // EXPORT FUNCTION
+  const exportDesign = () => {
+    try {
+      const designData = JSON.stringify(layers);
+
+      const exportUrl = `${
+        window.location.origin
+      }/preview?data=${encodeURIComponent(designData)}`;
+
+      return exportUrl;
+    } catch (error) {
+      console.error("Error exporting design:", error);
+      return null;
+    }
+  };
+  // -----------------------------------------------------------------------------------------------
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
@@ -98,6 +114,7 @@ function App() {
         <RightSidebar
           selectedLayer={selectedLayer}
           handleLayerSubmit={handleLayerSubmit}
+          exportDesign={exportDesign}
         />
       </Box>
     </ThemeProvider>
