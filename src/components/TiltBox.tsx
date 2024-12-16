@@ -10,15 +10,14 @@ interface Props {
 const TiltBox = ({ layers, selectedLayer }: Props) => {
   return (
     <Tilt
-      perspective={500}
-      glareEnable
-      glareMaxOpacity={0.45}
-      scale={1.02}
-      gyroscope
+      perspective={1000} // 1000 default value - how far the object wrapped is away from the user.
+      scale={1} // 1 default value - dynamicly scales up/down the component size
+      glareMaxOpacity={0} // 0 cancells glare effect
+      transitionSpeed={1200} // 400 default value - ease in/out speed
       style={{
         height: `500px`,
         width: `500px`,
-        backgroundColor: "transparent",
+        backgroundColor: "black",
         transformStyle: "preserve-3d",
         borderRadius: "1rem",
         position: "relative",

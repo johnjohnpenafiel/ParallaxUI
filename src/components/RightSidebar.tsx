@@ -17,7 +17,7 @@ const RightSidebar = ({
   const handleExportClick = () => {
     const url = exportDesign();
     if (url) {
-      const embedCode = `<iframe src="${url}" width="800" height="600" frameborder="0"></iframe>`;
+      const embedCode = `<iframe src="${url}" width="100%" height="100%"></iframe>`;
       navigator.clipboard.writeText(embedCode);
       alert("Embed code copied to clipboard!");
     } else {
