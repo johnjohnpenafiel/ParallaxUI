@@ -14,7 +14,7 @@ function Preview() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f0f0f0",
+        // backgroundColor: "#f0f0f0",
       }}
     >
       <TiltBox layers={layers} selectedLayer={null} />
