@@ -11,6 +11,11 @@ import TiltBox from "./components/TiltBox";
 import { lightTheme, darkTheme } from "./theme";
 import { LayerFormData } from "./components/LayerForm";
 
+export type CanvasType = {
+  width: number;
+  height: number;
+};
+
 export type LayerType = {
   uid: number;
   name: string;
@@ -26,6 +31,10 @@ function App() {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
+  const [canvasSize, setCanvasSize] = useState<CanvasType>({
+    width: 600,
+    height: 600,
+  });
   const [layers, setLayers] = useState<LayerType[]>([]);
   const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
 
@@ -64,7 +73,7 @@ function App() {
   // EXPORT FUNCTION
   const exportDesign = () => {
     try {
-      const designData = JSON.stringify(layers);
+      const designData = JSON.stringify({ layers, canvasSize });
 
       const exportUrl = `${
         window.location.origin
@@ -102,19 +111,32 @@ function App() {
           sx={{
             display: "flex",
             alignItems: "center",
-            height: "100vh",
             justifyContent: "center",
+            height: "100vh",
             width: "100%",
             backgroundColor: (theme) => `${theme.palette.primary.light}`,
           }}
         >
-          <TiltBox layers={layers} selectedLayer={selectedLayer} />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: canvasSize.height,
+              width: canvasSize.width,
+              backgroundColor: "#0000FF",
+            }}
+          >
+            <TiltBox layers={layers} selectedLayer={selectedLayer} />
+          </Box>
         </Box>
 
         <RightSidebar
           selectedLayer={selectedLayer}
           handleLayerSubmit={handleLayerSubmit}
           exportDesign={exportDesign}
+          canvasSize={canvasSize}
+          setCanvasSize={setCanvasSize}
         />
       </Box>
     </ThemeProvider>

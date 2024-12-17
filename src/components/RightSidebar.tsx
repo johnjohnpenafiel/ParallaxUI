@@ -1,29 +1,34 @@
-import { Box, Button, Toolbar } from "@mui/material";
-import { LayerType } from "../App";
+import { Box, Button, TextField, Toolbar } from "@mui/material";
+import { CanvasType, LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
 
 interface Props {
   selectedLayer: LayerType | null;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
   exportDesign: () => string | null;
+  canvasSize: CanvasType;
+  setCanvasSize: (size: CanvasType) => void;
 }
 
 const RightSidebar = ({
   selectedLayer,
   handleLayerSubmit,
   exportDesign,
+  canvasSize,
+  setCanvasSize,
 }: Props) => {
   // -----------------------------------------------------------------------------------------------
   const handleExportClick = () => {
     const url = exportDesign();
     if (url) {
-      const embedCode = `<iframe src="${url}" width="100%" height="100%"></iframe>`;
+      const embedCode = `<iframe src="${url}" width="${canvasSize.width}" height="${canvasSize.height}"></iframe>`;
       navigator.clipboard.writeText(embedCode);
       alert("Embed code copied to clipboard!");
     } else {
       alert("Failed to export design.");
     }
   };
+
   // -----------------------------------------------------------------------------------------------
   return (
     <Box
@@ -59,6 +64,35 @@ const RightSidebar = ({
           >
             Export Design
           </Button>
+          {/* CANVAS CONFIGURATION */}
+          <Box sx={{ my: 3 }}>
+            <TextField
+              label="Width"
+              type="number"
+              value={canvasSize.width}
+              onChange={(e) =>
+                setCanvasSize({
+                  ...canvasSize, // Directly spread current values
+                  width: Number(e.target.value), // Ensure numeric conversion
+                })
+              }
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Height"
+              type="number"
+              value={canvasSize.height}
+              onChange={(e) =>
+                setCanvasSize({
+                  ...canvasSize, // Directly spread current values
+                  height: Number(e.target.value), // Ensure numeric conversion
+                })
+              }
+              fullWidth
+            />
+          </Box>
+
           {/* LAYER CONFIGURATION */}
           <LayerForm
             selectedLayer={selectedLayer}
