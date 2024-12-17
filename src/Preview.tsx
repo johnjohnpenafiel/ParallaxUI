@@ -24,11 +24,6 @@ function Preview() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        overflow: "hidden", // Prevent scrollbars
-        padding: "0", // Ensure no padding
-        margin: "0",
-        position: "relative",
-        // background: "green",
       }}
     >
       <TiltBox layers={layers} selectedLayer={null} />

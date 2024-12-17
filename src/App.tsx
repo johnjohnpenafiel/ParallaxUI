@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// import reactElementToJSXString from "react-element-to-jsx-string";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 
 import NavBar from "./components/NavBar";
@@ -58,16 +57,16 @@ function App() {
     setLayers(layers.filter((layer: LayerType) => layer.uid !== uid));
   };
 
+  const onSelectedLayer = (layer: LayerType) => {
+    setSelectedLayer(layer);
+  };
+
   const handleLayerSubmit = (uid: number, data: LayerFormData) => {
     setLayers((prevLayers) =>
       prevLayers.map((layer) =>
         layer.uid === uid ? { ...layer, ...data } : layer
       )
     );
-  };
-
-  const onSelectedLayer = (layer: LayerType) => {
-    setSelectedLayer(layer);
   };
 
   // EXPORT FUNCTION

@@ -17,11 +17,9 @@ const TiltBox = ({ layers, selectedLayer }: Props) => {
       style={{
         height: `500px`,
         width: `500px`,
-        margin: 0,
-        padding: 0,
         backgroundColor: "black",
         transformStyle: "preserve-3d",
-        position: "absolute",
+        position: "relative",
       }}
     >
       {layers.map((layer: LayerType) => {

@@ -17,7 +17,6 @@ const RightSidebar = ({
   canvasSize,
   setCanvasSize,
 }: Props) => {
-  // -----------------------------------------------------------------------------------------------
   const handleExportClick = () => {
     const url = exportDesign();
     if (url) {
@@ -64,7 +63,8 @@ const RightSidebar = ({
           >
             Export Design
           </Button>
-          {/* CANVAS CONFIGURATION */}
+
+          {/* CANVAS SIZE CONFIGURATION */}
           <Box sx={{ my: 3 }}>
             <TextField
               label="Width"
@@ -72,8 +72,8 @@ const RightSidebar = ({
               value={canvasSize.width}
               onChange={(e) =>
                 setCanvasSize({
-                  ...canvasSize, // Directly spread current values
-                  width: Number(e.target.value), // Ensure numeric conversion
+                  ...canvasSize,
+                  width: Number(e.target.value),
                 })
               }
               fullWidth
@@ -85,8 +85,8 @@ const RightSidebar = ({
               value={canvasSize.height}
               onChange={(e) =>
                 setCanvasSize({
-                  ...canvasSize, // Directly spread current values
-                  height: Number(e.target.value), // Ensure numeric conversion
+                  ...canvasSize,
+                  height: Number(e.target.value),
                 })
               }
               fullWidth
