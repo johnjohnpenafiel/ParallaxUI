@@ -123,7 +123,7 @@ function App() {
               justifyContent: "center",
               height: canvasSize.height,
               width: canvasSize.width,
-              backgroundColor: "#0000FF",
+              backgroundColor: "#696969",
             }}
           >
             <TiltBox layers={layers} selectedLayer={selectedLayer} />
