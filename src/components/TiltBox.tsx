@@ -14,10 +14,11 @@ const TiltBox = ({ layers, selectedLayer }: Props) => {
       scale={1} // 1 default value - dynamicly scales up/down the component size
       glareMaxOpacity={0} // 0 cancells glare effect
       transitionSpeed={1200} // 400 default value - ease in/out speed
+      tiltReverse={true} // Reverse tilt
       style={{
         height: `500px`,
         width: `500px`,
-        backgroundColor: "black",
+        backgroundColor: "transparent",
         transformStyle: "preserve-3d",
         position: "relative",
       }}
