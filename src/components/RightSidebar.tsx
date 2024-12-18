@@ -39,18 +39,15 @@ const RightSidebar = ({
         width: "240px",
         borderLeft: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
         backgroundColor: (theme) => `${theme.palette.primary.main}`,
-        overflow: "auto",
+        overflow: "hidden",
         p: 0,
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Toolbar />
-
       {selectedLayer ? (
         <Box
           sx={{
             backgroundColor: (theme) => `${theme.palette.background.paper}`,
-            borderRadius: 0,
           }}
         >
           {/* EXPORT BUTTON */}
@@ -108,7 +105,7 @@ const RightSidebar = ({
             margin: "20px",
           }}
         >
-          Select a layer to edit its properties
+          Add a layer to start
         </Box>
       )}
     </Box>

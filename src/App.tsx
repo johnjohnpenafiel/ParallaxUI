@@ -90,12 +90,12 @@ function App() {
       <CssBaseline />
 
       <Box sx={{ display: "flex" }}>
-        <NavBar
+        {/* <NavBar
           open={open}
           setOpen={setOpen}
           setDarkMode={setDarkMode}
           darkMode={darkMode}
-        />
+        /> */}
 
         <LeftSidebar
           open={open}

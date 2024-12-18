@@ -32,8 +32,6 @@ const LeftSidebar = ({
         },
       }}
     >
-      <Toolbar />
-
       <Box p={2.5} sx={{ width: "240px" }}>
         <Button
           variant="contained"
