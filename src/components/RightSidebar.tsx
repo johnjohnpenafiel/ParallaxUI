@@ -56,7 +56,7 @@ const RightSidebar = ({
             onClick={() => {
               setCanvasSize(null);
             }}
-            sx={{ mb: 3, cursor: "pointer", fontSize: "1.6rem" }}
+            sx={{ mb: 2, mt: 1, cursor: "pointer" }}
           />
 
           {/* EXPORT BUTTON */}
