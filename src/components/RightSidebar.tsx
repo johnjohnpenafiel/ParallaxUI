@@ -3,6 +3,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { CanvasType, LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
+import { useState } from "react";
+import ExportModal from "./ExportModal";
 
 interface Props {
   selectedLayer: LayerType | null;
@@ -19,12 +21,15 @@ const RightSidebar = ({
   canvasSize,
   setCanvasSize,
 }: Props) => {
+  const [open, setOpen] = useState(false);
+  const [embedCode, setEmbedCode] = useState("");
+
   const handleExportClick = () => {
     const url = exportDesign();
     if (url) {
-      const embedCode = `<iframe src="${url}" width="${canvasSize.width}" height="${canvasSize.height}"></iframe>`;
-      navigator.clipboard.writeText(embedCode);
-      alert("Embed code copied to clipboard!");
+      const code = `<iframe src="${url}" width="${canvasSize.width}" height="${canvasSize.height}"></iframe>`;
+      setEmbedCode(code);
+      setOpen(true); // Open modal
     } else {
       alert("Failed to export design.");
     }
@@ -76,6 +81,12 @@ const RightSidebar = ({
             handleLayerSubmit={(data) =>
               handleLayerSubmit(selectedLayer.uid, data)
             }
+          />
+          {/* EXPORT MODAL */}
+          <ExportModal
+            open={open}
+            onClose={() => setOpen(false)}
+            embedCode={embedCode}
           />
         </Box>
       ) : (
