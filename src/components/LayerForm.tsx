@@ -64,7 +64,6 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
   return (
     <Box sx={{ overflow: "auto" }}>
       <Box
-        m={2.5}
         component="form"
         onSubmit={handleSubmit((data) => {
           handleLayerSubmit(data);

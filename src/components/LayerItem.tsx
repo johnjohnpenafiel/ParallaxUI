@@ -23,12 +23,17 @@ const LayerItem = ({
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        padding: 2,
-        backgroundColor: `${isSelected ? "#4169E1" : ""}`,
+        py: 1.5,
+        backgroundColor: `${isSelected ? "#4169E1" : "none"}`,
         textTransform: "none",
+        my: 1,
+        "&:hover": {
+          backgroundColor: !isSelected ? "#282828" : "#4169E1",
+          cursor: "pointer",
+        },
       }}
     >
-      <Typography>{layer.name}</Typography>
+      <Typography sx={{ pl: 2 }}>{layer.name}</Typography>
       <Button
         onClick={(e) => {
           e.stopPropagation();

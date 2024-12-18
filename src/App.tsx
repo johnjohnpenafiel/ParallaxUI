@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 
-import NavBar from "./components/NavBar";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import TiltBox from "./components/TiltBox";
 
 import { lightTheme, darkTheme } from "./theme";
 import { LayerFormData } from "./components/LayerForm";
+import StartingCanvasForm from "./components/StartingCanvasForm";
 
 export type CanvasType = {
   width: number;
@@ -27,13 +27,9 @@ export type LayerType = {
 };
 
 function App() {
-  const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
 
-  const [canvasSize, setCanvasSize] = useState<CanvasType>({
-    width: 600,
-    height: 600,
-  });
+  const [canvasSize, setCanvasSize] = useState<CanvasType | null>(null);
   const [layers, setLayers] = useState<LayerType[]>([]);
   const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
 
@@ -88,56 +84,54 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-
-      <Box sx={{ display: "flex" }}>
-        {/* <NavBar
-          open={open}
-          setOpen={setOpen}
-          setDarkMode={setDarkMode}
-          darkMode={darkMode}
-        /> */}
-
-        <LeftSidebar
-          open={open}
-          layers={layers}
-          addLayer={addLayer}
-          removeLayer={removeLayer}
-          onSelectedLayer={onSelectedLayer}
-          selectedLayer={selectedLayer}
-        />
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh",
-            width: "100%",
-            backgroundColor: (theme) => `${theme.palette.primary.light}`,
-          }}
-        >
+      {/* STARTING CANVAS CONFIG FORM */}
+      {!canvasSize ? (
+        <StartingCanvasForm setCanvasSize={setCanvasSize} />
+      ) : (
+        <Box sx={{ display: "flex" }}>
+          {/* LEFT SIDEBAR */}
+          <LeftSidebar
+            layers={layers}
+            addLayer={addLayer}
+            removeLayer={removeLayer}
+            onSelectedLayer={onSelectedLayer}
+            selectedLayer={selectedLayer}
+          />
+          {/* MIDDLE AREA */}
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              height: canvasSize.height,
-              width: canvasSize.width,
-              backgroundColor: "#696969",
+              height: "100vh",
+              width: "100%",
+              backgroundColor: (theme) => `${theme.palette.primary.light}`,
             }}
           >
-            <TiltBox layers={layers} selectedLayer={selectedLayer} />
+            {/* CANVAS BOX */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: canvasSize?.height || 0,
+                width: canvasSize?.width || 0,
+                backgroundColor: "#696969",
+              }}
+            >
+              <TiltBox layers={layers} selectedLayer={selectedLayer} />
+            </Box>
           </Box>
+          {/* RIGHT SIDEBAR */}
+          <RightSidebar
+            selectedLayer={selectedLayer}
+            handleLayerSubmit={handleLayerSubmit}
+            exportDesign={exportDesign}
+            canvasSize={canvasSize}
+            setCanvasSize={setCanvasSize}
+          />
         </Box>
-
-        <RightSidebar
-          selectedLayer={selectedLayer}
-          handleLayerSubmit={handleLayerSubmit}
-          exportDesign={exportDesign}
-          canvasSize={canvasSize}
-          setCanvasSize={setCanvasSize}
-        />
-      </Box>
+      )}
     </ThemeProvider>
   );
 }

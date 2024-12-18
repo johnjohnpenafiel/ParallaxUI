@@ -1,11 +1,11 @@
-import { Box, Button, Drawer, Toolbar } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import AnimationIcon from "@mui/icons-material/Animation";
 
 import { LayerType } from "../App";
 
 import LayerList from "./LayerList";
 
 interface Props {
-  open: boolean;
   layers: LayerType[];
   selectedLayer: LayerType | null;
   addLayer: () => void;
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const LeftSidebar = ({
-  open,
   layers,
   selectedLayer,
   addLayer,
@@ -22,34 +21,54 @@ const LeftSidebar = ({
   onSelectedLayer,
 }: Props) => {
   return (
-    <Drawer
-      open={open}
-      variant="persistent"
-      PaperProps={{
-        sx: {
-          borderRight: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
-          backgroundColor: (theme) => `${theme.palette.primary.main}`,
-        },
+    <Box
+      sx={{
+        position: "fixed",
+        left: 0,
+        top: 0,
+        height: "100vh",
+        width: "240px",
+        borderRigth: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
+        backgroundColor: (theme) => `${theme.palette.primary.main}`,
+        overflow: "hidden",
+        p: 2.5,
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        borderTopRightRadius: 5,
+        borderBottomRightRadius: 5,
       }}
     >
-      <Box p={2.5} sx={{ width: "240px" }}>
-        <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          sx={{ textTransform: "none", marginBottom: 2.5 }}
-          onClick={addLayer}
+      {/* LOGO */}
+      <Box sx={{ display: "flex", marginBottom: 3 }}>
+        <AnimationIcon sx={{ fontSize: "1.3rem", mr: 1, mt: 0.6 }} />
+        <Typography
+          variant="h6"
+          noWrap
+          sx={{
+            fontWeight: 500,
+            letterSpacing: ".1rem",
+          }}
         >
-          Add Layer
-        </Button>
-        <LayerList
-          layers={layers}
-          selectedLayer={selectedLayer}
-          onSelectedLayer={onSelectedLayer}
-          removeLayer={removeLayer}
-        />
+          Parallax
+        </Typography>
       </Box>
-    </Drawer>
+      {/* ADD LAYER BUTTON */}
+      <Button
+        variant="contained"
+        color="secondary"
+        fullWidth
+        sx={{ textTransform: "none", marginBottom: 2.5 }}
+        onClick={addLayer}
+      >
+        Add Layer
+      </Button>
+      {/* LAYER LIST */}
+      <LayerList
+        layers={layers}
+        selectedLayer={selectedLayer}
+        onSelectedLayer={onSelectedLayer}
+        removeLayer={removeLayer}
+      />
+    </Box>
   );
 };
 

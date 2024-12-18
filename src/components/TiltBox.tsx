@@ -12,7 +12,8 @@ const TiltBox = ({ layers, selectedLayer }: Props) => {
     <Tilt
       perspective={1000} // 1000 default value - how far the object wrapped is away from the user.
       scale={1} // 1 default value - dynamicly scales up/down the component size
-      glareMaxOpacity={0} // 0 cancells glare effect
+      glareEnable={true}
+      glareMaxOpacity={0.45} // 0 cancells glare effect
       transitionSpeed={1200} // 400 default value - ease in/out speed
       tiltReverse={true} // Reverse tilt
       style={{
@@ -32,13 +33,12 @@ const TiltBox = ({ layers, selectedLayer }: Props) => {
               width: layer.width,
               height: layer.height,
               backgroundColor: layer.color,
-              border:
+              outline:
                 selectedLayer?.uid === layer.uid ? "4px solid #4169E1" : "none",
               boxShadow:
                 selectedLayer?.uid === layer.uid
                   ? "0px 0px 15px rgba(65, 105, 225, 0.5)"
                   : "none",
-              borderRadius: 5,
               transform: `
               translateX(${layer.x}px)
               translateY(${layer.y}px)

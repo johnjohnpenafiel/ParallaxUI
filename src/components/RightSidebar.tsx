@@ -1,4 +1,6 @@
-import { Box, Button, TextField, Toolbar } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import { CanvasType, LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
 
@@ -7,7 +9,7 @@ interface Props {
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
   exportDesign: () => string | null;
   canvasSize: CanvasType;
-  setCanvasSize: (size: CanvasType) => void;
+  setCanvasSize: (size: CanvasType | null) => void;
 }
 
 const RightSidebar = ({
@@ -40,55 +42,33 @@ const RightSidebar = ({
         borderLeft: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
         backgroundColor: (theme) => `${theme.palette.primary.main}`,
         overflow: "hidden",
-        p: 0,
+        p: 2.5,
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+        borderTopLeftRadius: 5,
+        borderBottomLeftRadius: 5,
       }}
     >
       {selectedLayer ? (
-        <Box
-          sx={{
-            backgroundColor: (theme) => `${theme.palette.background.paper}`,
-          }}
-        >
+        <Box>
+          {/* GO BACK BUTTON */}
+          <ArrowBackIcon
+            titleAccess="Go back"
+            onClick={() => {
+              setCanvasSize(null);
+            }}
+            sx={{ mb: 3, cursor: "pointer", fontSize: "1.6rem" }}
+          />
+
           {/* EXPORT BUTTON */}
           <Button
             variant="contained"
             color="secondary"
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{ textTransform: "none", mb: 4 }}
             onClick={handleExportClick}
           >
             Export Design
           </Button>
-
-          {/* CANVAS SIZE CONFIGURATION */}
-          <Box sx={{ my: 3 }}>
-            <TextField
-              label="Width"
-              type="number"
-              value={canvasSize.width}
-              onChange={(e) =>
-                setCanvasSize({
-                  ...canvasSize,
-                  width: Number(e.target.value),
-                })
-              }
-              fullWidth
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Height"
-              type="number"
-              value={canvasSize.height}
-              onChange={(e) =>
-                setCanvasSize({
-                  ...canvasSize,
-                  height: Number(e.target.value),
-                })
-              }
-              fullWidth
-            />
-          </Box>
 
           {/* LAYER CONFIGURATION */}
           <LayerForm
