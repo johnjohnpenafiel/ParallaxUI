@@ -6,7 +6,7 @@ import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import TiltBox from "./components/TiltBox";
 
-import { lightTheme, darkTheme } from "./theme";
+import { darkTheme } from "./theme"; // lightTheme
 import { LayerFormData } from "./components/LayerForm";
 import StartingCanvasForm from "./components/StartingCanvasForm";
 
@@ -27,7 +27,7 @@ export type LayerType = {
 };
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  // const [darkMode, setDarkMode] = useState(true);
 
   const [canvasSize, setCanvasSize] = useState<CanvasType | null>(null);
   const [layers, setLayers] = useState<LayerType[]>([]);
@@ -82,7 +82,7 @@ function App() {
   };
   // -----------------------------------------------------------------------------------------------
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       {/* STARTING CANVAS CONFIG FORM */}
       {!canvasSize ? (
