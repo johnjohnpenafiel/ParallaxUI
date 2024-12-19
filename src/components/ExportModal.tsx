@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Modal, TextField } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ExportModalProps {
   open: boolean;
@@ -22,9 +23,23 @@ const ExportModal = ({ open, onClose, embedCode }: ExportModalProps) => {
           borderRadius: 2,
         }}
       >
-        <Typography variant="h6" mb={2}>
-          Export Code
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h6" mb={2}>
+            Export Code
+          </Typography>
+          <CloseIcon
+            titleAccess="Close"
+            sx={{ mt: 0.4, cursor: "pointer" }}
+            onClick={() => {
+              onClose();
+            }}
+          />
+        </Box>
         <Box
           sx={{
             maxHeight: 200,
