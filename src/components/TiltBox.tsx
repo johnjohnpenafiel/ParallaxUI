@@ -1,27 +1,29 @@
 import Tilt from "react-parallax-tilt";
-import { LayerType } from "../App";
+import { CanvasType, LayerType } from "../App";
 import { Box } from "@mui/material";
 
 interface Props {
   layers: LayerType[];
   selectedLayer: LayerType | null;
+  canvasSize: CanvasType;
 }
 
-const TiltBox = ({ layers, selectedLayer }: Props) => {
+const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
   return (
     <Tilt
       perspective={1000} // 1000 default value - how far the object wrapped is away from the user.
       scale={1} // 1 default value - dynamicly scales up/down the component size
       glareEnable={true}
       glareMaxOpacity={0.45} // 0 cancells glare effect
-      transitionSpeed={1200} // 400 default value - ease in/out speed
-      tiltReverse={true} // Reverse tilt
+      transitionSpeed={400} // 400 default value - ease in/out speed
+      tiltReverse={false} // Reverse tilt
       style={{
-        height: `500px`,
-        width: `500px`,
+        height: `${canvasSize.height}px`,
+        width: `${canvasSize.width}px`,
         backgroundColor: "transparent",
         transformStyle: "preserve-3d",
         position: "relative",
+        background: "black",
       }}
     >
       {layers.map((layer: LayerType) => {

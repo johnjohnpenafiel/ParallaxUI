@@ -8,8 +8,8 @@ interface Props {
 }
 
 const StartingCanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
-  const [width, setWidth] = useState(700);
-  const [height, setHeight] = useState(700);
+  const [width, setWidth] = useState(500);
+  const [height, setHeight] = useState(500);
   const [formVisible, setFormVisible] = useState(true);
 
   const handleCreate = () => {

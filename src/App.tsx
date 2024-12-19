@@ -114,14 +114,20 @@ function App() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: canvasSize?.height || 0,
-                width: canvasSize?.width || 0,
+                height: canvasSize?.height + 50 || 0,
+                width: canvasSize?.width + 50 || 0,
                 backgroundColor: "#696969",
+                overflow: "hidden",
               }}
             >
-              <TiltBox layers={layers} selectedLayer={selectedLayer} />
+              <TiltBox
+                layers={layers}
+                selectedLayer={selectedLayer}
+                canvasSize={canvasSize}
+              />
             </Box>
           </Box>
+
           {/* RIGHT SIDEBAR */}
           <RightSidebar
             selectedLayer={selectedLayer}
