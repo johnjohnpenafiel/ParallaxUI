@@ -70,10 +70,6 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           reset();
         })}
       >
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h6">{selectedLayer.name}</Typography>
-        </Box>
-
         <Divider />
 
         {/* Position Section Starts */}
