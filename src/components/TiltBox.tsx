@@ -1,19 +1,25 @@
 import Tilt from "react-parallax-tilt";
 import { CanvasType, LayerType } from "../App";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface Props {
   layers: LayerType[];
   selectedLayer: LayerType | null;
   canvasSize: CanvasType;
+  forDesignOnly?: boolean;
 }
 
-const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
+const TiltBox = ({
+  layers,
+  selectedLayer,
+  canvasSize,
+  forDesignOnly,
+}: Props) => {
   return (
     <Tilt
       perspective={1000} // 1000 default value - how far the object wrapped is away from the user.
       scale={1} // 1 default value - dynamicly scales up/down the component size
-      glareEnable={true}
+      glareEnable={false}
       glareMaxOpacity={0.45} // 0 cancells glare effect
       transitionSpeed={400} // 400 default value - ease in/out speed
       tiltReverse={false} // Reverse tilt
@@ -23,7 +29,7 @@ const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
         backgroundColor: "transparent",
         transformStyle: "preserve-3d",
         position: "relative",
-        background: "black",
+        border: forDesignOnly ? "1px solid gray" : "none",
       }}
     >
       {layers.map((layer: LayerType) => {
@@ -50,6 +56,22 @@ const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
           />
         );
       })}
+      {forDesignOnly ? (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <Typography sx={{ textAlign: "center", color: "#888888" }}>
+            {`${canvasSize.width} x ${canvasSize.height}`}
+          </Typography>
+        </Box>
+      ) : (
+        ""
+      )}
     </Tilt>
   );
 };

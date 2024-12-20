@@ -10,7 +10,7 @@ interface Props {
   selectedLayer: LayerType | null;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
   exportDesign: () => string | null;
-  canvasSize: CanvasType;
+  containerSize: CanvasType;
   setCanvasSize: (size: CanvasType | null) => void;
 }
 
@@ -18,7 +18,7 @@ const RightSidebar = ({
   selectedLayer,
   handleLayerSubmit,
   exportDesign,
-  canvasSize,
+  containerSize,
   setCanvasSize,
 }: Props) => {
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ const RightSidebar = ({
   const handleExportClick = () => {
     const url = exportDesign();
     if (url) {
-      const code = `<iframe src="${url}" width="${canvasSize.width}" height="${canvasSize.height}"></iframe>`;
+      const code = `<iframe src="${url}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
       setEmbedCode(code);
       setOpen(true); // Open modal
     } else {
