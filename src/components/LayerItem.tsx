@@ -1,6 +1,9 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { LayerType } from "../App";
 import { useRef, useState } from "react";
+
+import { Box, TextField, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
+import { LayerType } from "../App";
 
 interface Props {
   layer: LayerType;
@@ -110,17 +113,18 @@ const LayerItem = ({
           {layer.name}
         </Typography>
       )}
-      <Button
+      <CloseIcon
         onClick={(e) => {
           e.stopPropagation();
           removeLayer(layer.uid);
         }}
-        variant="text"
-        size="small"
-        sx={{ color: "gray" }}
-      >
-        x
-      </Button>
+        sx={{
+          color: "gray",
+          fontSize: 16,
+          mx: 2,
+          ":hover": { color: "#C0C0C0" },
+        }}
+      />
     </Box>
   );
 };
