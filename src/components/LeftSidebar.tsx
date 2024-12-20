@@ -11,6 +11,7 @@ interface Props {
   addLayer: () => void;
   removeLayer: (uid: number) => void;
   onSelectedLayer: (layer: LayerType) => void;
+  updateLayerName: (uid: number, newName: string) => void;
 }
 
 const LeftSidebar = ({
@@ -19,6 +20,7 @@ const LeftSidebar = ({
   addLayer,
   removeLayer,
   onSelectedLayer,
+  updateLayerName,
 }: Props) => {
   return (
     <Box
@@ -67,6 +69,7 @@ const LeftSidebar = ({
         selectedLayer={selectedLayer}
         onSelectedLayer={onSelectedLayer}
         removeLayer={removeLayer}
+        updateLayerName={updateLayerName}
       />
     </Box>
   );

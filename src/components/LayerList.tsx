@@ -6,6 +6,7 @@ interface Props {
   selectedLayer: LayerType | null;
   removeLayer: (uid: number) => void;
   onSelectedLayer: (layer: LayerType) => void;
+  updateLayerName: (uid: number, newName: string) => void;
 }
 
 const LayerList = ({
@@ -13,6 +14,7 @@ const LayerList = ({
   removeLayer,
   selectedLayer,
   onSelectedLayer,
+  updateLayerName,
 }: Props) => {
   return (
     <>
@@ -24,6 +26,7 @@ const LayerList = ({
             removeLayer={removeLayer}
             onSelectedLayer={() => onSelectedLayer(layer)}
             isSelected={layer.uid === selectedLayer?.uid ? true : false}
+            updateLayerName={updateLayerName}
           />
         );
       })}

@@ -36,7 +36,7 @@ const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
               height: layer.height,
               backgroundColor: layer.color,
               outline:
-                selectedLayer?.uid === layer.uid ? "4px solid #4169E1" : "none",
+                selectedLayer?.uid === layer.uid ? "3px solid #4169E1" : "none",
               boxShadow:
                 selectedLayer?.uid === layer.uid
                   ? "0px 0px 15px rgba(65, 105, 225, 0.5)"

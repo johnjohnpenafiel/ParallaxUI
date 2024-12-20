@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { GlobalStyles } from "@mui/system";
 
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
@@ -49,6 +50,14 @@ function App() {
     setSelectedLayer(newLayer);
   };
 
+  const updateLayerName = (uid: number, newName: string) => {
+    setLayers((prevLayers) =>
+      prevLayers.map((layer) =>
+        layer.uid === uid ? { ...layer, name: newName } : layer
+      )
+    );
+  };
+
   const removeLayer = (uid: number): void => {
     setLayers(layers.filter((layer: LayerType) => layer.uid !== uid));
   };
@@ -84,6 +93,13 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <GlobalStyles
+        styles={{
+          "*": {
+            cursor: "default !important", // Global cursor override
+          },
+        }}
+      />
       {/* STARTING CANVAS CONFIG FORM */}
       {!canvasSize ? (
         <StartingCanvasForm setCanvasSize={setCanvasSize} />
@@ -96,6 +112,7 @@ function App() {
             removeLayer={removeLayer}
             onSelectedLayer={onSelectedLayer}
             selectedLayer={selectedLayer}
+            updateLayerName={updateLayerName}
           />
           {/* MIDDLE AREA */}
           <Box
