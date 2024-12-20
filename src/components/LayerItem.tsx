@@ -91,7 +91,7 @@ const LayerItem = ({
             width: "100%", // Full width
             backgroundColor: "	#383838", // Light-gray background
             borderRadius: 1,
-            outline: "2px solid #1E90FF ",
+            outline: "2px solid #6495ED ",
             ml: 1.5, // Indent TextField from the left
             "& .MuiOutlinedInput-root": {
               p: 0, // Remove root padding
@@ -119,9 +119,9 @@ const LayerItem = ({
           removeLayer(layer.uid);
         }}
         sx={{
-          color: "gray",
+          color: "#696969",
           fontSize: 16,
-          mx: 2,
+          mx: 3.2,
           ":hover": { color: "#C0C0C0" },
         }}
       />
