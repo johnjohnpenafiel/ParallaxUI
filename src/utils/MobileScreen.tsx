@@ -26,7 +26,7 @@ export const MobileScreen = () => {
           Parallax
         </Typography>
       </Box>
-      <Typography sx={{ mx: 2 }}>
+      <Typography sx={{ textAlign: "center" }}>
         Currently only available for desktop view.
       </Typography>
     </div>
