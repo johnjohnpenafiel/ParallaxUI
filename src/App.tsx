@@ -6,11 +6,13 @@ import { GlobalStyles } from "@mui/system";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import TiltBox from "./components/TiltBox";
+import "./App.css";
 
 import { darkTheme } from "./theme"; // lightTheme
 import { LayerFormData } from "./components/LayerForm";
 import StartingCanvasForm from "./components/StartingCanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
+import { MobileScreen } from "./utils/MobileScreen";
 
 export type CanvasType = {
   width: number;
@@ -121,72 +123,77 @@ function App() {
           },
         }}
       />
-      {/* STARTING CANVAS CONFIG FORM */}
-      {!canvasSize ? (
-        <StartingCanvasForm setCanvasSize={setCanvasSize} />
-      ) : (
-        <Box sx={{ display: "flex" }}>
-          {/* LEFT SIDEBAR */}
-          <LeftSidebar
-            layers={layers}
-            addLayer={addLayer}
-            removeLayer={removeLayer}
-            onSelectedLayer={onSelectedLayer}
-            selectedLayer={selectedLayer}
-            updateLayerName={updateLayerName}
-          />
-          {/* MIDDLE AREA */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100vh",
-              width: "100%",
-              backgroundColor: (theme) => `${theme.palette.background.default}`,
-            }}
-          >
-            <div>
-              {/* CONTAINER BOX */}
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: containerSize.height,
-                  width: containerSize.width,
-                  backgroundColor: "#696969",
-                  overflow: "hidden",
-                }}
-              >
-                <TiltBox
-                  layers={layers}
-                  selectedLayer={selectedLayer}
-                  canvasSize={canvasSize}
-                  forDesignOnly={forDesignOnly}
-                />
-              </Box>
-              <Typography
-                style={{
-                  textAlign: "center",
-                  color: "#888888",
-                }}
-              >
-                {`${containerSize.width} x ${containerSize.height}`}
-              </Typography>
-            </div>
+      <div className="mobile-only">
+        <MobileScreen />
+      </div>
+      <div className="desktop-only">
+        {/* STARTING CANVAS CONFIG FORM */}
+        {!canvasSize ? (
+          <StartingCanvasForm setCanvasSize={setCanvasSize} />
+        ) : (
+          <Box sx={{ display: "flex" }}>
+            {/* LEFT SIDEBAR */}
+            <LeftSidebar
+              layers={layers}
+              addLayer={addLayer}
+              removeLayer={removeLayer}
+              onSelectedLayer={onSelectedLayer}
+              selectedLayer={selectedLayer}
+              updateLayerName={updateLayerName}
+            />
+            {/* MIDDLE AREA */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100vh",
+                width: "100%",
+                backgroundColor: (theme) =>
+                  `${theme.palette.background.default}`,
+              }}
+            >
+              <div>
+                {/* CONTAINER BOX */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: containerSize.height,
+                    width: containerSize.width,
+                    backgroundColor: "#696969",
+                    overflow: "hidden",
+                  }}
+                >
+                  <TiltBox
+                    layers={layers}
+                    selectedLayer={selectedLayer}
+                    canvasSize={canvasSize}
+                    forDesignOnly={forDesignOnly}
+                  />
+                </Box>
+                <Typography
+                  style={{
+                    textAlign: "center",
+                    color: "#888888",
+                  }}
+                >
+                  {`${containerSize.width} x ${containerSize.height}`}
+                </Typography>
+              </div>
+            </Box>
+            {/* RIGHT SIDEBAR */}
+            <RightSidebar
+              selectedLayer={selectedLayer}
+              handleLayerSubmit={handleLayerSubmit}
+              exportDesign={exportDesign}
+              containerSize={containerSize}
+              setCanvasSize={setCanvasSize}
+            />
           </Box>
-
-          {/* RIGHT SIDEBAR */}
-          <RightSidebar
-            selectedLayer={selectedLayer}
-            handleLayerSubmit={handleLayerSubmit}
-            exportDesign={exportDesign}
-            containerSize={containerSize}
-            setCanvasSize={setCanvasSize}
-          />
-        </Box>
-      )}
+        )}
+      </div>
     </ThemeProvider>
   );
 }
