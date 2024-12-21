@@ -11,9 +11,10 @@ export const MobileScreen = () => {
         color: "#fff",
         justifyItems: "center",
         alignContent: "center",
+        zIndex: 1000,
       }}
     >
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <AnimationIcon sx={{ fontSize: "2rem", mr: 1, mt: 0.6 }} />
         <Typography
           variant="h4"
