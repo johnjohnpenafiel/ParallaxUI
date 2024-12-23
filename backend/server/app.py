@@ -7,7 +7,7 @@ from sqlalchemy import desc
 from dotenv import load_dotenv
 import os
 
-from models import db
+from models import db, Design
 
 load_dotenv()
 
@@ -31,7 +31,32 @@ def index ():
     return "index for Parallax"
 
 
+@app.route('/designs', methods=['POST'])
+def create_design():
+    data = request.json.get('data')
+    if not data:
+        return jsonify({"error" : "Design data is required"}), 400
 
+    design = Design(data=data)
+    db.session.add(design)
+    db.session.commit()
+    return jsonify({"id": design.id, "public_url": f"/embed/{design.id}"}), 201
+
+
+@app.route('/designs/<int:id>', methods=['GET'])
+def get_design(id):
+    design = Design.query.get(id)
+    if not design:
+        return jsonify({"error": "Design not found"}), 404
+    return jsonify({"id": design.id, "data": design.data})
+
+
+@app.route('/embed/<int:id>', methods=['GET'])
+def embed_design(id):
+    design= Design.query.get(id)
+    if not design:
+        return jsonify({"error": "Design not found"}), 404
+    return f"<iframe src='/designs/{id}'></iframe>", 200
 
 
 

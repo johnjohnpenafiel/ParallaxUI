@@ -20,11 +20,11 @@ db = SQLAlchemy(metadata=MetaData(naming_convention=convention))
 class Design(db.Model):
     __tablename__ = 'design'
 
-    id = db.Column(db.Ineter, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=True)
-    data = db.column(db.Text, nullable=False)
+    data = db.Column(db.Text, nullable=False)
     public_url = db.Column(db.String, unique=True, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.nowutc)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    
+
