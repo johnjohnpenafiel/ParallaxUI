@@ -9,8 +9,7 @@ import ExportModal from "./ExportModal";
 interface Props {
   selectedLayer: LayerType | null;
   handleLayerSubmit: (uid: number, data: LayerFormData) => void;
-  exportDesign: () => string | null;
-  containerSize: CanvasType;
+  exportDesign: () => Promise<string | null>;
   setCanvasSize: (size: CanvasType | null) => void;
 }
 
@@ -18,18 +17,16 @@ const RightSidebar = ({
   selectedLayer,
   handleLayerSubmit,
   exportDesign,
-  containerSize,
   setCanvasSize,
 }: Props) => {
   const [open, setOpen] = useState(false);
   const [embedCode, setEmbedCode] = useState("");
 
-  const handleExportClick = () => {
-    const url = exportDesign();
-    if (url) {
-      const code = `<iframe src="${url}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
-      setEmbedCode(code);
-      setOpen(true); // Open modal
+  const handleExportClick = async () => {
+    const embedCode = await exportDesign();
+    if (embedCode) {
+      setEmbedCode(embedCode);
+      setOpen(true);
     } else {
       alert("Failed to export design.");
     }

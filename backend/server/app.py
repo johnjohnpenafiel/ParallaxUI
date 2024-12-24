@@ -7,6 +7,8 @@ from sqlalchemy import desc
 from dotenv import load_dotenv
 import os
 
+from datetime import datetime
+
 from models import db, Design
 
 load_dotenv()
@@ -31,16 +33,47 @@ def index ():
     return "index for Parallax"
 
 
+# @app.route('/designs', methods=['POST'])
+# def create_design():
+#     data = request.json.get('data')
+#     if not data:
+#         return jsonify({"error" : "Design data is required"}), 400
+
+#     design = Design(data=data)
+#     db.session.add(design)
+#     db.session.commit()
+#     return jsonify({"id": design.id, "public_url": f"/embed/{design.id}"}), 201
+
 @app.route('/designs', methods=['POST'])
 def create_design():
-    data = request.json.get('data')
-    if not data:
-        return jsonify({"error" : "Design data is required"}), 400
+    request_data = request.get_json()
 
-    design = Design(data=data)
-    db.session.add(design)
+    if not request_data or 'data' not in request_data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    # Create the design and generate the public URL
+    new_design = Design(
+        name=request_data.get('name'),
+        data=request_data['data'],
+        public_url=None,  # Placeholder
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow(),
+    )
+
+    # Add to the session
+    db.session.add(new_design)
+
+    # Generate the public URL after the object is added but before committing
+    new_design.public_url = f"http://localhost:5555/embed/{new_design.id}"
+
+    # Commit the transaction
     db.session.commit()
-    return jsonify({"id": design.id, "public_url": f"/embed/{design.id}"}), 201
+
+    return jsonify({
+        "id": new_design.id,
+        "public_url": new_design.public_url
+    }), 201
+
 
 
 @app.route('/designs/<int:id>', methods=['GET'])

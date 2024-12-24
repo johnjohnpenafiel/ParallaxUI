@@ -84,17 +84,25 @@ function App() {
   };
 
   // EXPORT FUNCTION
-  const exportDesign = () => {
+  const exportDesign = async () => {
     try {
-      const designData = JSON.stringify({ layers, containerSize, canvasSize });
+      const designData = { layers, containerSize, canvasSize };
 
-      const exportUrl = `${
-        window.location.origin
-      }/preview?data=${encodeURIComponent(designData)}`;
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/designs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: designData }),
+      });
 
-      return exportUrl;
+      if (!response.ok) throw new Error("Failed to save design");
+
+      const { id, public_url } = await response.json();
+
+      console.log(`Design saved with ID: ${id}`);
+
+      return `<iframe src="${public_url}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
-      console.error("Error exporting design:", error);
+      console.error("Error exporting design", error);
       return null;
     }
   };
@@ -188,7 +196,6 @@ function App() {
               selectedLayer={selectedLayer}
               handleLayerSubmit={handleLayerSubmit}
               exportDesign={exportDesign}
-              containerSize={containerSize}
               setCanvasSize={setCanvasSize}
             />
           </Box>

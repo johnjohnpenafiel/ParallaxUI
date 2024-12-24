@@ -1,17 +1,41 @@
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import TiltBox from "./components/TiltBox";
-import { useEffect } from "react";
+
+import { LayerType } from "./App";
+
+interface DesignType {
+  layers: LayerType[];
+  containerSize: { width: number; height: number };
+  canvasSize: { width: number; height: number };
+}
 
 function Preview() {
-  const [searchParams] = useSearchParams();
-  const data = searchParams.get("data");
-  const { layers, containerSize, canvasSize } = data
-    ? JSON.parse(decodeURIComponent(data))
-    : {
-        layers: [],
-        containerSize: { width: 0, height: 0 },
-        canvasSize: { width: 0, height: 0 },
-      };
+  const { id } = useParams();
+  const [design, setDesign] = useState<DesignType | null>(null);
+
+  useEffect(() => {
+    const fetchDesign = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/designs/${id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch design");
+
+        const { data } = await response.json();
+        setDesign(data);
+      } catch (error) {
+        console.error("Error fetching design:", error);
+      }
+    };
+
+    if (id) fetchDesign();
+  }, [id]);
+
+  if (!design) return <div>Loading...</div>;
+
+  const { layers, containerSize, canvasSize } = design;
 
   useEffect(() => {
     document.body.style.margin = "0";
