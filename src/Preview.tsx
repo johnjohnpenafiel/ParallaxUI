@@ -12,7 +12,7 @@ interface DesignType {
 }
 
 function Preview() {
-  const { id } = useParams(); // Extract the design ID from the URL
+  const { id } = useParams();
   const [design, setDesign] = useState<DesignType | null>(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function Preview() {
     document.documentElement.style.padding = "0";
   }, []);
 
-  // Fetch the design data from the backend
+  // FETCH DESIGN DATA FROM BACKEND
   useEffect(() => {
     const fetchDesign = async () => {
       try {

@@ -30,6 +30,11 @@ export type LayerType = {
   y: number;
 };
 
+// FRONTEND URL
+const base_url = "http://localhost:5173";
+// SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
+const forDesignOnly = true;
+
 function App() {
   // const [darkMode, setDarkMode] = useState(true);
 
@@ -40,8 +45,6 @@ function App() {
     width: 0,
     height: 0,
   });
-
-  const forDesignOnly = true;
 
   const addLayer = (): void => {
     const layerCount = layers.length + 1;
@@ -98,14 +101,14 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="http://localhost:5173/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="${base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;
     }
   };
 
-  // UPDATE CONTAINER SIZE
+  // CALCULATES CONTAINER SIZE DEPENDING ON CANVAS WIDTH AND HEIGHT
   useEffect(() => {
     if (canvasSize) {
       const maxSize = calculateMaxSize(
@@ -133,7 +136,7 @@ function App() {
         <MobileScreen />
       </div>
       <div className="desktop-only">
-        {/* STARTING CANVAS CONFIG FORM */}
+        {/* STARTING CANVAS CONFIGURATION FORM */}
         {!canvasSize ? (
           <StartingCanvasForm setCanvasSize={setCanvasSize} />
         ) : (

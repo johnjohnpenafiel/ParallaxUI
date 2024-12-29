@@ -31,7 +31,7 @@ db.init_app(app)
 
 @app.route('/')
 def index ():
-    return "index for Parallax"
+    return "Index for Parallax"
 
 
 @app.route('/designs', methods=['POST'])
