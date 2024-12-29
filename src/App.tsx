@@ -96,13 +96,11 @@ function App() {
 
       if (!response.ok) throw new Error("Failed to save design");
 
-      const { id, public_url } = await response.json();
+      const { id } = await response.json();
 
-      console.log(`Design saved with ID: ${id}`);
-
-      return `<iframe src="${public_url}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="http://localhost:5173/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
-      console.error("Error exporting design", error);
+      console.error("Error exporting design:", error);
       return null;
     }
   };

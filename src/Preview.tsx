@@ -12,9 +12,17 @@ interface DesignType {
 }
 
 function Preview() {
-  const { id } = useParams();
+  const { id } = useParams(); // Extract the design ID from the URL
   const [design, setDesign] = useState<DesignType | null>(null);
 
+  useEffect(() => {
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.padding = "0";
+  }, []);
+
+  // Fetch the design data from the backend
   useEffect(() => {
     const fetchDesign = async () => {
       try {
@@ -36,13 +44,6 @@ function Preview() {
   if (!design) return <div>Loading...</div>;
 
   const { layers, containerSize, canvasSize } = design;
-
-  useEffect(() => {
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.padding = "0";
-  }, []);
 
   return (
     <div
