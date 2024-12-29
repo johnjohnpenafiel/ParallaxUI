@@ -98,7 +98,7 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="http://localhost:5173/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="https://www.parallaxui.com/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;
