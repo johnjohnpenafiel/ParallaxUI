@@ -27,7 +27,8 @@ function Preview() {
     const fetchDesign = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/designs/${id}`
+          // `${import.meta.env.VITE_API_URL}/designs/${id}`
+          `https://d2b3-2603-7000-7900-6eb-1cf5-91b-1181-f8eb.ngrok-free.app/designs/${id}`
         );
         if (!response.ok) throw new Error("Failed to fetch design");
 
