@@ -90,11 +90,14 @@ function App() {
     try {
       const designData = { layers, containerSize, canvasSize };
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/designs`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: designData }),
-      });
+      const response = await fetch(
+        `https://d2b3-2603-7000-7900-6eb-1cf5-91b-1181-f8eb.ngrok-free.app/designs`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: designData }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to save design");
 
