@@ -31,7 +31,7 @@ export type LayerType = {
 };
 
 // FRONTEND URL
-const base_url = "http://parallaxui.com";
+const production_base_url = "http://parallaxui.com";
 
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
@@ -94,7 +94,7 @@ function App() {
     try {
       const designData = { layers, containerSize, canvasSize };
 
-      const response = await fetch(`http://localhost:5555/designs`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/designs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: designData }),
@@ -104,7 +104,7 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="${base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="${production_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;

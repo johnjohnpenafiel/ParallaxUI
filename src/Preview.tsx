@@ -27,8 +27,7 @@ function Preview() {
     const fetchDesign = async () => {
       try {
         const response = await fetch(
-          // `${import.meta.env.VITE_API_URL}/designs/${id}`
-          `http://localhost:5555/designs/${id}`
+          `${import.meta.env.VITE_API_URL}/designs/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch design");
