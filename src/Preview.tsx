@@ -30,7 +30,7 @@ function Preview() {
       try {
         const response = await fetch(
           // `${import.meta.env.VITE_API_URL}/designs/${id}`
-          `https://d2b3-2603-7000-7900-6eb-1cf5-91b-1181-f8eb.ngrok-free.app/designs/${id}`
+          `http://localhost:5555/designs/${id}`
         );
         if (!response.ok) {
           const text = await response.text(); // Read response as text

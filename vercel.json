@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/designs/:path*",
-      "destination": "https://d2b3-2603-7000-7900-6eb-1cf5-91b-1181-f8eb.ngrok-free.app/designs/:path*"
+      "destination": "http://localhost:5555/designs/:path*"
     },
     {
       "source": "/(.*)",
