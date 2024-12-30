@@ -85,6 +85,8 @@ function App() {
 
   // EXPORT FUNCTION
   const exportDesign = async () => {
+    console.log(`${import.meta.env.VITE_API_URL}/designs`);
+
     try {
       const designData = { layers, containerSize, canvasSize };
 
