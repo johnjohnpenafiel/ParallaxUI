@@ -12,29 +12,24 @@ interface DesignType {
 }
 
 function Preview() {
-  const { id } = useParams(); // Extract the design ID from the URL
+  const { id } = useParams();
   const [design, setDesign] = useState<DesignType | null>(null);
 
-  console.log("Design ID:", id);
-
-  // useEffect(() => {
-  //   document.body.style.margin = "0";
-  //   document.body.style.padding = "0";
-  //   document.documentElement.style.margin = "0";
-  //   document.documentElement.style.padding = "0";
-  // }, []);
+  useEffect(() => {
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.documentElement.style.margin = "0";
+    document.documentElement.style.padding = "0";
+  }, []);
 
   // Fetch the design data from the backend
   useEffect(() => {
     const fetchDesign = async () => {
       try {
         const response = await fetch(
-          // `${import.meta.env.VITE_API_URL}/designs/${id}`
-          `http://localhost:5555/designs/${id}`
+          `${import.meta.env.VITE_API_URL}/designs/${id}`
         );
         if (!response.ok) {
-          const text = await response.text(); // Read response as text
-          console.error("Response error:", text);
           throw new Error("Failed to fetch design");
         }
 
