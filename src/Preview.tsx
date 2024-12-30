@@ -15,6 +15,8 @@ function Preview() {
   const { id } = useParams(); // Extract the design ID from the URL
   const [design, setDesign] = useState<DesignType | null>(null);
 
+  console.log("Design ID:", id);
+
   // useEffect(() => {
   //   document.body.style.margin = "0";
   //   document.body.style.padding = "0";
