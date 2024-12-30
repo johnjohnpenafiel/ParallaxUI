@@ -22,7 +22,7 @@ function Preview() {
     document.documentElement.style.padding = "0";
   }, []);
 
-  // Fetch the design data from the backend
+  // FETCH DESIGN DATA FROM BACKEND
   useEffect(() => {
     const fetchDesign = async () => {
       try {
