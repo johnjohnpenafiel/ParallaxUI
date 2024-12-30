@@ -31,7 +31,8 @@ export type LayerType = {
 };
 
 // FRONTEND URL
-const base_url = "http://localhost:5173";
+const base_url = "http://parallaxui.com";
+
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
 
