@@ -30,7 +30,11 @@ function Preview() {
           // `${import.meta.env.VITE_API_URL}/designs/${id}`
           `https://d2b3-2603-7000-7900-6eb-1cf5-91b-1181-f8eb.ngrok-free.app/designs/${id}`
         );
-        if (!response.ok) throw new Error("Failed to fetch design");
+        if (!response.ok) {
+          const text = await response.text(); // Read response as text
+          console.error("Response error:", text);
+          throw new Error("Failed to fetch design");
+        }
 
         const { data } = await response.json();
         setDesign(data);
