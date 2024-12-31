@@ -1,16 +1,16 @@
-"""empty message
+"""Initial migration for RDS database
 
-Revision ID: 48b213d03ad6
+Revision ID: 4ec7de988315
 Revises: 
-Create Date: 2024-12-23 00:03:43.285259
+Create Date: 2024-12-31 12:37:55.051503
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '48b213d03ad6'
+revision = '4ec7de988315'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('design',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
-    sa.Column('data', sa.Text(), nullable=False),
+    sa.Column('data', postgresql.JSON(astext_type=sa.Text()), nullable=False),
     sa.Column('public_url', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
