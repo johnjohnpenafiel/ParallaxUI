@@ -1,0 +1,35 @@
+# System files
+.DS_Store
+
+# Local environment and settings
+.env
+.venv/
+
+# Logs and temporary files
+/log/*
+!/log/.keep
+/tmp/*
+!/tmp/.keep
+
+# Python-related files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Database and instance files
+*.sqlite3
+*.db
+instance/
+
+# Node.js files
+node_modules/
+package-lock.json
+
+# Editor and IDE settings
+.vscode/
+.idea/
+
+# Elastic Beanstalk-specific files
+.elasticbeanstalk/*.backup
+.elasticbeanstalk/*.log
