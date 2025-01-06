@@ -30,10 +30,10 @@ export type LayerType = {
   y: number;
 };
 
-// FRONTEND URL
-// const production_base_url = "http://parallaxui.com";
+// FRONTEND URLs in App.tsx [exportDesign function],
+const production_base_url = "http://parallaxui.com";
 
-const development_base_url = "http://localhost:5173";
+//const development_base_url = "http://localhost:5173";
 
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
@@ -106,7 +106,7 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="${development_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="${production_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;
