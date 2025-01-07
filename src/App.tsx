@@ -30,7 +30,6 @@ export type LayerType = {
   y: number;
 };
 
-//
 // FRONTEND URLs in App.tsx [exportDesign function],
 const production_base_url = "http://parallaxui.com";
 
