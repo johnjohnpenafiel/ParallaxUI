@@ -21,8 +21,8 @@ flask-migrate = "*"
 flask-cors = "*"
 python-dotenv = "*"
 sqlalchemy-serializer = "*"
-psycopg2 = "*"
 awsebcli = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
