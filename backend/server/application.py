@@ -15,7 +15,7 @@ load_dotenv()
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get("DB_URI")
-BASE_URL = os.getenv("BASE_URL", "https://parallax.us-east-2.elasticbeanstalk.com")
+BASE_URL = os.getenv("BASE_URL", "http://parallax.us-east-2.elasticbeanstalk.com")
 
 application = Flask(__name__)
 application.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
