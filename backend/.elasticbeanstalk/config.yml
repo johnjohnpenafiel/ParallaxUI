@@ -1,0 +1,19 @@
+branch-defaults:
+  default:
+    environment: parallax-env
+environment-defaults:
+  parallax-env:
+    branch: null
+    repository: null
+global:
+  application_name: Parallax
+  default_ec2_keyname: aws-eb
+  default_platform: python-3.9
+  default_region: us-east-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: null
+  workspace_type: Application
