@@ -53,7 +53,7 @@ jspm_packages
 /.bundle
 
 # Virtual env metadata
-.venv
+.venv/
 
 # env metadata
 .env
@@ -67,3 +67,8 @@ __pycache__
 instance
 .vscode
 package-lock.json
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.elasticbeanstalk

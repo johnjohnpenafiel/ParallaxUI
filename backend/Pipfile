@@ -4,16 +4,27 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+certifi = "==2024.2.2"
+colorama = "==0.4.6"
+distlib = "==0.3.8"
+filelock = "==3.13.1"
+importlib-metadata = "==8.0.0"
+importlib-resources = "==6.4.5"
+pipenv = "==2023.12.1"
+platformdirs = "==4.2.0"
+six = "==1.16.0"
+typing-extensions = "==4.12.2"
+virtualenv = "==20.25.0"
+zipp = "==3.19.2"
 flask = "*"
 flask-migrate = "*"
-flask-sqlalchemy = "*"
-sqlalchemy-serializer = "*"
-faker = "*"
 flask-cors = "*"
 python-dotenv = "*"
-psycopg2-binary = "*"
+sqlalchemy-serializer = "*"
+awsebcli = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

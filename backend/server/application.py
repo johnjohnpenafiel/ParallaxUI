@@ -9,32 +9,32 @@ import os
 
 from datetime import datetime
 
-from models import db, Design
+from server.models import db, Design
 
 load_dotenv()
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get("DB_URI")
-BASE_URL = os.getenv("BASE_URL", "http://localhost:5555")
+BASE_URL = os.getenv("BASE_URL", "https://api.parallaxui.com")
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.json.compact = False
+application = Flask(__name__)
+application.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
+application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+application.json.compact = False
 
-CORS(app)
+CORS(application)
 
-migrate = Migrate(app, db)
+migrate = Migrate(application, db)
 
-db.init_app(app)
+db.init_app(application)
 
 
-@app.route('/')
+@application.route('/')
 def index ():
     return "Index for Parallax"
 
 
-@app.route('/designs', methods=['POST'])
+@application.route('/designs', methods=['POST'])
 def create_design():
     request_data = request.get_json()
 
@@ -66,7 +66,7 @@ def create_design():
     }), 201
 
 
-@app.route('/designs/<int:id>', methods=['GET'])
+@application.route('/designs/<int:id>', methods=['GET'])
 def get_design(id):
     design = Design.query.get(id)
     if not design:
@@ -75,4 +75,4 @@ def get_design(id):
 
 
 if __name__ == "__main__":
-    app.run(port=5555, debug=True)
+    application.run(port=5555, debug=True)

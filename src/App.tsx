@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
 import { GlobalStyles } from "@mui/system";
+import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
@@ -30,8 +31,10 @@ export type LayerType = {
   y: number;
 };
 
-// FRONTEND URL
+// FRONTEND URLs in App.tsx [exportDesign function],
 const production_base_url = "http://parallaxui.com";
+
+//const development_base_url = "http://localhost:5173";
 
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
@@ -204,6 +207,7 @@ function App() {
             />
           </Box>
         )}
+        <Analytics />
       </div>
     </ThemeProvider>
   );
