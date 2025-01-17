@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
 import { GlobalStyles } from "@mui/system";
+import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
@@ -206,6 +207,7 @@ function App() {
             />
           </Box>
         )}
+        <Analytics />
       </div>
     </ThemeProvider>
   );

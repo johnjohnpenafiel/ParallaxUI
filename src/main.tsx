@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { injectSpeedInsights } from "@vercel/speed-insights";
-import { Analytics } from "@vercel/analytics/react";
 
 import App from "./App.jsx";
 import Preview from "./Preview";
@@ -12,7 +11,6 @@ injectSpeedInsights();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Analytics />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
