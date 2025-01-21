@@ -11,11 +11,18 @@ from datetime import datetime
 
 from server.models import db, Design
 
-load_dotenv()
+# Determine the environment
+env = os.getenv("FLASK_ENV", "development")
+env_file = f".env.{env}"
+
+# Load the appropriate .env file
+load_dotenv(env_file)
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get("DB_URI")
 BASE_URL = os.getenv("BASE_URL", "https://api.parallaxui.com")
+
+print(f"Environment: {env}, Database: {DATABASE}")
 
 application = Flask(__name__)
 application.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
