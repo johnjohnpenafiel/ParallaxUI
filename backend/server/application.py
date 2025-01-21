@@ -9,7 +9,7 @@ import os
 
 from datetime import datetime
 
-from server.models import db, Design
+from models import db, Design
 
 # Determine the environment
 env = os.getenv("FLASK_ENV", "development")

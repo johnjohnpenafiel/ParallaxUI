@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from app import app
+from application import application
 from models import db, Design
 
 from datetime import datetime
@@ -56,6 +56,6 @@ def seed_database():
         create_sample_design()
 
 if __name__ == '__main__':
-    with app.app_context():
+    with application.app_context():
         print("Starting seed...")
         seed_database()
