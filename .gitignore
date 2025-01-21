@@ -25,4 +25,5 @@ dist-ssr
 
 # env metadata
 .env
+.env.*
 
