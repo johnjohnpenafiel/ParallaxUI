@@ -11,18 +11,21 @@ from datetime import datetime
 
 from models import db, Design
 
-# Determine the environment
-env = os.getenv("FLASK_ENV", "development")
-env_file = f".env.{env}"
+# Load environment variables
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.development'))
 
-# Load the appropriate .env file
-load_dotenv(env_file)
-
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+# Retrieve environment variables
 DATABASE = os.environ.get("DB_URI")
 BASE_URL = os.getenv("BASE_URL", "https://api.parallaxui.com")
+FLASK_ENV = os.getenv("FLASK_ENV", "development")
 
-print(f"Environment: {env}, Database: {DATABASE}")
+# Debugging logs
+print(f"FLASK_APP: {os.getenv('FLASK_APP')}")
+print(f"FLASK_ENV: {FLASK_ENV}")
+print(f"Database URI: {DATABASE}")
+print(f"DB_URI used for migration: {os.getenv('DB_URI')}")
+
+
 
 application = Flask(__name__)
 application.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
@@ -30,9 +33,7 @@ application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 application.json.compact = False
 
 CORS(application)
-
 migrate = Migrate(application, db)
-
 db.init_app(application)
 
 
