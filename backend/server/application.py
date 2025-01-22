@@ -11,12 +11,14 @@ from datetime import datetime
 
 from models import db, Design
 
-load_dotenv()
+env = os.getenv("FLASK_ENV", "development")
+env_file = ".env" if env == "development" else ".env.production"
+load_dotenv(env_file)
 
 # Retrieve environment variables
 FLASK_ENV = os.getenv("FLASK_ENV", "development")
 DATABASE = os.environ.get("DB_URI", "sqlite:///test.db")
-BASE_URL = os.getenv("BASE_URL", "http://localhost:5555")
+API_URL = os.getenv("API_URL", "http://localhost:5555")
 
 # Debugging logs
 print(f"FLASK_ENV: {FLASK_ENV}")
@@ -60,7 +62,7 @@ def create_design():
     db.session.flush() # Generate the ID without committing
 
     # Generate the public URL after the object is added but before committing
-    new_design.public_url = f"{BASE_URL}/embed/{new_design.id}"
+    new_design.public_url = f"{API_URL}/embed/{new_design.id}"
 
     db.session.commit()
 
