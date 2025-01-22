@@ -14,9 +14,9 @@ from models import db, Design
 load_dotenv()
 
 # Retrieve environment variables
-DATABASE = os.environ.get("DB_URI")
-BASE_URL = os.getenv("BASE_URL", "https://api.parallaxui.com")
 FLASK_ENV = os.getenv("FLASK_ENV", "development")
+DATABASE = os.environ.get("DB_URI", "sqlite:///test.db")
+BASE_URL = os.getenv("BASE_URL", "http://localhost:5555")
 
 # Debugging logs
 print(f"FLASK_ENV: {FLASK_ENV}")
@@ -79,4 +79,4 @@ def get_design(id):
 
 
 if __name__ == "__main__":
-    application.run(port=5556, debug=True)
+    application.run(port=5555, debug=True)
