@@ -12,18 +12,23 @@ from datetime import datetime
 from models import db, Design
 
 env = os.getenv("FLASK_ENV", "development")
-env_file = ".env" if env == "development" else ".env.production"
+env_file = ".env.development" if env == "development" else ".env.production"
 load_dotenv(env_file)
 
-# Retrieve environment variables
-FLASK_ENV = os.getenv("FLASK_ENV", "development")
-DATABASE = os.environ.get("DB_URI", "sqlite:///test.db")
-API_URL = os.getenv("API_URL", "http://localhost:5555")
+# ENVIROMENT VARIABLES
+DATABASE = os.environ.get("DB_URI")
+API_URL = os.environ.get("API_URL")
+DEBUG = os.environ.get("FLASK_DEBUG")
+PORT = os.environ.get("FLASK_RUN_PORT")
 
-# Debugging logs
-print(f"FLASK_ENV: {FLASK_ENV}")
-print(f"FLASK_APP: {os.getenv('FLASK_APP')}")
-print(f"Database URI: {DATABASE}")
+# ENVIROMENT VARIABLES LOGS
+print("-----ENVIROMENT VARIABLES-----")
+print("Enviroment:", os.environ.get("FLASK_ENV"))
+print("Database:", DATABASE)
+print("API:", os.environ.get("API_URL"))
+print("Base Url:", os.environ.get("API_URL"))
+print("Debug Mode:", DEBUG)
+
 
 application = Flask(__name__)
 application.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
@@ -81,4 +86,4 @@ def get_design(id):
 
 
 if __name__ == "__main__":
-    application.run(port=5555, debug=True)
+    application.run(port=PORT)
