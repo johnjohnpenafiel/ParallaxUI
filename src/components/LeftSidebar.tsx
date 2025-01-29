@@ -29,7 +29,7 @@ const LeftSidebar = ({
         left: 0,
         top: 0,
         height: "100vh",
-        width: "240px",
+        minWidth: "240px",
         borderRigth: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
         backgroundColor: (theme) => `${theme.palette.primary.main}`,
         overflow: "hidden",

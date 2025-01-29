@@ -1,4 +1,16 @@
-import { useEffect, useState } from "react";
+// TUTORIAL IMPORTS START
+
+import * as fabric from "fabric";
+
+import {
+  handleCanvasMouseDown,
+  handleResize,
+  initializeFabric,
+} from "./assets/lib/canvas";
+
+// TUTORIAL IMPORTS END
+
+import { useEffect, useRef, useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
 import { GlobalStyles } from "@mui/system";
@@ -32,9 +44,7 @@ export type LayerType = {
 };
 
 // FRONTEND URLs in App.tsx [exportDesign function],
-const production_base_url = "http://parallaxui.com";
-
-//const development_base_url = "http://localhost:5173";
+const production_base_url = "http://localhost:5173/";
 
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
@@ -49,6 +59,46 @@ function App() {
     width: 0,
     height: 0,
   });
+
+  // DYNAMIC CANVAS TUTORIAL START --------------------------------
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const fabricRef = useRef<fabric.Canvas | null>(null);
+  const isDrawing = useRef(false);
+  const shapeRef = useRef<fabric.Object | null>(null);
+  const selectedShapeRef = useRef<string | null>("rectangle");
+
+  useEffect(() => {
+    if (!canvasSize) return;
+    const canvas = initializeFabric({ canvasRef, fabricRef });
+
+    canvas.on("mouse:down", (options) => {
+      handleCanvasMouseDown({
+        options,
+        canvas,
+        isDrawing,
+        shapeRef,
+        selectedShapeRef,
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      handleResize({ canvas: fabricRef.current });
+    });
+
+    return () => {
+      canvas.dispose();
+
+      // remove the event listeners
+      window.removeEventListener("resize", () => {
+        handleResize({
+          canvas: null,
+        });
+      });
+    };
+  }, [canvasSize, canvasRef]);
+
+  // DYNAMIC CANVAS TUTORIAL END ------------------------------
 
   const addLayer = (): void => {
     const layerCount = layers.length + 1;
@@ -127,6 +177,38 @@ function App() {
     }
   }, [canvasSize]);
 
+  // Add Dynamic Size Syncing
+
+  const resizeCanvas = () => {
+    if (canvasRef.current && fabricRef.current) {
+      // Update the intrinsic size (backstoreOnly: true)
+      fabricRef.current.setDimensions(
+        {
+          width: containerSize.width,
+          height: containerSize.height,
+        },
+        { backstoreOnly: true }
+      );
+
+      // Update the CSS size
+      fabricRef.current.setDimensions(
+        {
+          width: `${containerSize.width}px`,
+          height: `${containerSize.height}px`,
+        },
+        { cssOnly: true }
+      );
+
+      fabricRef.current.renderAll();
+    }
+  };
+
+  useEffect(() => {
+    if (canvasSize) {
+      resizeCanvas();
+    }
+  }, [canvasSize, containerSize]);
+
   // -----------------------------------------------------------------------------------------------
   return (
     <ThemeProvider theme={darkTheme}>
@@ -142,21 +224,24 @@ function App() {
         <MobileScreen />
       </div>
       <div className="desktop-only">
-        {/* STARTING CANVAS CONFIGURATION FORM */}
+        {/* ----- CONDITIONAL RENDERING ----- */}
+        {/* ----- CANVAS CONFIGURATION ----- */}
         {!canvasSize ? (
           <StartingCanvasForm setCanvasSize={setCanvasSize} />
         ) : (
           <Box sx={{ display: "flex" }}>
-            {/* LEFT SIDEBAR */}
-            <LeftSidebar
-              layers={layers}
-              addLayer={addLayer}
-              removeLayer={removeLayer}
-              onSelectedLayer={onSelectedLayer}
-              selectedLayer={selectedLayer}
-              updateLayerName={updateLayerName}
-            />
-            {/* MIDDLE AREA */}
+            {/* ----- LEFT AREA ----- */}
+            <section style={{ minWidth: "240px" }}>
+              <LeftSidebar
+                layers={layers}
+                addLayer={addLayer}
+                removeLayer={removeLayer}
+                onSelectedLayer={onSelectedLayer}
+                selectedLayer={selectedLayer}
+                updateLayerName={updateLayerName}
+              />
+            </section>
+            {/* ----- MIDDLE AREA ----- */}
             <Box
               sx={{
                 display: "flex",
@@ -168,43 +253,28 @@ function App() {
                   `${theme.palette.background.default}`,
               }}
             >
-              <div>
-                {/* CONTAINER BOX */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: containerSize.height,
-                    width: containerSize.width,
-                    backgroundColor: "#696969",
-                    overflow: "hidden",
-                  }}
-                >
-                  <TiltBox
-                    layers={layers}
-                    selectedLayer={selectedLayer}
-                    canvasSize={canvasSize}
-                    forDesignOnly={forDesignOnly}
-                  />
-                </Box>
-                <Typography
-                  style={{
-                    textAlign: "center",
-                    color: "#888888",
-                  }}
-                >
-                  {`${containerSize.width} x ${containerSize.height}`}
-                </Typography>
+              <div
+                id="canvas"
+                style={{
+                  display: "flex",
+                  backgroundColor: "#696969",
+                  height: containerSize.height,
+                  width: containerSize.width,
+                }}
+              >
+                {/* CANVAS */}
+                <canvas ref={canvasRef} />
               </div>
             </Box>
-            {/* RIGHT SIDEBAR */}
-            <RightSidebar
-              selectedLayer={selectedLayer}
-              handleLayerSubmit={handleLayerSubmit}
-              exportDesign={exportDesign}
-              setCanvasSize={setCanvasSize}
-            />
+            {/* ----- RIGHT AREA ----- */}
+            <section style={{ minWidth: "240px" }}>
+              <RightSidebar
+                selectedLayer={selectedLayer}
+                handleLayerSubmit={handleLayerSubmit}
+                exportDesign={exportDesign}
+                setCanvasSize={setCanvasSize}
+              />
+            </section>
           </Box>
         )}
         <Analytics />
@@ -214,3 +284,32 @@ function App() {
 }
 
 export default App;
+
+{
+  /* <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: containerSize.height,
+                      width: containerSize.width,
+                      backgroundColor: "#696969",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <TiltBox
+                      layers={layers}
+                      selectedLayer={selectedLayer}
+                      canvasSize={canvasSize}
+                      forDesignOnly={forDesignOnly}
+                    />
+                  </Box>
+                  <Typography
+                    style={{
+                      textAlign: "center",
+                      color: "#888888",
+                    }}
+                  >
+                    {`${containerSize.width} x ${containerSize.height}`}
+                  </Typography> */
+}

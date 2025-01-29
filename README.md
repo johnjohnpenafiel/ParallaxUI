@@ -14,10 +14,10 @@ The user interface has been significantly upgraded from previous versions, offer
 While there is still more work to be done, the next major focus will be on enabling users to export the generated code, making it reusable in their own projects. This will mark the completion of the MVP (Minimum Viable Product), allowing future development to focus on creating a more dynamic and interactive user experience.
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-  <img src="./src/assets/Screenshot%202024-10-23%20at%2011.11.34%E2%80%AFPM.png" alt="ParallaxUI Interface Progress" width="400"/>
-  <img src="./src/assets/Screenshot%202024-10-23%20at%2011.11.16%E2%80%AFPM.png" alt="ParallaxUI Interface Progress" width="400"/>
-  <img src="./src/assets/Screenshot 2024-10-23 at 11.11.03 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
-  <img src="./src/assets/Screenshot 2024-10-23 at 11.10.54 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
+  <img src="./src/public/Screenshot%202024-10-23%20at%2011.11.34%E2%80%AFPM.png" alt="ParallaxUI Interface Progress" width="400"/>
+  <img src="./src/public/Screenshot%202024-10-23%20at%2011.11.16%E2%80%AFPM.png" alt="ParallaxUI Interface Progress" width="400"/>
+  <img src="./src/public/Screenshot 2024-10-23 at 11.11.03 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
+  <img src="./src/public/Screenshot 2024-10-23 at 11.10.54 PM.png" alt="ParallaxUI Interface Progress" width="400"/>
 </div>
 
 ## Key Features
