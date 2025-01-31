@@ -14,7 +14,6 @@ import {
 import { defaultNavElement } from "../constants";
 import { createSpecificShape } from "./shapes";
 
-// initialize fabric canvas
 export const initializeFabric = ({
   fabricRef,
   canvasRef,
@@ -47,15 +46,8 @@ export const handleCanvasMouseDown = ({
   shapeRef,
 }: CanvasMouseDown) => {
   // get pointer coordinates
-  const pointer = canvas.getPointer(options.e);
-
-  /**
-   * get target object i.e., the object that is clicked
-   * findtarget() returns the object that is clicked
-   *
-   * findTarget: http://fabricjs.com/docs/fabric.Canvas.html#findTarget
-   */
-  const target = canvas.findTarget(options.e, false);
+  const pointer = canvas.getScenePoint(options.e);
+  const target = canvas.findTarget(options.e);
 
   // set canvas drawing mode to false
   canvas.isDrawingMode = false;
@@ -64,7 +56,10 @@ export const handleCanvasMouseDown = ({
   if (selectedShapeRef.current === "freeform") {
     isDrawing.current = true;
     canvas.isDrawingMode = true;
-    canvas.freeDrawingBrush.width = 5;
+
+    if (canvas.freeDrawingBrush) {
+      canvas.freeDrawingBrush.width = 5; // ✅ Now it's safe to access
+    }
     return;
   }
 
@@ -77,14 +72,7 @@ export const handleCanvasMouseDown = ({
       target.type === "activeSelection")
   ) {
     isDrawing.current = false;
-
-    // set active object to target
     canvas.setActiveObject(target);
-
-    /**
-     * setCoords() is used to update the controls of the object
-     * setCoords: http://fabricjs.com/docs/fabric.Object.html#setCoords
-     */
     target.setCoords();
   } else {
     isDrawing.current = true;
@@ -94,12 +82,6 @@ export const handleCanvasMouseDown = ({
       selectedShapeRef.current,
       pointer as any
     );
-
-    // if shapeRef is not null, add it to canvas
-    if (shapeRef.current) {
-      // add: http://fabricjs.com/docs/fabric.Canvas.html#add
-      canvas.add(shapeRef.current);
-    }
   }
 };
 
@@ -110,7 +92,6 @@ export const handleCanvaseMouseMove = ({
   isDrawing,
   selectedShapeRef,
   shapeRef,
-  syncShapeInStorage,
 }: CanvasMouseMove) => {
   // if selected shape is freeform, return
   if (!isDrawing.current) return;
@@ -119,55 +100,57 @@ export const handleCanvaseMouseMove = ({
   canvas.isDrawingMode = false;
 
   // get pointer coordinates
-  const pointer = canvas.getPointer(options.e);
+  const pointer = canvas.getScenePoint(options.e);
 
   // depending on the selected shape, set the dimensions of the shape stored in shapeRef in previous step of handelCanvasMouseDown
   // calculate shape dimensions based on pointer coordinates
-  switch (selectedShapeRef?.current) {
-    case "rectangle":
-      shapeRef.current?.set({
-        width: pointer.x - (shapeRef.current?.left || 0),
-        height: pointer.y - (shapeRef.current?.top || 0),
-      });
-      break;
 
-    case "circle":
-      shapeRef.current.set({
-        radius: Math.abs(pointer.x - (shapeRef.current?.left || 0)) / 2,
-      });
-      break;
+  if (shapeRef.current) {
+    // Ensure the shape is added to the canvas only once when movement starts
+    if (!canvas.contains(shapeRef.current)) {
+      canvas.add(shapeRef.current);
+    }
+    switch (selectedShapeRef?.current) {
+      case "rectangle":
+        shapeRef.current?.set({
+          width: pointer.x - (shapeRef.current?.left || 0),
+          height: pointer.y - (shapeRef.current?.top || 0),
+        });
+        break;
 
-    case "triangle":
-      shapeRef.current?.set({
-        width: pointer.x - (shapeRef.current?.left || 0),
-        height: pointer.y - (shapeRef.current?.top || 0),
-      });
-      break;
+      case "circle":
+        shapeRef.current.set({
+          radius: Math.abs(pointer.x - (shapeRef.current?.left || 0)) / 2,
+        });
+        break;
 
-    case "line":
-      shapeRef.current?.set({
-        x2: pointer.x,
-        y2: pointer.y,
-      });
-      break;
+      case "triangle":
+        shapeRef.current?.set({
+          width: pointer.x - (shapeRef.current?.left || 0),
+          height: pointer.y - (shapeRef.current?.top || 0),
+        });
+        break;
 
-    case "image":
-      shapeRef.current?.set({
-        width: pointer.x - (shapeRef.current?.left || 0),
-        height: pointer.y - (shapeRef.current?.top || 0),
-      });
+      case "line":
+        shapeRef.current?.set({
+          x2: pointer.x,
+          y2: pointer.y,
+        });
+        break;
 
-    default:
-      break;
-  }
+      case "image":
+        shapeRef.current?.set({
+          width: pointer.x - (shapeRef.current?.left || 0),
+          height: pointer.y - (shapeRef.current?.top || 0),
+        });
+        break;
 
-  // render objects on canvas
-  // renderAll: http://fabricjs.com/docs/fabric.Canvas.html#renderAll
-  canvas.renderAll();
+      default:
+        break;
+    }
 
-  // sync shape in storage
-  if (shapeRef.current?.objectId) {
-    syncShapeInStorage(shapeRef.current);
+    // render objects on canvas
+    canvas.renderAll();
   }
 };
 
@@ -178,14 +161,56 @@ export const handleCanvasMouseUp = ({
   shapeRef,
   activeObjectRef,
   selectedShapeRef,
-  syncShapeInStorage,
+
   setActiveElement,
 }: CanvasMouseUp) => {
   isDrawing.current = false;
   if (selectedShapeRef.current === "freeform") return;
 
-  // sync shape in storage as drawing is stopped
-  syncShapeInStorage(shapeRef.current);
+  // If user didn't move, ensure the correct shape is created
+  if (shapeRef.current && !canvas.contains(shapeRef.current)) {
+    switch (selectedShapeRef.current) {
+      case "rectangle":
+        shapeRef.current.set({
+          width: 100,
+          height: 100,
+        });
+        break;
+
+      case "circle":
+        shapeRef.current.set({
+          radius: 50, // A circle with a diameter of 100
+        });
+        break;
+
+      case "triangle":
+        shapeRef.current.set({
+          width: 100,
+          height: 100,
+        });
+        break;
+
+      case "line":
+        shapeRef.current.set({
+          x2: (shapeRef.current.left || 0) + 100,
+          y2: (shapeRef.current.top || 0) + 100,
+        });
+        break;
+
+      case "image":
+        shapeRef.current.set({
+          width: 100,
+          height: 100,
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    canvas.add(shapeRef.current);
+    canvas.renderAll();
+  }
 
   // set everything to null
   shapeRef.current = null;
@@ -203,7 +228,6 @@ export const handleCanvasMouseUp = ({
 // update shape in storage when object is modified
 export const handleCanvasObjectModified = ({
   options,
-  syncShapeInStorage,
 }: CanvasObjectModified) => {
   const target = options.target;
   if (!target) return;
@@ -211,7 +235,7 @@ export const handleCanvasObjectModified = ({
   if (target?.type == "activeSelection") {
     // fix this
   } else {
-    syncShapeInStorage(target);
+    return;
   }
 };
 
@@ -237,7 +261,7 @@ export const handlePathCreated = ({
 export const handleCanvasObjectMoving = ({
   options,
 }: {
-  options: fabric.IEvent;
+  options: fabric.TEvent;
 }) => {
   // get target object which is moving
   const target = options.target as fabric.Object;

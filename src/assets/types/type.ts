@@ -1,4 +1,5 @@
 import { Gradient, Pattern } from "fabric/fabric-impl";
+import * as fabric from "fabric";
 
 export enum CursorMode {
   Hidden,
@@ -119,12 +120,8 @@ export type ShapesMenuProps = {
 
 export type Presence = any;
 
-export type LiveCursorProps = {
-  others: readonly User<Presence, BaseUserMeta>[];
-};
-
 export type CanvasMouseDown = {
-  options: fabric.IEvent;
+  options: fabric.TEvent;
   canvas: fabric.Canvas;
   selectedShapeRef: any;
   isDrawing: React.MutableRefObject<boolean>;
@@ -132,12 +129,11 @@ export type CanvasMouseDown = {
 };
 
 export type CanvasMouseMove = {
-  options: fabric.IEvent;
+  options: fabric.TEvent;
   canvas: fabric.Canvas;
   isDrawing: React.MutableRefObject<boolean>;
   selectedShapeRef: any;
   shapeRef: any;
-  syncShapeInStorage: (shape: fabric.Object) => void;
 };
 
 export type CanvasMouseUp = {
@@ -146,28 +142,25 @@ export type CanvasMouseUp = {
   shapeRef: any;
   activeObjectRef: React.MutableRefObject<fabric.Object | null>;
   selectedShapeRef: any;
-  syncShapeInStorage: (shape: fabric.Object) => void;
   setActiveElement: any;
 };
 
 export type CanvasObjectModified = {
-  options: fabric.IEvent;
-  syncShapeInStorage: (shape: fabric.Object) => void;
+  options: fabric.TEvent;
 };
 
 export type CanvasPathCreated = {
-  options: (fabric.IEvent & { path: CustomFabricObject<fabric.Path> }) | any;
-  syncShapeInStorage: (shape: fabric.Object) => void;
+  options: (fabric.TEvent & { path: CustomFabricObject<fabric.Path> }) | any;
 };
 
 export type CanvasSelectionCreated = {
-  options: fabric.IEvent;
+  options: fabric.TEvent;
   isEditingRef: React.MutableRefObject<boolean>;
   setElementAttributes: React.Dispatch<React.SetStateAction<Attributes>>;
 };
 
 export type CanvasObjectScaling = {
-  options: fabric.IEvent;
+  options: fabric.TEvent;
   setElementAttributes: React.Dispatch<React.SetStateAction<Attributes>>;
 };
 

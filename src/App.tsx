@@ -3,7 +3,9 @@
 import * as fabric from "fabric";
 
 import {
+  handleCanvaseMouseMove,
   handleCanvasMouseDown,
+  handleCanvasMouseUp,
   handleResize,
   initializeFabric,
 } from "./assets/lib/canvas";
@@ -26,7 +28,7 @@ import { LayerFormData } from "./components/LayerForm";
 import StartingCanvasForm from "./components/StartingCanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
-import Navbar from "./components/Toolbar";
+import Toolbar from "./components/Toolbar";
 import { ActiveElement } from "./assets/types/type";
 
 export type CanvasType = {
@@ -76,6 +78,7 @@ function App() {
     selectedShapeRef.current = elem?.value as string;
   };
 
+  const activeObjectRef = useRef<fabric.Object | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
   const isDrawing = useRef(false);
@@ -88,6 +91,27 @@ function App() {
 
     canvas.on("mouse:down", (options) => {
       handleCanvasMouseDown({
+        options,
+        canvas,
+        isDrawing,
+        shapeRef,
+        selectedShapeRef,
+      });
+    });
+
+    canvas.on("mouse:up", () => {
+      handleCanvasMouseUp({
+        canvas,
+        isDrawing,
+        shapeRef,
+        selectedShapeRef,
+        setActiveElement,
+        activeObjectRef,
+      });
+    });
+
+    canvas.on("mouse:move", (options) => {
+      handleCanvaseMouseMove({
         options,
         canvas,
         isDrawing,
@@ -264,7 +288,7 @@ function App() {
                 alignItems: "center",
               }}
             >
-              <Navbar
+              <Toolbar
                 activeElement={activeElement}
                 handleActiveElement={handleActiveElement}
               />
