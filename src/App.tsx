@@ -13,7 +13,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
-import { GlobalStyles } from "@mui/system";
+import { GlobalStyles, height } from "@mui/system";
 import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
@@ -26,6 +26,8 @@ import { LayerFormData } from "./components/LayerForm";
 import StartingCanvasForm from "./components/StartingCanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
+import Navbar from "./components/Toolbar";
+import { ActiveElement } from "./assets/types/type";
 
 export type CanvasType = {
   width: number;
@@ -62,11 +64,23 @@ function App() {
 
   // DYNAMIC CANVAS TUTORIAL START --------------------------------
 
+  const [activeElement, setActiveElement] = useState<ActiveElement>({
+    name: "",
+    value: "",
+    icon: "",
+  });
+
+  const handleActiveElement = (elem: ActiveElement) => {
+    setActiveElement(elem);
+
+    selectedShapeRef.current = elem?.value as string;
+  };
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
   const isDrawing = useRef(false);
   const shapeRef = useRef<fabric.Object | null>(null);
-  const selectedShapeRef = useRef<string | null>("rectangle");
+  const selectedShapeRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!canvasSize) return;
@@ -97,6 +111,37 @@ function App() {
       });
     };
   }, [canvasSize, canvasRef]);
+
+  // Add Dynamic Size Syncing
+  const resizeCanvas = () => {
+    if (canvasRef.current && fabricRef.current) {
+      // Update the intrinsic size (backstoreOnly: true)
+      fabricRef.current.setDimensions(
+        {
+          width: containerSize.width,
+          height: containerSize.height,
+        },
+        { backstoreOnly: true }
+      );
+
+      // Update the CSS size
+      fabricRef.current.setDimensions(
+        {
+          width: `${containerSize.width}px`,
+          height: `${containerSize.height}px`,
+        },
+        { cssOnly: true }
+      );
+
+      fabricRef.current.renderAll();
+    }
+  };
+
+  useEffect(() => {
+    if (canvasSize) {
+      resizeCanvas();
+    }
+  }, [canvasSize, containerSize]);
 
   // DYNAMIC CANVAS TUTORIAL END ------------------------------
 
@@ -177,38 +222,6 @@ function App() {
     }
   }, [canvasSize]);
 
-  // Add Dynamic Size Syncing
-
-  const resizeCanvas = () => {
-    if (canvasRef.current && fabricRef.current) {
-      // Update the intrinsic size (backstoreOnly: true)
-      fabricRef.current.setDimensions(
-        {
-          width: containerSize.width,
-          height: containerSize.height,
-        },
-        { backstoreOnly: true }
-      );
-
-      // Update the CSS size
-      fabricRef.current.setDimensions(
-        {
-          width: `${containerSize.width}px`,
-          height: `${containerSize.height}px`,
-        },
-        { cssOnly: true }
-      );
-
-      fabricRef.current.renderAll();
-    }
-  };
-
-  useEffect(() => {
-    if (canvasSize) {
-      resizeCanvas();
-    }
-  }, [canvasSize, containerSize]);
-
   // -----------------------------------------------------------------------------------------------
   return (
     <ThemeProvider theme={darkTheme}>
@@ -242,30 +255,34 @@ function App() {
               />
             </section>
             {/* ----- MIDDLE AREA ----- */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+            <section
+              style={{
                 height: "100vh",
                 width: "100%",
-                backgroundColor: (theme) =>
-                  `${theme.palette.background.default}`,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              <div
+              <Navbar
+                activeElement={activeElement}
+                handleActiveElement={handleActiveElement}
+              />
+              <Box
                 id="canvas"
-                style={{
+                sx={{
                   display: "flex",
-                  backgroundColor: "#696969",
+                  alignItems: "center",
+                  justifyContent: "center",
                   height: containerSize.height,
                   width: containerSize.width,
+                  backgroundColor: "#696969",
                 }}
               >
                 {/* CANVAS */}
                 <canvas ref={canvasRef} />
-              </div>
-            </Box>
+              </Box>
+            </section>
             {/* ----- RIGHT AREA ----- */}
             <section style={{ minWidth: "240px" }}>
               <RightSidebar
