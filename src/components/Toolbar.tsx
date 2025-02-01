@@ -29,7 +29,6 @@ const Toolbar = ({
         px: 2,
         color: "#fff",
         borderRadius: 2,
-        my: 5,
       }}
     >
       <Box

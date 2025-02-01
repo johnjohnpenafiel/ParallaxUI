@@ -42,15 +42,17 @@ export const createCircle = (pointer: PointerEvent) => {
   } as any);
 };
 
-export const createLine = (pointer: PointerEvent) => {
+export const createLine = (
+  pointer: PointerEvent
+): CustomFabricObject<fabric.Line> => {
   return new fabric.Line(
     [pointer.x, pointer.y, pointer.x + 100, pointer.y + 100],
     {
       stroke: "#aabbcc",
       strokeWidth: 2,
       objectId: uuidv4(),
-    } as CustomFabricObject<fabric.Line>
-  );
+    }
+  ) as CustomFabricObject<fabric.Line>;
 };
 
 export const createText = (pointer: PointerEvent, text: string) => {
@@ -62,7 +64,7 @@ export const createText = (pointer: PointerEvent, text: string) => {
     fontSize: 36,
     fontWeight: "400",
     objectId: uuidv4(),
-  } as fabric.ITextOptions);
+  } as fabric.TOptions<fabric.IText>);
 };
 
 export const createSpecificShape = (
@@ -99,17 +101,19 @@ export const handleImageUpload = ({
   const reader = new FileReader();
 
   reader.onload = () => {
-    fabric.Image.fromURL(reader.result as string, (img) => {
+    // ✅ Corrected: Use `LoadImageOptions` correctly
+    fabric.FabricImage.fromURL(reader.result as string, undefined, {
+      signal: new AbortController().signal, // Required options parameter
+    }).then((img: fabric.FabricImage) => {
       img.scaleToWidth(200);
       img.scaleToHeight(200);
 
       canvas.current.add(img);
 
-      // @ts-ignore
-      img.objectId = uuidv4();
+      // Safely add custom properties
+      (img as any).objectId = uuidv4();
 
       shapeRef.current = img;
-
       syncShapeInStorage(img);
       canvas.current.requestRenderAll();
     });
@@ -160,27 +164,21 @@ export const modifyShape = ({
   syncShapeInStorage(selectedElement);
 };
 
-export const bringElement = ({
-  canvas,
-  direction,
-  syncShapeInStorage,
-}: ElementDirection) => {
+export const bringElement = ({ canvas, direction }: ElementDirection) => {
   if (!canvas) return;
 
-  // get the selected element. If there is no selected element or there are more than one selected element, return
+  // Get the selected element. If none is selected or multiple elements are selected, return
   const selectedElement = canvas.getActiveObject();
 
   if (!selectedElement || selectedElement?.type === "activeSelection") return;
 
-  // bring the selected element to the front
+  // ✅ Use `moveObjectTo` instead of `bringToFront` or `sendToBack`
   if (direction === "front") {
-    canvas.bringToFront(selectedElement);
+    canvas.moveObjectTo(selectedElement, canvas._objects.length - 1); // Move to front
   } else if (direction === "back") {
-    canvas.sendToBack(selectedElement);
+    canvas.moveObjectTo(selectedElement, 0); // Move to back
   }
 
-  // canvas.renderAll();
-  syncShapeInStorage(selectedElement);
-
-  // re-render all objects on the canvas
+  // Sync and re-render
+  canvas.requestRenderAll();
 };

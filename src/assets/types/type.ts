@@ -64,8 +64,8 @@ export type ActiveElement = {
   icon: string;
 } | null;
 
-export interface CustomFabricObject<T extends fabric.Object>
-  extends fabric.Object {
+export interface CustomFabricObject<T extends fabric.FabricObject>
+  extends fabric.FabricObject {
   objectId?: string;
 }
 
@@ -80,7 +80,6 @@ export type ModifyShape = {
 export type ElementDirection = {
   canvas: fabric.Canvas;
   direction: string;
-  syncShapeInStorage: (shape: fabric.Object) => void;
 };
 
 export type ImageUpload = {

@@ -15,7 +15,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
-import { GlobalStyles, height } from "@mui/system";
+import { display, GlobalStyles, height } from "@mui/system";
 import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
@@ -30,6 +30,7 @@ import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
 import Toolbar from "./components/Toolbar";
 import { ActiveElement } from "./assets/types/type";
+import { handleDelete } from "./assets/lib/key-events";
 
 export type CanvasType = {
   width: number;
@@ -281,30 +282,45 @@ function App() {
             {/* ----- MIDDLE AREA ----- */}
             <section
               style={{
-                height: "100vh",
-                width: "100%",
                 display: "flex",
                 flexDirection: "column",
+                width: "100%",
+                height: "100vh",
                 alignItems: "center",
               }}
             >
-              <Toolbar
-                activeElement={activeElement}
-                handleActiveElement={handleActiveElement}
-              />
               <Box
-                id="canvas"
                 sx={{
+                  display: "flex",
+                  position: "absolute",
+                  py: 5,
+                }}
+              >
+                <Toolbar
+                  activeElement={activeElement}
+                  handleActiveElement={handleActiveElement}
+                />
+              </Box>
+              <Box
+                style={{
+                  height: "100%",
+                  width: "100%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: containerSize.height,
-                  width: containerSize.width,
-                  backgroundColor: "#696969",
                 }}
               >
-                {/* CANVAS */}
-                <canvas ref={canvasRef} />
+                <Box
+                  id="canvas"
+                  sx={{
+                    height: containerSize.height,
+                    width: containerSize.width,
+                    backgroundColor: "#696969",
+                  }}
+                >
+                  {/* CANVAS */}
+                  <canvas ref={canvasRef} />
+                </Box>
               </Box>
             </section>
             {/* ----- RIGHT AREA ----- */}
