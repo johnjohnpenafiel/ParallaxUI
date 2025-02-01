@@ -9,12 +9,9 @@ interface Props {
   forDesignOnly?: boolean;
 }
 
-const TiltBox = ({
-  layers,
-  selectedLayer,
-  canvasSize,
-  forDesignOnly,
-}: Props) => {
+const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
+  // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
+  const forDesignOnly = true;
   return (
     <Tilt
       perspective={1000} // 1000 default value - how far the object wrapped is away from the user.

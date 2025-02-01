@@ -1,7 +1,21 @@
-// TUTORIAL IMPORTS START
+import { useEffect, useRef, useState } from "react";
 
 import * as fabric from "fabric";
+import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
+import { GlobalStyles } from "@mui/system";
+import { Analytics } from "@vercel/analytics/react";
 
+import "./App.css";
+import LeftSidebar from "./components/LeftSidebar";
+import RightSidebar from "./components/RightSidebar";
+import TiltBox from "./components/TiltBox";
+import { darkTheme } from "./theme";
+import { LayerFormData } from "./components/LayerForm";
+import StartingCanvasForm from "./components/StartingCanvasForm";
+import Toolbar from "./components/Toolbar";
+import { calculateMaxSize } from "./utils/calculateMaxSize";
+import { MobileScreen } from "./utils/MobileScreen";
+import { ActiveElement } from "./assets/types/type";
 import {
   handleCanvaseMouseMove,
   handleCanvasMouseDown,
@@ -10,27 +24,7 @@ import {
   initializeFabric,
 } from "./assets/lib/canvas";
 
-// TUTORIAL IMPORTS END
-
-import { useEffect, useRef, useState } from "react";
-
-import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
-import { display, GlobalStyles, height } from "@mui/system";
-import { Analytics } from "@vercel/analytics/react";
-
-import LeftSidebar from "./components/LeftSidebar";
-import RightSidebar from "./components/RightSidebar";
-import TiltBox from "./components/TiltBox";
-import "./App.css";
-
-import { darkTheme } from "./theme"; // lightTheme
-import { LayerFormData } from "./components/LayerForm";
-import StartingCanvasForm from "./components/StartingCanvasForm";
-import { calculateMaxSize } from "./utils/calculateMaxSize";
-import { MobileScreen } from "./utils/MobileScreen";
-import Toolbar from "./components/Toolbar";
-import { ActiveElement } from "./assets/types/type";
-import { handleDelete } from "./assets/lib/key-events";
+// ----- TYPES ----- //
 
 export type CanvasType = {
   width: number;
@@ -48,15 +42,12 @@ export type LayerType = {
   y: number;
 };
 
-// FRONTEND URLs in App.tsx [exportDesign function],
-const production_base_url = "http://localhost:5173/";
-
-// SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
-const forDesignOnly = true;
+// ---------- ENVIROMENT VARIABLES ---------- //
+const WEB_URL = import.meta.env.VITE_WEB_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
-  // const [darkMode, setDarkMode] = useState(true);
-
+  // ---------- APP STATE ---------- //
   const [canvasSize, setCanvasSize] = useState<CanvasType | null>(null);
   const [layers, setLayers] = useState<LayerType[]>([]);
   const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
@@ -64,20 +55,13 @@ function App() {
     width: 0,
     height: 0,
   });
-
-  // DYNAMIC CANVAS TUTORIAL START --------------------------------
-
   const [activeElement, setActiveElement] = useState<ActiveElement>({
     name: "",
     value: "",
     icon: "",
   });
 
-  const handleActiveElement = (elem: ActiveElement) => {
-    setActiveElement(elem);
-
-    selectedShapeRef.current = elem?.value as string;
-  };
+  // ---------- APP REFERENCES ---------- //
 
   const activeObjectRef = useRef<fabric.Object | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -86,10 +70,21 @@ function App() {
   const shapeRef = useRef<fabric.Object | null>(null);
   const selectedShapeRef = useRef<string | null>(null);
 
+  // ---------- APP FUNCTIONS ---------- //
+
+  // SET THE ACTIVE ELEMENT IN THE TOOLBAR AND PERFORM THE ACTION BASED ON THE SELECTED ELEMENT //
+  const handleActiveElement = (elem: ActiveElement) => {
+    setActiveElement(elem);
+
+    selectedShapeRef.current = elem?.value as string;
+  };
+
+  // INITIALIZE THE FABRIC CANVAS //
   useEffect(() => {
     if (!canvasSize) return;
     const canvas = initializeFabric({ canvasRef, fabricRef });
 
+    //Mouse event listeners
     canvas.on("mouse:down", (options) => {
       handleCanvasMouseDown({
         options,
@@ -121,14 +116,16 @@ function App() {
       });
     });
 
+    //Resize the canvas when user resizes the window
     window.addEventListener("resize", () => {
       handleResize({ canvas: fabricRef.current });
     });
 
     return () => {
+      //Clear canvas and disposes all event listeners
       canvas.dispose();
 
-      // remove the event listeners
+      //Remove event listeners
       window.removeEventListener("resize", () => {
         handleResize({
           canvas: null,
@@ -137,10 +134,10 @@ function App() {
     };
   }, [canvasSize, canvasRef]);
 
-  // Add Dynamic Size Syncing
+  // ADD DYNAMIC SIZE SYNCING //
   const resizeCanvas = () => {
     if (canvasRef.current && fabricRef.current) {
-      // Update the intrinsic size (backstoreOnly: true)
+      //Update the intrinsic size (backstoreOnly: true)
       fabricRef.current.setDimensions(
         {
           width: containerSize.width,
@@ -149,7 +146,7 @@ function App() {
         { backstoreOnly: true }
       );
 
-      // Update the CSS size
+      //Update the css
       fabricRef.current.setDimensions(
         {
           width: `${containerSize.width}px`,
@@ -162,14 +159,14 @@ function App() {
     }
   };
 
+  // UPDATE THE CANVAS //
   useEffect(() => {
     if (canvasSize) {
       resizeCanvas();
     }
   }, [canvasSize, containerSize]);
 
-  // DYNAMIC CANVAS TUTORIAL END ------------------------------
-
+  // ADD LAYER FUNCTION //
   const addLayer = (): void => {
     const layerCount = layers.length + 1;
     const newLayer: LayerType = {
@@ -186,6 +183,7 @@ function App() {
     setSelectedLayer(newLayer);
   };
 
+  // UPDATE LAYER NAME FUNCTION //
   const updateLayerName = (uid: number, newName: string) => {
     setLayers((prevLayers) =>
       prevLayers.map((layer) =>
@@ -194,14 +192,17 @@ function App() {
     );
   };
 
+  // DELETE LAYER FUNCTION //
   const removeLayer = (uid: number): void => {
     setLayers(layers.filter((layer: LayerType) => layer.uid !== uid));
   };
 
+  // HIGHLIGHT SELECTED LAYER FUNCTION //
   const onSelectedLayer = (layer: LayerType) => {
     setSelectedLayer(layer);
   };
 
+  // UPDATE LAYER FUNCTION //
   const handleLayerSubmit = (uid: number, data: LayerFormData) => {
     setLayers((prevLayers) =>
       prevLayers.map((layer) =>
@@ -210,14 +211,12 @@ function App() {
     );
   };
 
-  // EXPORT FUNCTION
+  // EXPORT DESIGN FUNCTION //
   const exportDesign = async () => {
-    console.log(`VITE API URL: ${import.meta.env.VITE_API_URL}/designs`);
-
     try {
       const designData = { layers, containerSize, canvasSize };
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/designs`, {
+      const response = await fetch(`${API_URL}/designs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: designData }),
@@ -227,27 +226,27 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="${production_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="${WEB_URL}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;
     }
   };
 
-  // CALCULATES CONTAINER SIZE DEPENDING ON CANVAS WIDTH AND HEIGHT
+  // CALCULATES CONTAINER SIZE DEPENDING ON CANVAS WIDTH AND HEIGHT //
   useEffect(() => {
     if (canvasSize) {
       const maxSize = calculateMaxSize(
         canvasSize.width,
         canvasSize.height,
-        20, // Default tiltMaxAngleX
-        20 // Default tiltMaxAngleY
+        20, //Default tiltMaxAngleX
+        20 //Default tiltMaxAngleY
       );
       setContainerSize(maxSize);
     }
   }, [canvasSize]);
 
-  // -----------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------------------------------------------- //
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -262,7 +261,6 @@ function App() {
         <MobileScreen />
       </div>
       <div className="desktop-only">
-        {/* ----- CONDITIONAL RENDERING ----- */}
         {/* ----- CANVAS CONFIGURATION ----- */}
         {!canvasSize ? (
           <StartingCanvasForm setCanvasSize={setCanvasSize} />
@@ -358,7 +356,6 @@ export default App;
                       layers={layers}
                       selectedLayer={selectedLayer}
                       canvasSize={canvasSize}
-                      forDesignOnly={forDesignOnly}
                     />
                   </Box>
                   <Typography
