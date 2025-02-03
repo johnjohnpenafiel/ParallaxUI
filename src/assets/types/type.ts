@@ -67,6 +67,7 @@ export type ActiveElement = {
 export interface CustomFabricObject<T extends fabric.FabricObject>
   extends fabric.FabricObject {
   objectId?: string;
+  objectType?: string;
 }
 
 export type ModifyShape = {

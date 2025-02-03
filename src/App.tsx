@@ -40,6 +40,7 @@ export type LayerType = {
   depth: number;
   x: number;
   y: number;
+  objectType: string;
 };
 
 // ---------- ENVIROMENT VARIABLES ---------- //
@@ -116,6 +117,65 @@ function App() {
       });
     });
 
+    canvas.on("object:added", (options) => {
+      // The newly created shape
+      const fabricObject = options.target;
+
+      // Extract the shape's properties using toJSON()
+      const shapeData = fabricObject.toJSON();
+      console.log((fabricObject as any).objectId);
+
+      // Map the properties to your layer state structure.
+      const newLayer = {
+        uid: (fabricObject as any).objectId,
+        name: `Layer ${layers.length + 1}`, // You can customize the naming
+        width: shapeData.width,
+        height: shapeData.height,
+        color: shapeData.fill, // assuming fill represents the color
+        depth: 0, // default depth or extract if stored in your fabric object
+        x: shapeData.left, // Fabric uses "left" for x
+        y: shapeData.top, // and "top" for y
+        objectType: (fabricObject as any).objectType,
+      };
+
+      // Debug
+      console.log("New Layer Measurments at creation");
+      console.log(newLayer.uid);
+      console.log(newLayer.name);
+      console.log(newLayer.width);
+      console.log(newLayer.height);
+      console.log(newLayer.color);
+      console.log(newLayer.depth);
+      console.log(newLayer.x);
+      console.log(newLayer.y);
+      console.log(newLayer.objectType);
+
+      // Update your state with the new layer
+      setLayers((prevLayers) => [...prevLayers, newLayer]);
+      setSelectedLayer(newLayer);
+    });
+
+    canvas.on("object:modified", (options) => {
+      const fabricObject = options.target;
+      const id = (fabricObject as any).objectId; // Assuming it was set in shapes.ts.
+      const shapeData = fabricObject.toJSON();
+
+      setLayers((prevLayers) =>
+        prevLayers.map((layer) =>
+          layer.uid === id
+            ? {
+                ...layer,
+                width: shapeData.width,
+                height: shapeData.height,
+                color: shapeData.fill,
+                x: shapeData.left,
+                y: shapeData.top,
+              }
+            : layer
+        )
+      );
+    });
+
     //Resize the canvas when user resizes the window
     window.addEventListener("resize", () => {
       handleResize({ canvas: fabricRef.current });
@@ -165,23 +225,6 @@ function App() {
       resizeCanvas();
     }
   }, [canvasSize, containerSize]);
-
-  // ADD LAYER FUNCTION //
-  const addLayer = (): void => {
-    const layerCount = layers.length + 1;
-    const newLayer: LayerType = {
-      uid: Date.now(),
-      name: `Layer ${layerCount}`,
-      height: 100,
-      width: 100,
-      color: "gray",
-      depth: 10,
-      x: 0,
-      y: 0,
-    };
-    setLayers([...layers, newLayer]);
-    setSelectedLayer(newLayer);
-  };
 
   // UPDATE LAYER NAME FUNCTION //
   const updateLayerName = (uid: number, newName: string) => {
@@ -270,7 +313,6 @@ function App() {
             <section style={{ minWidth: "240px" }}>
               <LeftSidebar
                 layers={layers}
-                addLayer={addLayer}
                 removeLayer={removeLayer}
                 onSelectedLayer={onSelectedLayer}
                 selectedLayer={selectedLayer}
@@ -318,6 +360,34 @@ function App() {
                 >
                   {/* CANVAS */}
                   <canvas ref={canvasRef} />
+                  {/* TILTBOX */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      height: containerSize.height,
+                      width: containerSize.width,
+                      backgroundColor: "#696969",
+                      overflow: "hidden",
+                      borderTop: 1,
+                    }}
+                  >
+                    <TiltBox
+                      layers={layers}
+                      selectedLayer={selectedLayer}
+                      canvasSize={canvasSize}
+                      containerSize={containerSize}
+                    />
+                  </Box>
+                  <Typography
+                    style={{
+                      textAlign: "center",
+                      color: "#888888",
+                    }}
+                  >
+                    {`${containerSize.width} x ${containerSize.height}`}
+                  </Typography>
                 </Box>
               </Box>
             </section>
@@ -340,30 +410,46 @@ function App() {
 
 export default App;
 
-{
-  /* <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      height: containerSize.height,
-                      width: containerSize.width,
-                      backgroundColor: "#696969",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <TiltBox
-                      layers={layers}
-                      selectedLayer={selectedLayer}
-                      canvasSize={canvasSize}
-                    />
-                  </Box>
-                  <Typography
-                    style={{
-                      textAlign: "center",
-                      color: "#888888",
-                    }}
-                  >
-                    {`${containerSize.width} x ${containerSize.height}`}
-                  </Typography> */
-}
+// TILTBOX
+// <Box
+//   sx={{
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     height: containerSize.height,
+//     width: containerSize.width,
+//     backgroundColor: "#696969",
+//     overflow: "hidden",
+//   }}
+// >
+//   <TiltBox
+//     layers={layers}
+//      selectedLayer={selectedLayer}
+//     canvasSize={canvasSize}
+//   />
+// </Box>
+// <Typography
+//   style={{
+//     textAlign: "center",
+//     color: "#888888",
+//   }}
+// >
+//   {`${containerSize.width} x ${containerSize.height}`}
+//  </Typography>
+
+// // ADD LAYER FUNCTION //
+// const addLayer = (): void => {
+//   const layerCount = layers.length + 1;
+//   const newLayer: LayerType = {
+//     uid: Date.now(),
+//     name: `Layer ${layerCount}`,
+//     height: 100,
+//     width: 100,
+//     color: "gray",
+//     depth: 10,
+//     x: 0,
+//     y: 0,
+//   };
+//   setLayers([...layers, newLayer]);
+//   setSelectedLayer(newLayer);
+// };

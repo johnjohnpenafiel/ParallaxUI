@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AnimationIcon from "@mui/icons-material/Animation";
 
 import { LayerType } from "../App";
@@ -8,7 +8,6 @@ import LayerList from "./LayerList";
 interface Props {
   layers: LayerType[];
   selectedLayer: LayerType | null;
-  addLayer: () => void;
   removeLayer: (uid: number) => void;
   onSelectedLayer: (layer: LayerType) => void;
   updateLayerName: (uid: number, newName: string) => void;
@@ -17,7 +16,6 @@ interface Props {
 const LeftSidebar = ({
   layers,
   selectedLayer,
-  addLayer,
   removeLayer,
   onSelectedLayer,
   updateLayerName,
@@ -53,16 +51,6 @@ const LeftSidebar = ({
           Parallax
         </Typography>
       </Box>
-      {/* ADD LAYER BUTTON */}
-      <Button
-        variant="contained"
-        color="secondary"
-        fullWidth
-        sx={{ textTransform: "none", marginBottom: 2.5 }}
-        onClick={addLayer}
-      >
-        Add Layer
-      </Button>
       {/* LAYER LIST */}
       <LayerList
         layers={layers}

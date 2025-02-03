@@ -7,9 +7,15 @@ interface Props {
   selectedLayer: LayerType | null;
   canvasSize: CanvasType;
   forDesignOnly?: boolean;
+  containerSize: CanvasType;
 }
 
-const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
+const TiltBox = ({
+  layers,
+  selectedLayer,
+  canvasSize,
+  containerSize,
+}: Props) => {
   // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
   const forDesignOnly = true;
   return (
@@ -21,8 +27,8 @@ const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
       transitionSpeed={400} // 400 default value - ease in/out speed
       tiltReverse={false} // Reverse tilt
       style={{
-        height: `${canvasSize.height}px`,
-        width: `${canvasSize.width}px`,
+        height: `${containerSize.height}px`,
+        width: `${containerSize.width}px`,
         backgroundColor: "transparent",
         transformStyle: "preserve-3d",
         position: "relative",
@@ -45,10 +51,10 @@ const TiltBox = ({ layers, selectedLayer, canvasSize }: Props) => {
                   ? "0px 0px 15px rgba(65, 105, 225, 0.5)"
                   : "none",
               transform: `
-              translateX(${layer.x}px)
-              translateY(${layer.y}px)
-              translateZ(${layer.depth}px)
-              `,
+            translateX(${layer.x}px)
+            translateY(${layer.y}px)
+            translateZ(${layer.depth}px)
+            `,
             }}
           />
         );

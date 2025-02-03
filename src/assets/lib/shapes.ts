@@ -16,6 +16,7 @@ export const createRectangle = (pointer: PointerEvent) => {
     height: 100,
     fill: "#aabbcc",
     objectId: uuidv4(),
+    objectType: "rectangle",
   } as CustomFabricObject<fabric.Rect>);
 
   return rect;
@@ -29,6 +30,7 @@ export const createTriangle = (pointer: PointerEvent) => {
     height: 100,
     fill: "#aabbcc",
     objectId: uuidv4(),
+    objectType: "triangle",
   } as CustomFabricObject<fabric.Triangle>);
 };
 
@@ -39,6 +41,7 @@ export const createCircle = (pointer: PointerEvent) => {
     radius: 100,
     fill: "#aabbcc",
     objectId: uuidv4(),
+    objectType: "circle",
   } as any);
 };
 
@@ -51,6 +54,7 @@ export const createLine = (
       stroke: "#aabbcc",
       strokeWidth: 2,
       objectId: uuidv4(),
+      objectType: "line",
     }
   ) as CustomFabricObject<fabric.Line>;
 };
@@ -64,6 +68,7 @@ export const createText = (pointer: PointerEvent, text: string) => {
     fontSize: 36,
     fontWeight: "400",
     objectId: uuidv4(),
+    objectType: "text",
   } as fabric.TOptions<fabric.IText>);
 };
 
