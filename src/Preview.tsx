@@ -18,8 +18,22 @@ function Preview() {
   useEffect(() => {
     document.body.style.margin = "0";
     document.body.style.padding = "0";
+    document.body.style.backgroundColor = "rgba(0, 0, 0, 0)";
     document.documentElement.style.margin = "0";
     document.documentElement.style.padding = "0";
+    document.documentElement.style.backgroundColor = "rgba(0, 0, 0, 0)";
+  }, []);
+
+  // FIX: Remove white background
+  useEffect(() => {
+    const metaTag = document.createElement("meta");
+    metaTag.name = "color-scheme";
+    metaTag.content = "light dark";
+    document.head.prepend(metaTag);
+
+    return () => {
+      document.head.removeChild(metaTag);
+    };
   }, []);
 
   // FETCH DESIGN DATA FROM BACKEND
@@ -43,7 +57,10 @@ function Preview() {
     if (id) fetchDesign();
   }, [id]);
 
-  if (!design) return <div>Loading...</div>;
+  if (!design)
+    return (
+      <div style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}>Loading...</div>
+    );
 
   const { layers, containerSize, canvasSize } = design;
 
@@ -55,6 +72,7 @@ function Preview() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0)",
       }}
     >
       {/* not passing forDesignOnly prop so it is taken as a false/undefined */}
