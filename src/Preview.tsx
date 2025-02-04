@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import TiltBox from "./components/TiltBox";
 
@@ -59,7 +60,17 @@ function Preview() {
 
   if (!design)
     return (
-      <div style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}>Loading...</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100vh",
+          height: "100vh",
+        }}
+      >
+        <ClipLoader color="silver" size={50}></ClipLoader>
+      </div>
     );
 
   const { layers, containerSize, canvasSize } = design;
