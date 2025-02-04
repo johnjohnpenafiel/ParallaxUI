@@ -24,7 +24,7 @@ function Preview() {
     document.documentElement.style.backgroundColor = "rgba(0, 0, 0, 0)";
   }, []);
 
-  // FIX: Remove white background
+  // FIX: REMOVE WHITE BACKGROUND TO BE TRANSPARENT
   useEffect(() => {
     const metaTag = document.createElement("meta");
     metaTag.name = "color-scheme";
