@@ -309,7 +309,7 @@ function App() {
           <StartingCanvasForm setCanvasSize={setCanvasSize} />
         ) : (
           <Box sx={{ display: "flex" }}>
-            {/* ----- LEFT AREA ----- */}
+            {/* ----- LEFT SIDEBAR ----- */}
             <section style={{ minWidth: "240px" }}>
               <LeftSidebar
                 layers={layers}
@@ -319,7 +319,7 @@ function App() {
                 updateLayerName={updateLayerName}
               />
             </section>
-            {/* ----- MIDDLE AREA ----- */}
+            {/* ----- MIDDLE CANVAS AREA ----- */}
             <section
               style={{
                 display: "flex",
@@ -358,7 +358,7 @@ function App() {
                     backgroundColor: "#696969",
                   }}
                 >
-                  {/* CANVAS */}
+                  {/* DYNAMIC CANVAS */}
                   <canvas ref={canvasRef} />
                   {/* TILTBOX */}
                   <Box

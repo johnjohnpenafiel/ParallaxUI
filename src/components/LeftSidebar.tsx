@@ -48,7 +48,7 @@ const LeftSidebar = ({
             letterSpacing: ".1rem",
           }}
         >
-          Parallax
+          Parallax UI
         </Typography>
       </Box>
       {/* LAYER LIST */}
