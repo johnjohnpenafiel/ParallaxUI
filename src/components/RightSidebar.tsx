@@ -40,7 +40,7 @@ const RightSidebar = ({
         right: 0,
         top: 0,
         height: "100vh",
-        width: "240px",
+        width: "350px",
         borderLeft: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
         backgroundColor: (theme) => `${theme.palette.primary.main}`,
         overflow: "hidden",
@@ -75,9 +75,7 @@ const RightSidebar = ({
           {/* LAYER CONFIGURATION */}
           <LayerForm
             selectedLayer={selectedLayer}
-            handleLayerSubmit={(data) =>
-              handleLayerSubmit(selectedLayer.uid, data)
-            }
+            handleLayerSubmit={handleLayerSubmit}
           />
           {/* EXPORT MODAL */}
           <ExportModal

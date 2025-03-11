@@ -1,9 +1,18 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { LayerType } from "../App";
 
-import { Box, Divider, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  TextField,
+  Typography,
+  Slider,
+  Input,
+  Stack,
+  InputAdornment,
+} from "@mui/material";
 
 export type LayerFormData = {
   height: number;
@@ -15,14 +24,13 @@ export type LayerFormData = {
 };
 
 interface Props {
-  handleLayerSubmit: (data: LayerFormData) => void;
+  handleLayerSubmit: (uid: number, data: LayerFormData) => void;
   selectedLayer: LayerType;
 }
 
 const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
-  const { register, handleSubmit, reset, getValues } = useForm<LayerFormData>(
-    {}
-  );
+  const { register, handleSubmit, reset, getValues, setValue, watch } =
+    useForm<LayerFormData>({});
 
   useEffect(() => {
     reset({
@@ -34,6 +42,8 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
       y: selectedLayer.y || 0,
     });
   }, [selectedLayer, reset]);
+
+  const xValue = Number(watch("x"));
 
   const handleKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -56,7 +66,20 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
         y: Number(formData.y),
       };
 
-      handleLayerSubmit(updatedData);
+      handleLayerSubmit(selectedLayer.uid, updatedData);
+      reset(updatedData);
+    }
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    if (typeof newValue === "number") {
+      setValue("x", newValue);
+      const formData = getValues();
+      const updatedData: LayerFormData = {
+        ...formData,
+        x: newValue,
+      };
+      handleLayerSubmit(selectedLayer.uid, updatedData);
       reset(updatedData);
     }
   };
@@ -66,13 +89,13 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
       <Box
         component="form"
         onSubmit={handleSubmit((data) => {
-          handleLayerSubmit(data);
+          handleLayerSubmit(selectedLayer.uid, data);
           reset();
         })}
       >
         <Divider />
 
-        {/* Position Section Starts */}
+        {/* POSITION SECTION */}
         <Box sx={{ my: 3 }}>
           <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
             Position
@@ -81,28 +104,57 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
           <Box
             sx={{
               display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Box>
-              <TextField
-                sx={{ width: "9ch", mr: 1 }}
-                size="small"
-                defaultValue={selectedLayer.x}
-                label="X"
-                {...register("x")}
-                id="x"
-                type="number"
-                slotProps={{
-                  input: {
-                    onKeyDown: (e) =>
-                      handleKeyPress(
-                        e as React.KeyboardEvent<HTMLInputElement>,
-                        "x"
-                      ),
-                  },
-                }}
-              />
+            {/* X AXIS */}
+            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                sx={{ width: "100%", px: 3 }}
+              >
+                <Slider
+                  color="secondary"
+                  value={xValue || selectedLayer.x}
+                  onChange={handleSliderChange}
+                  max={500}
+                  min={0}
+                />
+                <Input
+                  size="small"
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <Typography
+                        sx={{
+                          fontSize: 15,
+                          pb: 0.5,
+                        }}
+                      >
+                        X
+                      </Typography>
+                    </InputAdornment>
+                  }
+                  defaultValue={xValue || selectedLayer.x}
+                  {...register("x")}
+                  id="x"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  sx={{ width: "100px" }}
+                  slotProps={{
+                    input: {
+                      onKeyDown: (e) =>
+                        handleKeyPress(
+                          e as React.KeyboardEvent<HTMLInputElement>,
+                          "x"
+                        ),
+                    },
+                  }}
+                />
+              </Stack>
             </Box>
+            {/* Y AXIS */}
             <Box>
               <TextField
                 sx={{ width: "9ch" }}
@@ -127,6 +179,7 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
 
           <Typography sx={{ my: 2, fontSize: 10 }}>Depth</Typography>
           <Box>
+            {/* Z AXIS */}
             <TextField
               sx={{ width: "9ch" }}
               size="small"
@@ -147,15 +200,15 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             />
           </Box>
         </Box>
-        {/* Position Section Ends */}
         <Divider />
-        {/* Layout Section Starts */}
+        {/* LAYOUT SECTION */}
         <Box sx={{ my: 2 }}>
           <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
             Layout
           </Typography>
           <Typography sx={{ my: 2, fontSize: 10 }}>Dimensions</Typography>
           <Box sx={{ display: "flex" }}>
+            {/* WIDTH */}
             <Box>
               <TextField
                 sx={{ width: "9ch", mr: 1 }}
@@ -176,6 +229,7 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
                 }}
               />
             </Box>
+            {/* HEIGHT */}
             <Box>
               <TextField
                 sx={{ width: "9ch" }}
@@ -198,15 +252,16 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             </Box>
           </Box>
         </Box>
-        {/* Layout Section Ends */}
+
         <Divider />
-        {/* Appearance Sections Starts */}
+        {/* APPEARANCE SECTION */}
         <Box sx={{ my: 2 }}>
           <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
             Appearance
           </Typography>
           <Typography sx={{ my: 2, fontSize: 10 }}>Colors</Typography>
           <Box>
+            {/* COLOR */}
             <Box>
               <TextField
                 sx={{ width: "9ch" }}
@@ -229,8 +284,6 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
             </Box>
           </Box>
         </Box>
-
-        {/* Appearance Sections Starts */}
       </Box>
     </Box>
   );
