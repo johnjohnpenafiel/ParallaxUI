@@ -44,6 +44,8 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
   }, [selectedLayer, reset]);
 
   const xValue = Number(watch("x"));
+  const yValue = Number(watch("y"));
+  const zValue = Number(watch("depth"));
 
   const handleKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -71,13 +73,17 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
     }
   };
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+  const handleSliderChange = (
+    event: Event,
+    newValue: number | number[],
+    axis: keyof LayerFormData
+  ) => {
     if (typeof newValue === "number") {
-      setValue("x", newValue);
+      setValue(axis, newValue);
       const formData = getValues();
       const updatedData: LayerFormData = {
         ...formData,
-        x: newValue,
+        [axis]: newValue,
       };
       handleLayerSubmit(selectedLayer.uid, updatedData);
       reset(updatedData);
@@ -118,7 +124,7 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
                 <Slider
                   color="secondary"
                   value={xValue || selectedLayer.x}
-                  onChange={handleSliderChange}
+                  onChange={(e, val) => handleSliderChange(e, val, "x")}
                   max={500}
                   min={0}
                 />
@@ -155,49 +161,85 @@ const LayerForm = ({ handleLayerSubmit, selectedLayer }: Props) => {
               </Stack>
             </Box>
             {/* Y AXIS */}
-            <Box>
-              <TextField
-                sx={{ width: "9ch" }}
-                size="small"
-                defaultValue={selectedLayer.y}
-                label="Y"
-                {...register("y")}
-                id="y"
-                type="number"
-                slotProps={{
-                  input: {
-                    onKeyDown: (e) =>
-                      handleKeyPress(
-                        e as React.KeyboardEvent<HTMLInputElement>,
-                        "y"
-                      ),
-                  },
-                }}
-              />
+            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                sx={{ width: "100%", px: 3 }}
+              >
+                <Slider
+                  color="secondary"
+                  value={yValue || selectedLayer.y}
+                  onChange={(e, val) => handleSliderChange(e, val, "y")}
+                  max={500}
+                  min={0}
+                />
+                <Input
+                  size="small"
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <Typography sx={{ fontSize: 15, pb: 0.5 }}>Y</Typography>
+                    </InputAdornment>
+                  }
+                  defaultValue={yValue || selectedLayer.y}
+                  {...register("y")}
+                  id="y"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  sx={{ width: "100px" }}
+                  slotProps={{
+                    input: {
+                      onKeyDown: (e) =>
+                        handleKeyPress(
+                          e as React.KeyboardEvent<HTMLInputElement>,
+                          "y"
+                        ),
+                    },
+                  }}
+                />
+              </Stack>
             </Box>
-          </Box>
-
-          <Typography sx={{ my: 2, fontSize: 10 }}>Depth</Typography>
-          <Box>
-            {/* Z AXIS */}
-            <TextField
-              sx={{ width: "9ch" }}
-              size="small"
-              defaultValue={selectedLayer.depth}
-              label="Z"
-              {...register("depth")}
-              id="depth"
-              type="number"
-              slotProps={{
-                input: {
-                  onKeyDown: (e) =>
-                    handleKeyPress(
-                      e as React.KeyboardEvent<HTMLInputElement>,
-                      "depth"
-                    ),
-                },
-              }}
-            />
+            {/* Z AXIS (DEPTH) */}
+            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                sx={{ width: "100%", px: 3 }}
+              >
+                <Slider
+                  color="secondary"
+                  value={zValue || selectedLayer.depth}
+                  onChange={(e, val) => handleSliderChange(e, val, "depth")}
+                  max={500}
+                  min={0}
+                />
+                <Input
+                  size="small"
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <Typography sx={{ fontSize: 15, pb: 0.5 }}>Z</Typography>
+                    </InputAdornment>
+                  }
+                  defaultValue={zValue || selectedLayer.depth}
+                  {...register("depth")}
+                  id="depth"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  sx={{ width: "100px" }}
+                  slotProps={{
+                    input: {
+                      onKeyDown: (e) =>
+                        handleKeyPress(
+                          e as React.KeyboardEvent<HTMLInputElement>,
+                          "depth"
+                        ),
+                    },
+                  }}
+                />
+              </Stack>
+            </Box>
           </Box>
         </Box>
         <Divider />
