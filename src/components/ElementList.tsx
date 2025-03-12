@@ -1,5 +1,5 @@
 import { LayerType } from "../App";
-import LayerItem from "./LayerItem";
+import ElementItem from "./ElementItem";
 
 interface Props {
   layers: LayerType[];
@@ -9,7 +9,7 @@ interface Props {
   updateLayerName: (uid: number, newName: string) => void;
 }
 
-const LayerList = ({
+const ElementList = ({
   layers,
   removeLayer,
   selectedLayer,
@@ -17,10 +17,10 @@ const LayerList = ({
   updateLayerName,
 }: Props) => {
   return (
-    <>
+    <ul>
       {layers.map((layer) => {
         return (
-          <LayerItem
+          <ElementItem
             key={layer.uid}
             layer={layer}
             removeLayer={removeLayer}
@@ -30,8 +30,8 @@ const LayerList = ({
           />
         );
       })}
-    </>
+    </ul>
   );
 };
 
-export default LayerList;
+export default ElementList;

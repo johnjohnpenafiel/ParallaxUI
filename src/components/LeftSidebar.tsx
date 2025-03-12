@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import { LayerType } from "../App";
 
-import LayerList from "./LayerList";
+import ElementList from "./ElementList";
 
 interface Props {
   layers: LayerType[];
@@ -44,7 +44,7 @@ const LeftSidebar = ({
       >
         Add Layer
       </Button>
-      <LayerList
+      <ElementList
         layers={layers}
         selectedLayer={selectedLayer}
         onSelectedLayer={onSelectedLayer}
