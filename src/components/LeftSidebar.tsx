@@ -1,5 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
-import AnimationIcon from "@mui/icons-material/Animation";
+import { MdAnimation } from "react-icons/md";
+
+import { Button } from "@/components/ui/button";
 
 import { LayerType } from "../App";
 
@@ -23,47 +24,22 @@ const LeftSidebar = ({
   updateLayerName,
 }: Props) => {
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        left: 0,
-        top: 0,
-        height: "100vh",
-        width: "240px",
-        borderRigth: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
-        backgroundColor: (theme) => `${theme.palette.primary.main}`,
-        overflow: "hidden",
-        p: 2.5,
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5,
-      }}
-    >
-      {/* LOGO */}
-      <Box sx={{ display: "flex", marginBottom: 3 }}>
-        <AnimationIcon sx={{ fontSize: "1.3rem", mr: 1, mt: 0.6 }} />
-        <Typography
-          variant="h6"
-          noWrap
-          sx={{
-            fontWeight: 500,
-            letterSpacing: ".1rem",
-          }}
-        >
+    <div className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-primary shadow-md rounded-tr-md rounded-br-md">
+      <header className="flex items-center my-2">
+        <span className="text-[1.3rem] mr-1">
+          <MdAnimation />
+        </span>
+        <h1 className="text-base font-medium tracking-wider whitespace-nowrap">
           Parallax
-        </Typography>
-      </Box>
-      {/* ADD LAYER BUTTON */}
+        </h1>
+      </header>
       <Button
-        variant="contained"
-        color="secondary"
-        fullWidth
-        sx={{ textTransform: "none", marginBottom: 2.5 }}
+        variant="secondary"
+        className="w-full mt-6 mb-2"
         onClick={addLayer}
       >
         Add Layer
       </Button>
-      {/* LAYER LIST */}
       <LayerList
         layers={layers}
         selectedLayer={selectedLayer}
@@ -71,7 +47,7 @@ const LeftSidebar = ({
         removeLayer={removeLayer}
         updateLayerName={updateLayerName}
       />
-    </Box>
+    </div>
   );
 };
 

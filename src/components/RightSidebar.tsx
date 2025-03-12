@@ -1,10 +1,12 @@
 import { useState } from "react";
+
 import { FaArrowLeft } from "react-icons/fa6";
+
+import { Button } from "@/components/ui/button";
 
 import { CanvasType, LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
 import ExportModal from "./ExportModal";
-import { Button } from "@/components/ui/button";
 
 interface Props {
   selectedLayer: LayerType | null;
@@ -31,44 +33,38 @@ const RightSidebar = ({
       alert("Failed to export design.");
     }
   };
-
-  // -----------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------
   return (
     <div className="fixed w-[350px] right-0 h-screen bg-primary p-4 overflow-hidden rounded-tl-md rounded-bl-md">
       {selectedLayer ? (
-        <div>
-          {/* GO BACK BUTTON */}
+        <>
           <FaArrowLeft
+            className="m-1 cursor-pointer"
             title="Go back"
             size={20}
             onClick={() => {
               setCanvasSize(null);
             }}
-            className="mb-[2.7rem] mt-0.5 cursor-pointer"
           />
-          {/* EXPORT BUTTON - Migrated to shadcn Button */}
           <Button
+            className="w-full mb-4 mt-8"
             variant="secondary"
-            className="w-full mb-4"
             onClick={handleExportClick}
           >
             Export Design
           </Button>
-
-          {/* LAYER CONFIGURATION */}
           <LayerForm
             selectedLayer={selectedLayer}
             handleLayerSubmit={handleLayerSubmit}
           />
-          {/* EXPORT MODAL */}
           <ExportModal
             open={open}
             onClose={() => setOpen(false)}
             embedCode={embedCode}
           />
-        </div>
+        </>
       ) : (
-        <div className="text-center m-5">Add a layer to start</div>
+        <p className="text-center m-5">Add a layer to start</p>
       )}
     </div>
   );
