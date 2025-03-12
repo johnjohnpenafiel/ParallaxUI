@@ -10,7 +10,7 @@ import TiltBox from "./components/TiltBox";
 import "./App.css";
 
 import { LayerFormData } from "./components/LayerForm";
-import StartingCanvasForm from "./components/StartingCanvasForm";
+import CanvasForm from "./components/CanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
 
@@ -135,7 +135,7 @@ function App() {
       <div className="desktop-only">
         {/* STARTING CANVAS CONFIGURATION FORM */}
         {!canvasSize ? (
-          <StartingCanvasForm setCanvasSize={setCanvasSize} />
+          <CanvasForm setCanvasSize={setCanvasSize} />
         ) : (
           <Box sx={{ display: "flex" }}>
             {/* LEFT SIDEBAR */}

@@ -8,7 +8,7 @@ interface Props {
   setCanvasSize: (size: { width: number; height: number }) => void;
 }
 
-const StartingCanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
+const CanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
   const [width, setWidth] = useState(500);
   const [height, setHeight] = useState(500);
   const [formVisible, setFormVisible] = useState(true);
@@ -71,4 +71,4 @@ const StartingCanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
   ) : null;
 };
 
-export default StartingCanvasForm;
+export default CanvasForm;
