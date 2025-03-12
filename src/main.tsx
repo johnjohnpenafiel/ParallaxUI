@@ -6,6 +6,7 @@ import { injectSpeedInsights } from "@vercel/speed-insights";
 
 import App from "./App.jsx";
 import Preview from "./Preview";
+import "./index.css";
 
 injectSpeedInsights();
 
