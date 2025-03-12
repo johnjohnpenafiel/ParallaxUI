@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { Box, CssBaseline, ThemeProvider, Typography } from "@mui/material";
-import { GlobalStyles } from "@mui/system";
+import { Box, Typography } from "@mui/material";
+
 import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
@@ -9,7 +9,6 @@ import RightSidebar from "./components/RightSidebar";
 import TiltBox from "./components/TiltBox";
 import "./App.css";
 
-import { darkTheme } from "./theme"; // lightTheme
 import { LayerFormData } from "./components/LayerForm";
 import StartingCanvasForm from "./components/StartingCanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
@@ -129,15 +128,7 @@ function App() {
 
   // -----------------------------------------------------------------------------------------------
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <GlobalStyles
-        styles={{
-          "*": {
-            cursor: "default !important", // Global cursor override
-          },
-        }}
-      />
+    <div>
       <div className="mobile-only">
         <MobileScreen />
       </div>
@@ -209,7 +200,7 @@ function App() {
         )}
         <Analytics />
       </div>
-    </ThemeProvider>
+    </div>
   );
 }
 

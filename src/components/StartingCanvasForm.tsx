@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-import { Box, TextField, Button, Typography } from "@mui/material";
-import AnimationIcon from "@mui/icons-material/Animation";
+import { MdAnimation } from "react-icons/md";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   setCanvasSize: (size: { width: number; height: number }) => void;
@@ -17,73 +18,72 @@ const StartingCanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
     setFormVisible(false);
   };
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleCreate();
+  };
+
   return formVisible ? (
-    <Box
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: (theme) => `${theme.palette.primary.light}`,
-        backdropFilter: "blur(8px)",
-        zIndex: 10,
-      }}
+    <div
+      role="dialog"
+      aria-labelledby="form-title"
+      aria-modal="true"
+      className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-background backdrop-blur-md z-10"
     >
-      <Box
-        sx={{
-          padding: 4,
-          backgroundColor: (theme) => `${theme.palette.primary.main}`,
-          borderRadius: 4,
-          boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-          // textAlign: "center",
-        }}
+      <form
+        className="p-8 min-w-[400px] bg-primary-foreground rounded-2xl shadow-lg"
+        onSubmit={onSubmit}
       >
-        <Box sx={{ display: "flex", marginBottom: 2 }}>
-          <AnimationIcon sx={{ fontSize: "3rem", mr: 1, mt: 1.6 }} />
-          <Typography
-            variant="h2"
-            noWrap
-            sx={{
-              fontWeight: 500,
-              letterSpacing: ".1rem",
-            }}
-          >
+        <header className="flex mb-4 space-x-2 text-primary">
+          <span>
+            <MdAnimation size={35} />
+          </span>
+          <h1 id="form-title" className="text-4xl font-medium tracking-wider">
             Parallax
-          </Typography>
-        </Box>
-        <Typography variant="h6" mb={2} color={"#BEBEBE"}>
-          Choose Your Design Size
-        </Typography>
-        <TextField
-          label="Width"
-          type="number"
-          value={width}
-          onChange={(e) => setWidth(Number(e.target.value))}
-          fullWidth
-          sx={{ mb: 2 }}
-        />
-        <TextField
-          label="Height"
-          type="number"
-          value={height}
-          onChange={(e) => setHeight(Number(e.target.value))}
-          fullWidth
-          sx={{ mb: 3 }}
-        />
-        <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          onClick={handleCreate}
-        >
+          </h1>
+        </header>
+        <fieldset>
+          <legend className="text-lg mb-2 text-primary">
+            Choose your design size
+          </legend>
+          <div className="my-2 space-y-1">
+            <label
+              htmlFor="width-input"
+              className="block text-xs text-muted-foreground mb-1 tracking-wider"
+            >
+              Width:
+            </label>
+            <Input
+              id="width-input"
+              type="number"
+              value={width || ""}
+              onChange={(e) => setWidth(Number(e.target.value))}
+              className="w-full"
+              placeholder="Width"
+            />
+          </div>
+          <div className="my-2 space-y-1">
+            <label
+              htmlFor="height-input"
+              className="block text-xs text-muted-foreground mb-1 tracking-wider"
+            >
+              Height:
+            </label>
+            <Input
+              id="height-input"
+              type="number"
+              value={height || ""}
+              onChange={(e) => setHeight(Number(e.target.value))}
+              className="w-full"
+              placeholder="Height"
+            />
+          </div>
+        </fieldset>
+        <Button type="submit" className="w-full mt-4">
           Create New Design
         </Button>
-      </Box>
-    </Box>
+      </form>
+    </div>
   ) : null;
 };
 
