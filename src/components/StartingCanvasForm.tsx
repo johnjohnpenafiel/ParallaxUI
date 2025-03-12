@@ -39,45 +39,29 @@ const StartingCanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
             <MdAnimation size={35} />
           </span>
           <h1 id="form-title" className="text-4xl font-medium tracking-wider">
-            Parallax
+            ParallaxUI
           </h1>
         </header>
-        <fieldset>
+        <fieldset className="space-y-3">
           <legend className="text-lg mb-2 text-primary">
             Choose your design size
           </legend>
-          <div className="my-2 space-y-1">
-            <label
-              htmlFor="width-input"
-              className="block text-xs text-muted-foreground mb-1 tracking-wider"
-            >
-              Width:
-            </label>
-            <Input
-              id="width-input"
-              type="number"
-              value={width || ""}
-              onChange={(e) => setWidth(Number(e.target.value))}
-              className="w-full"
-              placeholder="Width"
-            />
-          </div>
-          <div className="my-2 space-y-1">
-            <label
-              htmlFor="height-input"
-              className="block text-xs text-muted-foreground mb-1 tracking-wider"
-            >
-              Height:
-            </label>
-            <Input
-              id="height-input"
-              type="number"
-              value={height || ""}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              className="w-full"
-              placeholder="Height"
-            />
-          </div>
+          <Input
+            id="width-input"
+            type="number"
+            value={width || ""}
+            onChange={(e) => setWidth(Number(e.target.value))}
+            className="w-full"
+            placeholder="Width"
+          />
+          <Input
+            id="height-input"
+            type="number"
+            value={height || ""}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            className="w-full"
+            placeholder="Height"
+          />
         </fieldset>
         <Button type="submit" className="w-full mt-4">
           Create New Design
