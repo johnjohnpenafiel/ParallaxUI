@@ -23,8 +23,12 @@ const LeftSidebar = ({
   onSelectedLayer,
   updateLayerName,
 }: Props) => {
+  // -------------------------------------------------------------------------------------
   return (
-    <div className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-primary shadow-md rounded-tr-md rounded-br-md">
+    <aside
+      className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-primary shadow-md rounded-tr-md rounded-br-md"
+      aria-label="Layer list"
+    >
       <header className="flex items-center my-2">
         <span className="text-[1.3rem] mr-1">
           <MdAnimation />
@@ -47,7 +51,7 @@ const LeftSidebar = ({
         removeLayer={removeLayer}
         updateLayerName={updateLayerName}
       />
-    </div>
+    </aside>
   );
 };
 

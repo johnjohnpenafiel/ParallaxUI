@@ -35,17 +35,21 @@ const RightSidebar = ({
   };
   // -------------------------------------------------------------------------------------
   return (
-    <div className="fixed w-[350px] right-0 h-screen bg-primary p-4 overflow-hidden rounded-tl-md rounded-bl-md">
+    <aside
+      className="fixed w-[350px] right-0 h-screen bg-primary p-4 overflow-hidden rounded-tl-md rounded-bl-md"
+      aria-label="Layer configuration"
+    >
       {selectedLayer ? (
         <>
-          <FaArrowLeft
-            className="m-1 cursor-pointer"
-            title="Go back"
-            size={20}
-            onClick={() => {
-              setCanvasSize(null);
-            }}
-          />
+          <Button
+            variant="default"
+            size="icon"
+            className="p-1"
+            onClick={() => setCanvasSize(null)}
+            aria-label="Go back"
+          >
+            <FaArrowLeft size={20} />
+          </Button>
           <Button
             className="w-full mb-4 mt-8"
             variant="secondary"
@@ -66,7 +70,7 @@ const RightSidebar = ({
       ) : (
         <p className="text-center m-5">Add a layer to start</p>
       )}
-    </div>
+    </aside>
   );
 };
 
