@@ -1,10 +1,10 @@
-import { Box, Button } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
 
 import { CanvasType, LayerType } from "../App";
 import LayerForm, { LayerFormData } from "./LayerForm";
-import { useState } from "react";
 import ExportModal from "./ExportModal";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   selectedLayer: LayerType | null;
@@ -34,39 +34,22 @@ const RightSidebar = ({
 
   // -----------------------------------------------------------------------------------------------
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        right: 0,
-        top: 0,
-        height: "100vh",
-        width: "350px",
-        borderLeft: (theme) => `0.25px solid ${theme.palette.primary.dark}`,
-        backgroundColor: (theme) => `${theme.palette.primary.main}`,
-        overflow: "hidden",
-        p: 2.5,
-        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5,
-      }}
-    >
+    <div className="fixed w-[350px] right-0 h-screen bg-primary p-4 overflow-hidden rounded-tl-md rounded-bl-md">
       {selectedLayer ? (
-        <Box>
+        <div>
           {/* GO BACK BUTTON */}
-          <ArrowBackIcon
-            titleAccess="Go back"
+          <FaArrowLeft
+            title="Go back"
+            size={20}
             onClick={() => {
               setCanvasSize(null);
             }}
-            sx={{ mb: 2.7, mt: 0.5, cursor: "pointer" }}
+            className="mb-[2.7rem] mt-0.5 cursor-pointer"
           />
-
-          {/* EXPORT BUTTON */}
+          {/* EXPORT BUTTON - Migrated to shadcn Button */}
           <Button
-            variant="contained"
-            color="secondary"
-            fullWidth
-            sx={{ textTransform: "none", mb: 4 }}
+            variant="secondary"
+            className="w-full mb-4"
             onClick={handleExportClick}
           >
             Export Design
@@ -83,18 +66,11 @@ const RightSidebar = ({
             onClose={() => setOpen(false)}
             embedCode={embedCode}
           />
-        </Box>
+        </div>
       ) : (
-        <Box
-          sx={{
-            textAlign: "center",
-            margin: "20px",
-          }}
-        >
-          Add a layer to start
-        </Box>
+        <div className="text-center m-5">Add a layer to start</div>
       )}
-    </Box>
+    </div>
   );
 };
 
