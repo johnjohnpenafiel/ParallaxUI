@@ -155,9 +155,8 @@ function App() {
                 justifyContent: "center",
                 height: "100vh",
                 width: "100%",
-                backgroundColor: (theme) =>
-                  `${theme.palette.background.default}`,
               }}
+              className="bg-muted"
             >
               <div>
                 {/* CONTAINER BOX */}

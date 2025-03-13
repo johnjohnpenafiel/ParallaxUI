@@ -17,7 +17,7 @@ const ElementList = ({
   updateLayerName,
 }: Props) => {
   return (
-    <ul>
+    <ul className="flex flex-col space-y-2 mt-2">
       {layers.map((layer) => {
         return (
           <ElementItem

@@ -53,8 +53,8 @@ const ElementItem = ({
   // -------------------------------------------------------------------------------------
   return (
     <li
-      className={`flex items-center justify-between w-full h-12 py-2 my-2  rounded-md cursor-pointer ${
-        isSelected ? "bg-neutral-800" : "bg-transparent hover:bg-neutral-800"
+      className={`flex items-center justify-between w-full h-12 py-2 rounded-sm border-border border-1 cursor-pointer group ${
+        isSelected ? "bg-input" : "bg-transparent hover:bg-input"
       }`}
       role="button"
       tabIndex={0}
@@ -74,7 +74,7 @@ const ElementItem = ({
           onChange={(e) => setNewName(e.target.value)}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className="w-full ml-1 text-white md:text-base border-none"
+          className="max-w-40 h-8 ml-1 rounded-sm bg-neutral-900 text-white md:text-base border-none focus-visible:ring-sidebar-primary focus-visible:ring-[2px]"
         />
       ) : (
         <p
@@ -87,7 +87,7 @@ const ElementItem = ({
       <Button
         variant="default"
         size="icon"
-        className="h-auto w-auto p-0 mx-2 text-muted-foreground bg-transparent hover:bg-transparent hover:text-secondary hover:scale-110 transition-all duration-300"
+        className="hidden group-hover:block h-auto w-auto p-0 mx-2 text-muted-foreground bg-transparent hover:bg-transparent hover:text-secondary-foreground hover:scale-110 transition-all duration-300"
         onClick={(e) => {
           e.stopPropagation();
           removeLayer(layer.uid);

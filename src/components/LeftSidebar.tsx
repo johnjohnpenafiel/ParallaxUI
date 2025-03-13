@@ -26,22 +26,18 @@ const LeftSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-primary shadow-md rounded-tr-md rounded-br-md"
+      className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-background shadow-md rounded-tr-md rounded-br-md"
       aria-label="Layer list"
     >
       <header className="flex items-center my-2">
         <span className="text-[1.3rem] mr-1">
           <MdAnimation />
         </span>
-        <h1 className="text-base font-medium tracking-wider whitespace-nowrap">
-          Parallax
+        <h1 className="text-lg font-medium tracking-wider whitespace-nowrap">
+          ParallaxUI
         </h1>
       </header>
-      <Button
-        variant="secondary"
-        className="w-full mt-6 mb-2"
-        onClick={addLayer}
-      >
+      <Button className="w-full mt-6 mb-2" onClick={addLayer}>
         Add Layer
       </Button>
       <ElementList

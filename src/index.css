@@ -41,46 +41,68 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0); /* Dark background color */
-  --foreground: oklch(0.985 0 0); /* Light foreground color */
-  --card: oklch(0.145 0 0); /* Dark card background color */
-  --card-foreground: oklch(0.985 0 0); /* Light card foreground color */
-  --popover: oklch(0.145 0 0); /* Dark popover background color */
-  --popover-foreground: oklch(0.985 0 0); /* Light popover foreground color */
-  --primary: oklch(0.985 0 0); /* Light primary color */
-  --primary-foreground: oklch(0.205 0 0); /* Dark primary foreground color */
-  --secondary: oklch(0.269 0 0); /* Dark secondary color */
+  --background: oklch(
+    0.145 0 0
+  ); /* Very dark gray, almost black background color */
+  --foreground: oklch(
+    0.985 0 0
+  ); /* Very light gray, almost white foreground color */
+  --card: oklch(
+    0.145 0 0
+  ); /* Very dark gray, almost black card background color */
+  --card-foreground: oklch(
+    0.985 0 0
+  ); /* Very light gray, almost white card foreground color */
+  --popover: oklch(
+    0.145 0 0
+  ); /* Very dark gray, almost black popover background color */
+  --popover-foreground: oklch(
+    0.985 0 0
+  ); /* Very light gray, almost white popover foreground color */
+  --primary: oklch(0.985 0 0); /* Very light gray, almost white primary color */
+  --primary-foreground: oklch(
+    0.205 0 0
+  ); /* Dark gray primary foreground color */
+  --secondary: oklch(0.269 0 0); /* Dark gray secondary color */
   --secondary-foreground: oklch(
     0.985 0 0
-  ); /* Light secondary foreground color */
-  --muted: oklch(0.269 0 0); /* Dark muted color */
-  --muted-foreground: oklch(0.708 0 0); /* Medium muted foreground color */
-  --accent: oklch(0.269 0 0); /* Dark accent color */
-  --accent-foreground: oklch(0.985 0 0); /* Light accent foreground color */
-  --destructive: oklch(0.396 0.141 25.723); /* Destructive color */
+  ); /* Very light gray, almost white secondary foreground color */
+  --muted: oklch(0.269 0 0); /* Dark gray muted color */
+  --muted-foreground: oklch(0.708 0 0); /* Medium gray muted foreground color */
+  --accent: oklch(0.269 0 0); /* Dark gray accent color */
+  --accent-foreground: oklch(
+    0.985 0 0
+  ); /* Very light gray, almost white accent foreground color */
+  --destructive: oklch(
+    0.396 0.141 25.723
+  ); /* Warm, medium red destructive color */
   --destructive-foreground: oklch(
     0.637 0.237 25.331
-  ); /* Destructive foreground color */
-  --border: oklch(0.269 0 0); /* Dark border color */
-  --input: oklch(0.269 0 0); /* Dark input background color */
-  --ring: oklch(0.439 0 0); /* Ring color */
-  --chart-1: oklch(0.488 0.243 264.376); /* Chart color 1 */
-  --chart-2: oklch(0.696 0.17 162.48); /* Chart color 2 */
-  --chart-3: oklch(0.769 0.188 70.08); /* Chart color 3 */
-  --chart-4: oklch(0.627 0.265 303.9); /* Chart color 4 */
-  --chart-5: oklch(0.645 0.246 16.439); /* Chart color 5 */
-  --sidebar: oklch(0.205 0 0); /* Dark sidebar background color */
-  --sidebar-foreground: oklch(0.985 0 0); /* Light sidebar foreground color */
-  --sidebar-primary: oklch(0.488 0.243 264.376); /* Sidebar primary color */
+  ); /* Warm, light red destructive foreground color */
+  --border: oklch(0.269 0 0); /* Dark gray border color */
+  --input: oklch(0.269 0 0); /* Dark gray input background color */
+  --ring: oklch(0.439 0 0); /* Medium gray ring color */
+  --chart-1: oklch(0.488 0.243 264.376); /* Vivid blue chart color */
+  --chart-2: oklch(0.696 0.17 162.48); /* Bright green chart color */
+  --chart-3: oklch(0.769 0.188 70.08); /* Bright yellow chart color */
+  --chart-4: oklch(0.627 0.265 303.9); /* Vivid purple chart color */
+  --chart-5: oklch(0.645 0.246 16.439); /* Vivid orange chart color */
+  --sidebar: oklch(0.205 0 0); /* Dark gray sidebar background color */
+  --sidebar-foreground: oklch(
+    0.985 0 0
+  ); /* Very light gray, almost white sidebar foreground color */
+  --sidebar-primary: oklch(
+    0.488 0.243 264.376
+  ); /* Vivid blue sidebar primary color */
   --sidebar-primary-foreground: oklch(
     0.985 0 0
-  ); /* Light sidebar primary foreground color */
-  --sidebar-accent: oklch(0.269 0 0); /* Dark sidebar accent color */
+  ); /* Very light gray, almost white sidebar primary foreground color */
+  --sidebar-accent: oklch(0.269 0 0); /* Dark gray sidebar accent color */
   --sidebar-accent-foreground: oklch(
     0.985 0 0
-  ); /* Light sidebar accent foreground color */
-  --sidebar-border: oklch(0.269 0 0); /* Dark sidebar border color */
-  --sidebar-ring: oklch(0.439 0 0); /* Sidebar ring color */
+  ); /* Very light gray, almost white sidebar accent foreground color */
+  --sidebar-border: oklch(0.269 0 0); /* Dark gray sidebar border color */
+  --sidebar-ring: oklch(0.439 0 0); /* Medium gray sidebar ring color */
 }
 
 @theme inline {

@@ -36,7 +36,7 @@ const RightSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="fixed w-[350px] right-0 h-screen bg-primary p-4 overflow-hidden rounded-tl-md rounded-bl-md"
+      className="fixed w-[350px] right-0 h-screen bg-sidebar p-4 overflow-hidden rounded-tl-md rounded-bl-md"
       aria-label="Layer configuration"
     >
       {selectedLayer ? (
