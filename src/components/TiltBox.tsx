@@ -1,6 +1,5 @@
 import Tilt from "react-parallax-tilt";
 import { CanvasType, LayerType } from "../App";
-import { Box, Typography } from "@mui/material";
 
 interface Props {
   layers: LayerType[];
@@ -34,15 +33,15 @@ const TiltBox = ({
     >
       {layers.map((layer: LayerType) => {
         return (
-          <Box
+          <div
             key={layer.uid}
-            sx={{
+            style={{
               position: "absolute",
-              width: layer.width,
-              height: layer.height,
+              width: `${layer.width}px`,
+              height: `${layer.height}px`,
               backgroundColor: layer.color,
               outline:
-                selectedLayer?.uid === layer.uid ? "3px solid #4169E1" : "none",
+                selectedLayer?.uid === layer.uid ? "3px solid #1447e6" : "none",
               boxShadow:
                 selectedLayer?.uid === layer.uid
                   ? "0px 0px 15px rgba(65, 105, 225, 0.5)"
@@ -57,18 +56,11 @@ const TiltBox = ({
         );
       })}
       {forDesignOnly ? (
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <Typography sx={{ textAlign: "center", color: "#888888" }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <p className="text-center text-[#888888]">
             {`${canvasSize.width} x ${canvasSize.height}`}
-          </Typography>
-        </Box>
+          </p>
+        </div>
       ) : (
         ""
       )}

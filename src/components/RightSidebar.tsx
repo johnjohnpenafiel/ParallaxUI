@@ -21,14 +21,12 @@ const RightSidebar = ({
   exportDesign,
   setCanvasSize,
 }: Props) => {
-  const [open, setOpen] = useState(false);
   const [embedCode, setEmbedCode] = useState("");
 
   const handleExportClick = async () => {
     const embedCode = await exportDesign();
     if (embedCode) {
       setEmbedCode(embedCode);
-      setOpen(true);
     } else {
       alert("Failed to export design.");
     }
@@ -36,7 +34,7 @@ const RightSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="fixed w-[350px] right-0 h-screen bg-sidebar p-4 overflow-hidden rounded-tl-md rounded-bl-md"
+      className="fixed w-[350px] right-0 h-screen bg-background p-4 overflow-hidden rounded-tl-md rounded-bl-md"
       aria-label="Layer configuration"
     >
       {selectedLayer ? (
@@ -50,21 +48,13 @@ const RightSidebar = ({
           >
             <FaArrowLeft size={20} />
           </Button>
-          <Button
-            className="w-full mb-4 mt-8"
-            variant="secondary"
-            onClick={handleExportClick}
-          >
-            Export Design
-          </Button>
+          <ExportModal
+            embedCode={embedCode}
+            handleExportClick={handleExportClick}
+          />
           <LayerForm
             selectedLayer={selectedLayer}
             handleLayerSubmit={handleLayerSubmit}
-          />
-          <ExportModal
-            open={open}
-            onClose={() => setOpen(false)}
-            embedCode={embedCode}
           />
         </>
       ) : (

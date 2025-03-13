@@ -56,8 +56,8 @@ function App() {
       name: `Layer ${layerCount}`,
       height: 100,
       width: 100,
-      color: "gray",
-      depth: 10,
+      color: "#303030",
+      depth: 0,
       x: 0,
       y: 0,
     };

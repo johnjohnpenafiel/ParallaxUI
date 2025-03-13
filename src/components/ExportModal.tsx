@@ -1,103 +1,52 @@
-import { Box, Button, Typography, Modal, TextField } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 interface ExportModalProps {
-  open: boolean;
-  onClose: () => void;
   embedCode: string;
+  handleExportClick: () => void;
 }
 
-const ExportModal = ({ open, onClose, embedCode }: ExportModalProps) => {
+const ExportModal = ({ embedCode, handleExportClick }: ExportModalProps) => {
   return (
-    <Modal open={open} onClose={onClose}>
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 600,
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography variant="h6" mb={2}>
-            Export Code
-          </Typography>
-          <CloseIcon
-            titleAccess="Close"
-            sx={{ mt: 0.4, cursor: "pointer" }}
-            onClick={() => {
-              onClose();
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            maxHeight: 200,
-            overflow: "auto",
-            border: "1px solid #ccc",
-            borderRadius: 1,
-            p: 1,
-            scrollbarGutter: "stable",
-            "&::-webkit-scrollbar": {
-              width: "7px", // Visible scrollbar width
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#ccc", // Custom scrollbar appearance
-              borderRadius: "5px",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              backgroundColor: "darkgray",
-            },
-            "&::-webkit-scrollbar-track": {
-              background: "transparent",
-            },
-          }}
-        >
-          <TextField
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="w-full mb-4 mt-8" onClick={handleExportClick}>
+          Export Design
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle>Export Code</DialogTitle>
+          <DialogDescription>
+            Copy and paste the code below into your project to embed the
+            element.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="max-h-[200px] overflow-auto">
+          <Textarea
             value={embedCode}
-            fullWidth
-            multiline
-            variant="outlined"
-            slotProps={{
-              input: {
-                readOnly: true,
-              },
-            }}
-            sx={{
-              "& .MuiInputBase-root": {
-                p: 0, // Remove input padding
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "none", // Remove text field border
-              },
-            }}
+            className="w-full bg-input resize-none focus-visible:ring-0"
+            readOnly
           />
-        </Box>
-
+        </div>
         <Button
-          variant="contained"
-          color="secondary"
-          fullWidth
-          sx={{ mt: 2 }}
+          className="w-full mt-2"
           onClick={() => {
             navigator.clipboard.writeText(embedCode);
-            onClose();
           }}
         >
           Copy
         </Button>
-      </Box>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 

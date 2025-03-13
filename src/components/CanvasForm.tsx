@@ -9,13 +9,15 @@ interface Props {
 }
 
 const CanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
-  const [width, setWidth] = useState(500);
-  const [height, setHeight] = useState(500);
+  const [width, setWidth] = useState<number | null>(null);
+  const [height, setHeight] = useState<number | null>(null);
   const [formVisible, setFormVisible] = useState(true);
 
   const handleCreate = () => {
-    setCanvasSize({ width, height });
-    setFormVisible(false);
+    if (width && height) {
+      setCanvasSize({ width, height });
+      setFormVisible(false);
+    }
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +33,7 @@ const CanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
       className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-background backdrop-blur-md z-10"
     >
       <form
-        className="p-8 min-w-[400px] bg-primary-foreground rounded-2xl shadow-lg"
+        className="p-8 min-w-[500px] bg-primary-foreground rounded-2xl shadow-lg"
         onSubmit={onSubmit}
       >
         <header className="flex mb-4 space-x-2 text-primary">
@@ -46,22 +48,28 @@ const CanvasForm: React.FC<Props> = ({ setCanvasSize }) => {
           <legend className="text-lg mb-2 text-primary">
             Choose your design size
           </legend>
-          <Input
-            id="width-input"
-            type="number"
-            value={width || ""}
-            onChange={(e) => setWidth(Number(e.target.value))}
-            className="w-full"
-            placeholder="Width"
-          />
-          <Input
-            id="height-input"
-            type="number"
-            value={height || ""}
-            onChange={(e) => setHeight(Number(e.target.value))}
-            className="w-full"
-            placeholder="Height"
-          />
+          <div className="flex">
+            <Input
+              id="width-input"
+              type="number"
+              value={width || ""}
+              onChange={(e) => setWidth(Number(e.target.value))}
+              className="w-full"
+              placeholder="Width"
+            />
+            <p className="text-primary mx-2">px</p>
+          </div>
+          <div className="flex">
+            <Input
+              id="height-input"
+              type="number"
+              value={height || ""}
+              onChange={(e) => setHeight(Number(e.target.value))}
+              className="w-full"
+              placeholder="Height"
+            />
+            <p className="text-primary mx-2">px</p>
+          </div>
         </fieldset>
         <Button type="submit" className="w-full mt-4">
           Create New Design
