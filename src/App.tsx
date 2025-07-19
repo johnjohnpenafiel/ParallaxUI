@@ -9,7 +9,7 @@ import RightSidebar from "./components/RightSidebar";
 import TiltBox from "./components/TiltBox";
 import "./App.css";
 
-import { LayerFormData } from "./components/LayerForm";
+import { ElementFormData } from "./components/ElementForm";
 import CanvasForm from "./components/CanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
@@ -19,7 +19,7 @@ export type CanvasType = {
   height: number;
 };
 
-export type LayerType = {
+export type ElementType = {
   uid: number;
   name: string;
   height: number;
@@ -42,18 +42,20 @@ function App() {
   // const [darkMode, setDarkMode] = useState(true);
 
   const [canvasSize, setCanvasSize] = useState<CanvasType | null>(null);
-  const [layers, setLayers] = useState<LayerType[]>([]);
-  const [selectedLayer, setSelectedLayer] = useState<LayerType | null>(null);
+  const [elements, setElements] = useState<ElementType[]>([]);
+  const [selectedElement, setSelectedElement] = useState<ElementType | null>(
+    null
+  );
   const [containerSize, setContainerSize] = useState<CanvasType>({
     width: 0,
     height: 0,
   });
 
-  const addLayer = (): void => {
-    const layerCount = layers.length + 1;
-    const newLayer: LayerType = {
+  const addElement = (): void => {
+    const elementCount = elements.length + 1;
+    const newElement: ElementType = {
       uid: Date.now(),
-      name: `Layer ${layerCount}`,
+      name: `Element ${elementCount}`,
       height: 100,
       width: 100,
       color: "#303030",
@@ -61,30 +63,30 @@ function App() {
       x: 0,
       y: 0,
     };
-    setLayers([...layers, newLayer]);
-    setSelectedLayer(newLayer);
+    setElements([...elements, newElement]);
+    setSelectedElement(newElement);
   };
 
-  const updateLayerName = (uid: number, newName: string) => {
-    setLayers((prevLayers) =>
-      prevLayers.map((layer) =>
-        layer.uid === uid ? { ...layer, name: newName } : layer
+  const updateElementName = (uid: number, newName: string) => {
+    setElements((prevElements) =>
+      prevElements.map((element) =>
+        element.uid === uid ? { ...element, name: newName } : element
       )
     );
   };
 
-  const removeLayer = (uid: number): void => {
-    setLayers(layers.filter((layer: LayerType) => layer.uid !== uid));
+  const removeElement = (uid: number): void => {
+    setElements(elements.filter((element: ElementType) => element.uid !== uid));
   };
 
-  const onSelectedLayer = (layer: LayerType) => {
-    setSelectedLayer(layer);
+  const onSelectedElement = (element: ElementType) => {
+    setSelectedElement(element);
   };
 
-  const handleLayerSubmit = (uid: number, data: LayerFormData) => {
-    setLayers((prevLayers) =>
-      prevLayers.map((layer) =>
-        layer.uid === uid ? { ...layer, ...data } : layer
+  const handleElementSubmit = (uid: number, data: ElementFormData) => {
+    setElements((prevElements) =>
+      prevElements.map((element) =>
+        element.uid === uid ? { ...element, ...data } : element
       )
     );
   };
@@ -94,7 +96,7 @@ function App() {
     console.log(`VITE API URL: ${import.meta.env.VITE_API_URL}/designs`);
 
     try {
-      const designData = { layers, containerSize, canvasSize };
+      const designData = { elements, containerSize, canvasSize };
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/designs`, {
         method: "POST",
@@ -140,12 +142,12 @@ function App() {
           <Box sx={{ display: "flex" }}>
             {/* LEFT SIDEBAR */}
             <LeftSidebar
-              layers={layers}
-              addLayer={addLayer}
-              removeLayer={removeLayer}
-              onSelectedLayer={onSelectedLayer}
-              selectedLayer={selectedLayer}
-              updateLayerName={updateLayerName}
+              elements={elements}
+              addElement={addElement}
+              removeElement={removeElement}
+              onSelectedElement={onSelectedElement}
+              selectedElement={selectedElement}
+              updateElementName={updateElementName}
             />
             {/* MIDDLE AREA */}
             <Box
@@ -172,8 +174,8 @@ function App() {
                   }}
                 >
                   <TiltBox
-                    layers={layers}
-                    selectedLayer={selectedLayer}
+                    elements={elements}
+                    selectedElement={selectedElement}
                     canvasSize={canvasSize}
                     forDesignOnly={forDesignOnly}
                   />
@@ -190,8 +192,8 @@ function App() {
             </Box>
             {/* RIGHT SIDEBAR */}
             <RightSidebar
-              selectedLayer={selectedLayer}
-              handleLayerSubmit={handleLayerSubmit}
+              selectedElement={selectedElement}
+              handleElementSubmit={handleElementSubmit}
               exportDesign={exportDesign}
               setCanvasSize={setCanvasSize}
             />

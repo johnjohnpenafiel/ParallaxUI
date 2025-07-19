@@ -5,25 +5,25 @@ import { IoClose } from "react-icons/io5";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import { LayerType } from "../App";
+import { ElementType } from "../App";
 
 interface Props {
-  layer: LayerType;
-  removeLayer: (uid: number) => void;
-  onSelectedLayer: () => void;
+  element: ElementType;
+  removeElement: (uid: number) => void;
+  onSelectedElement: () => void;
   isSelected: boolean;
-  updateLayerName: (uid: number, newName: string) => void;
+  updateElementName: (uid: number, newName: string) => void;
 }
 
 const ElementItem = ({
-  layer,
+  element,
   isSelected,
-  removeLayer,
-  onSelectedLayer,
-  updateLayerName,
+  removeElement,
+  onSelectedElement,
+  updateElementName,
 }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(layer.name);
+  const [newName, setNewName] = useState(element.name);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,9 +36,9 @@ const ElementItem = ({
 
   const handleBlur = () => {
     if (newName.trim()) {
-      updateLayerName(layer.uid, newName.trim());
+      updateElementName(element.uid, newName.trim());
     } else {
-      setNewName(layer.name);
+      setNewName(element.name);
     }
     setIsEditing(false);
   };
@@ -46,7 +46,7 @@ const ElementItem = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleBlur(); // Save on Enter
     if (e.key === "Escape") {
-      setNewName(layer.name); // Reset on Escape
+      setNewName(element.name); // Reset on Escape
       setIsEditing(false);
     }
   };
@@ -58,10 +58,10 @@ const ElementItem = ({
       }`}
       role="button"
       tabIndex={0}
-      onClick={onSelectedLayer}
+      onClick={onSelectedElement}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
-          onSelectedLayer();
+          onSelectedElement();
         }
       }}
       aria-selected={isSelected}
@@ -81,7 +81,7 @@ const ElementItem = ({
           onDoubleClick={handleDoubleClick}
           className="pl-4 flex-grow text-base"
         >
-          {layer.name}
+          {element.name}
         </p>
       )}
       <Button
@@ -90,9 +90,9 @@ const ElementItem = ({
         className="hidden group-hover:block h-auto w-auto p-0 mx-2 text-muted-foreground bg-transparent hover:bg-transparent hover:text-secondary-foreground hover:scale-110 transition-all duration-300"
         onClick={(e) => {
           e.stopPropagation();
-          removeLayer(layer.uid);
+          removeElement(element.uid);
         }}
-        aria-label={`Remove ${layer.name} layer`}
+        aria-label={`Remove ${element.name} element`}
       >
         <IoClose size={16} />
       </Button>

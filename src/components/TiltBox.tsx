@@ -1,16 +1,16 @@
 import Tilt from "react-parallax-tilt";
-import { CanvasType, LayerType } from "../App";
+import { CanvasType, ElementType } from "../App";
 
 interface Props {
-  layers: LayerType[];
-  selectedLayer: LayerType | null;
+  elements: ElementType[];
+  selectedElement: ElementType | null;
   canvasSize: CanvasType;
   forDesignOnly?: boolean;
 }
 
 const TiltBox = ({
-  layers,
-  selectedLayer,
+  elements,
+  selectedElement,
   canvasSize,
   forDesignOnly,
 }: Props) => {
@@ -31,25 +31,27 @@ const TiltBox = ({
         border: forDesignOnly ? "1px solid gray" : "none",
       }}
     >
-      {layers.map((layer: LayerType) => {
+      {elements.map((element: ElementType) => {
         return (
           <div
-            key={layer.uid}
+            key={element.uid}
             style={{
               position: "absolute",
-              width: `${layer.width}px`,
-              height: `${layer.height}px`,
-              backgroundColor: layer.color,
+              width: `${element.width}px`,
+              height: `${element.height}px`,
+              backgroundColor: element.color,
               outline:
-                selectedLayer?.uid === layer.uid ? "3px solid #1447e6" : "none",
+                selectedElement?.uid === element.uid
+                  ? "3px solid #1447e6"
+                  : "none",
               boxShadow:
-                selectedLayer?.uid === layer.uid
+                selectedElement?.uid === element.uid
                   ? "0px 0px 15px rgba(65, 105, 225, 0.5)"
                   : "none",
               transform: `
-              translateX(${layer.x}px)
-              translateY(${layer.y}px)
-              translateZ(${layer.depth}px)
+              translateX(${element.x}px)
+              translateY(${element.y}px)
+              translateZ(${element.depth}px)
               `,
             }}
           />

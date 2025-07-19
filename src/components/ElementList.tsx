@@ -1,32 +1,32 @@
-import { LayerType } from "../App";
+import { ElementType } from "../App";
 import ElementItem from "./ElementItem";
 
 interface Props {
-  layers: LayerType[];
-  selectedLayer: LayerType | null;
-  removeLayer: (uid: number) => void;
-  onSelectedLayer: (layer: LayerType) => void;
-  updateLayerName: (uid: number, newName: string) => void;
+  elements: ElementType[];
+  selectedElement: ElementType | null;
+  removeElement: (uid: number) => void;
+  onSelectedElement: (element: ElementType) => void;
+  updateElementName: (uid: number, newName: string) => void;
 }
 
 const ElementList = ({
-  layers,
-  removeLayer,
-  selectedLayer,
-  onSelectedLayer,
-  updateLayerName,
+  elements,
+  removeElement,
+  selectedElement,
+  onSelectedElement,
+  updateElementName,
 }: Props) => {
   return (
     <ul className="flex flex-col space-y-2 mt-2">
-      {layers.map((layer) => {
+      {elements.map((element) => {
         return (
           <ElementItem
-            key={layer.uid}
-            layer={layer}
-            removeLayer={removeLayer}
-            onSelectedLayer={() => onSelectedLayer(layer)}
-            isSelected={layer.uid === selectedLayer?.uid ? true : false}
-            updateLayerName={updateLayerName}
+            key={element.uid}
+            element={element}
+            removeElement={removeElement}
+            onSelectedElement={() => onSelectedElement(element)}
+            isSelected={element.uid === selectedElement?.uid ? true : false}
+            updateElementName={updateElementName}
           />
         );
       })}

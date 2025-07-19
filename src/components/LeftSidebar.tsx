@@ -2,26 +2,26 @@ import { MdAnimation } from "react-icons/md";
 
 import { Button } from "@/components/ui/button";
 
-import { LayerType } from "../App";
+import { ElementType } from "../App";
 
 import ElementList from "./ElementList";
 
 interface Props {
-  layers: LayerType[];
-  selectedLayer: LayerType | null;
-  addLayer: () => void;
-  removeLayer: (uid: number) => void;
-  onSelectedLayer: (layer: LayerType) => void;
-  updateLayerName: (uid: number, newName: string) => void;
+  elements: ElementType[];
+  selectedElement: ElementType | null;
+  addElement: () => void;
+  removeElement: (uid: number) => void;
+  onSelectedElement: (element: ElementType) => void;
+  updateElementName: (uid: number, newName: string) => void;
 }
 
 const LeftSidebar = ({
-  layers,
-  selectedLayer,
-  addLayer,
-  removeLayer,
-  onSelectedLayer,
-  updateLayerName,
+  elements,
+  selectedElement,
+  addElement,
+  removeElement,
+  onSelectedElement,
+  updateElementName,
 }: Props) => {
   // -------------------------------------------------------------------------------------
   return (
@@ -37,15 +37,15 @@ const LeftSidebar = ({
           ParallaxUI
         </h1>
       </header>
-      <Button className="w-full mt-6 mb-2" onClick={addLayer}>
-        Add Layer
+      <Button className="w-full mt-6 mb-2" onClick={addElement}>
+        Add Element
       </Button>
       <ElementList
-        layers={layers}
-        selectedLayer={selectedLayer}
-        onSelectedLayer={onSelectedLayer}
-        removeLayer={removeLayer}
-        updateLayerName={updateLayerName}
+        elements={elements}
+        selectedElement={selectedElement}
+        onSelectedElement={onSelectedElement}
+        removeElement={removeElement}
+        updateElementName={updateElementName}
       />
     </aside>
   );

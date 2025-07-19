@@ -4,20 +4,20 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 import { Button } from "@/components/ui/button";
 
-import { CanvasType, LayerType } from "../App";
-import LayerForm, { LayerFormData } from "./LayerForm";
+import { CanvasType, ElementType } from "../App";
+import ElementForm, { ElementFormData } from "./ElementForm";
 import ExportModal from "./ExportModal";
 
 interface Props {
-  selectedLayer: LayerType | null;
-  handleLayerSubmit: (uid: number, data: LayerFormData) => void;
+  selectedElement: ElementType | null;
+  handleElementSubmit: (uid: number, data: ElementFormData) => void;
   exportDesign: () => Promise<string | null>;
   setCanvasSize: (size: CanvasType | null) => void;
 }
 
 const RightSidebar = ({
-  selectedLayer,
-  handleLayerSubmit,
+  selectedElement,
+  handleElementSubmit,
   exportDesign,
   setCanvasSize,
 }: Props) => {
@@ -35,9 +35,9 @@ const RightSidebar = ({
   return (
     <aside
       className="fixed w-[350px] right-0 h-screen bg-background p-4 overflow-hidden rounded-tl-md rounded-bl-md"
-      aria-label="Layer configuration"
+      aria-label="Element configuration"
     >
-      {selectedLayer ? (
+      {selectedElement ? (
         <>
           <Button
             variant="default"
@@ -52,13 +52,13 @@ const RightSidebar = ({
             embedCode={embedCode}
             handleExportClick={handleExportClick}
           />
-          <LayerForm
-            selectedLayer={selectedLayer}
-            handleLayerSubmit={handleLayerSubmit}
+          <ElementForm
+            selectedElement={selectedElement}
+            handleElementSubmit={handleElementSubmit}
           />
         </>
       ) : (
-        <p className="text-center m-5">Add a layer to start</p>
+        <p className="text-center m-5 mt-18">Add an element to start</p>
       )}
     </aside>
   );
