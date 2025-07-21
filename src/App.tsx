@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { Box, Typography } from "@mui/material";
-
 import { Analytics } from "@vercel/analytics/react";
 
 import LeftSidebar from "./components/LeftSidebar";
@@ -130,7 +128,7 @@ function App() {
 
   // -----------------------------------------------------------------------------------------------
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <div className="mobile-only">
         <MobileScreen />
       </div>
@@ -139,65 +137,66 @@ function App() {
         {!canvasSize ? (
           <CanvasForm setCanvasSize={setCanvasSize} />
         ) : (
-          <Box sx={{ display: "flex" }}>
-            {/* LEFT SIDEBAR */}
-            <LeftSidebar
-              elements={elements}
-              addElement={addElement}
-              removeElement={removeElement}
-              onSelectedElement={onSelectedElement}
-              selectedElement={selectedElement}
-              updateElementName={updateElementName}
-            />
-            {/* MIDDLE AREA */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100vh",
-                width: "100%",
-              }}
-              className="bg-muted"
-            >
-              <div>
-                {/* CONTAINER BOX */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: containerSize.height,
-                    width: containerSize.width,
-                    backgroundColor: "#696969",
-                    overflow: "hidden",
-                  }}
-                >
-                  <TiltBox
-                    elements={elements}
-                    selectedElement={selectedElement}
-                    canvasSize={canvasSize}
-                    forDesignOnly={forDesignOnly}
-                  />
-                </Box>
-                <Typography
-                  style={{
-                    textAlign: "center",
-                    color: "#888888",
-                  }}
-                >
-                  {`${containerSize.width} x ${containerSize.height}`}
-                </Typography>
+          <div className="flex flex-col h-screen">
+            {/* TOP BAR */}
+            <div className="flex items-center justify-between px-6 py-4 bg-secondary border-b border-border">
+              <h1 className="text-xl font-semibold text-foreground">
+                PARALLAX UI
+              </h1>
+              <button
+                onClick={exportDesign}
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+              >
+                Export
+              </button>
+            </div>
+
+            {/* MAIN CONTENT AREA */}
+            <div className="flex flex-1 overflow-hidden">
+              {/* LEFT SIDEBAR */}
+              <LeftSidebar
+                elements={elements}
+                addElement={addElement}
+                removeElement={removeElement}
+                onSelectedElement={onSelectedElement}
+                selectedElement={selectedElement}
+                updateElementName={updateElementName}
+              />
+
+              {/* MIDDLE AREA - CANVAS */}
+              <div className="flex-1 flex items-center justify-center bg-muted p-8">
+                <div>
+                  {/* CONTAINER BOX */}
+                  <div
+                    className="flex items-center justify-center overflow-hidden"
+                    style={{
+                      height: containerSize.height,
+                      width: containerSize.width,
+                      backgroundColor: "#696969",
+                    }}
+                  >
+                    <TiltBox
+                      elements={elements}
+                      selectedElement={selectedElement}
+                      canvasSize={canvasSize}
+                      forDesignOnly={forDesignOnly}
+                    />
+                  </div>
+                  <p className="text-center text-muted-foreground mt-2">
+                    {`${containerSize.width} x ${containerSize.height}`}
+                  </p>
+                </div>
               </div>
-            </Box>
-            {/* RIGHT SIDEBAR */}
-            <RightSidebar
-              selectedElement={selectedElement}
-              handleElementSubmit={handleElementSubmit}
-              exportDesign={exportDesign}
-              setCanvasSize={setCanvasSize}
-            />
-          </Box>
+
+              {/* RIGHT SIDEBAR */}
+              <RightSidebar
+                selectedElement={selectedElement}
+                handleElementSubmit={handleElementSubmit}
+                exportDesign={exportDesign}
+                setCanvasSize={setCanvasSize}
+              />
+            </div>
+          </div>
         )}
         <Analytics />
       </div>

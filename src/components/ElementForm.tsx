@@ -4,10 +4,10 @@ import { SketchPicker } from "@hello-pangea/color-picker";
 
 import { ElementType } from "../App";
 
-import { Box, Divider, Button, Typography, Stack } from "@mui/material";
-
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export type ElementFormData = {
   height: number;
@@ -141,36 +141,23 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
   };
 
   return (
-    <Box sx={{ overflow: "auto" }}>
-      <Box
-        component="form"
+    <div className="overflow-auto">
+      <form
         onSubmit={handleSubmit((data) => {
           handleElementSubmit(selectedElement.uid, data);
           reset();
         })}
       >
-        <Divider />
+        <Separator />
 
         {/* POSITION SECTION */}
-        <Box sx={{ my: 3 }}>
-          <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
-            Position
-          </Typography>
-          <Typography sx={{ my: 2, fontSize: 10 }}>Position</Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+        <div className="my-6">
+          <h3 className="text-sm font-bold text-foreground">Position</h3>
+          <p className="my-2 text-xs text-muted-foreground">Position</p>
+          <div className="flex flex-col">
             {/* X AXIS */}
-            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                sx={{ width: "100%", px: 3 }}
-              >
+            <div className="flex my-2 items-center">
+              <div className="flex items-center space-x-4 w-full px-3">
                 <Slider
                   value={[formValues.x]}
                   onValueChange={(val) => handleSliderChange(val[0], "x")}
@@ -205,16 +192,11 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                     X
                   </span>
                 </div>
-              </Stack>
-            </Box>
+              </div>
+            </div>
             {/* Y AXIS */}
-            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                sx={{ width: "100%", px: 3 }}
-              >
+            <div className="flex my-2 items-center">
+              <div className="flex items-center space-x-4 w-full px-3">
                 <Slider
                   value={[formValues.y]}
                   onValueChange={(val) => handleSliderChange(val[0], "y")}
@@ -249,16 +231,11 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                     Y
                   </span>
                 </div>
-              </Stack>
-            </Box>
+              </div>
+            </div>
             {/* Z AXIS (DEPTH) */}
-            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                sx={{ width: "100%", px: 3 }}
-              >
+            <div className="flex my-2 items-center">
+              <div className="flex items-center space-x-4 w-full px-3">
                 <Slider
                   value={[formValues.depth]}
                   onValueChange={(val) => handleSliderChange(val[0], "depth")}
@@ -293,26 +270,19 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                     Z
                   </span>
                 </div>
-              </Stack>
-            </Box>
-          </Box>
-        </Box>
-        <Divider />
+              </div>
+            </div>
+          </div>
+        </div>
+        <Separator />
         {/* LAYOUT SECTION */}
-        <Box sx={{ my: 2 }}>
-          <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
-            Layout
-          </Typography>
-          <Typography sx={{ my: 2, fontSize: 10 }}>Dimensions</Typography>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <div className="my-4">
+          <h3 className="text-sm font-bold text-foreground">Layout</h3>
+          <p className="my-2 text-xs text-muted-foreground">Dimensions</p>
+          <div className="flex flex-col">
             {/* WIDTH */}
-            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                sx={{ width: "100%", px: 3 }}
-              >
+            <div className="flex my-2 items-center">
+              <div className="flex items-center space-x-4 w-full px-3">
                 <Slider
                   value={[formValues.width]}
                   onValueChange={(val) => handleSliderChange(val[0], "width")}
@@ -347,17 +317,12 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                     W
                   </span>
                 </div>
-              </Stack>
-            </Box>
+              </div>
+            </div>
 
             {/* HEIGHT */}
-            <Box sx={{ display: "flex", my: 2, alignItems: "center" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                sx={{ width: "100%", px: 3 }}
-              >
+            <div className="flex my-2 items-center">
+              <div className="flex items-center space-x-4 w-full px-3">
                 <Slider
                   value={[formValues.height]}
                   onValueChange={(val) => handleSliderChange(val[0], "height")}
@@ -392,104 +357,58 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                     H
                   </span>
                 </div>
-              </Stack>
-            </Box>
-          </Box>
-        </Box>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <Divider />
+        <Separator />
         {/* APPEARANCE SECTION */}
-        <Box sx={{ my: 2 }}>
-          <Typography sx={{ fontSize: 14, fontWeight: "bold" }}>
-            Appearance
-          </Typography>
-          <Typography sx={{ my: 2, fontSize: 10 }}>Colors</Typography>
-          <Box>
+        <div className="my-4">
+          <h3 className="text-sm font-bold text-foreground">Appearance</h3>
+          <p className="my-2 text-xs text-muted-foreground">Colors</p>
+          <div>
             {/* COLOR */}
-            <Box>
-              <Box>
+            <div>
+              <div>
                 <Button
-                  variant="contained"
-                  sx={{
-                    textTransform: "none",
-                    mb: 2,
-                    backgroundColor: "#374151", // Neutral gray instead of purple
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#4B5563", // Slightly lighter on hover
-                    },
-                  }}
+                  variant="secondary"
+                  className="mb-4 bg-gray-700 text-white hover:bg-gray-600"
                   onClick={() => setShowColorPicker(true)}
                 >
                   Color Picker
-                  <Box
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor: formValues.color,
-                      ml: 1,
-                      borderRadius: "50%",
-                    }}
+                  <div
+                    className="w-5 h-5 ml-2 rounded-full"
+                    style={{ backgroundColor: formValues.color }}
                   />
                 </Button>
                 {showColorPicker && (
-                  <Box
+                  <div
                     ref={colorPickerRef}
-                    sx={{
-                      position: "fixed",
-                      top: 500,
-                      right: 350,
-                      zIndex: 10,
-                      backgroundColor: "white",
-                      boxShadow: 24,
-                      p: 4,
-                      borderRadius: 1,
-                    }}
+                    className="fixed top-[500px] right-[350px] z-10 bg-white shadow-2xl p-4 rounded-md"
                   >
                     {/* Add close button */}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        cursor: "pointer",
-                        width: 20,
-                        height: 20,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderRadius: "50%",
-                        backgroundColor: "rgba(0, 0, 0, 0.05)",
-                        "&:hover": {
-                          backgroundColor: "rgba(0, 0, 0, 0.1)",
-                        },
-                      }}
+                    <div
+                      className="absolute top-2 right-2 cursor-pointer w-5 h-5 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10"
                       onClick={() => setShowColorPicker(false)}
                     >
-                      <Typography
-                        sx={{
-                          fontSize: 14,
-                          lineHeight: 1,
-                          fontWeight: "bold",
-                          color: "rgba(0, 0, 0, 0.5)",
-                        }}
-                      >
+                      <span className="text-sm leading-none font-bold text-black/50">
                         ×
-                      </Typography>
-                    </Box>
+                      </span>
+                    </div>
 
                     <SketchPicker
                       color={formValues.color}
                       onChange={handleColorChange}
                     />
-                  </Box>
+                  </div>
                 )}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
