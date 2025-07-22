@@ -24,16 +24,16 @@ const LeftSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="w-16 h-full bg-background border-r border-border flex flex-col items-center py-4"
+      className="w-full h-full bg-background flex flex-col items-center py-4"
       aria-label="Elements navbar"
     >
       {/* CREATE ELEMENT SECTION */}
       <div className="flex flex-col items-center space-y-4">
-        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider text-center">
           Create Element
         </h3>
         <Button
-          className="w-12 h-12 bg-foreground text-background hover:bg-muted-foreground rounded-md p-0"
+          className="w-12 h-12 bg-foreground text-background hover:bg-muted-foreground rounded-md p-0 transition-all duration-200"
           onClick={addElement}
         >
           <span className="text-xl font-bold">+</span>
@@ -41,28 +41,32 @@ const LeftSidebar = ({
       </div>
 
       {/* ELEMENT LAYERS */}
-      <div className="flex flex-col items-center space-y-2 mt-8">
+      <div className="flex flex-col items-center space-y-3 mt-8 flex-1 overflow-y-auto">
         {elements.map((element, index) => (
           <div
             key={element.uid}
-            className={`w-8 h-8 cursor-pointer border-2 transition-all duration-200 ${
+            className={`w-10 h-10 cursor-pointer border-2 transition-all duration-200 relative group ${
               selectedElement?.uid === element.uid
-                ? "border-foreground bg-foreground/20"
-                : "border-border bg-card"
+                ? "border-foreground bg-foreground/20 shadow-md"
+                : "border-border bg-card hover:border-muted-foreground"
             }`}
             onClick={() => onSelectedElement(element)}
-            title={element.name}
+            title={`${element.name} (${element.width}x${element.height})`}
           >
-            {/* Element preview - showing as square for now */}
+            {/* Element preview */}
+            <div
+              className="w-full h-full rounded-sm"
+              style={{ backgroundColor: element.color }}
+            />
           </div>
         ))}
       </div>
 
       {/* SELECTED ELEMENT LABEL */}
       {selectedElement && (
-        <div className="mt-8">
-          <p className="text-xs font-medium text-foreground uppercase tracking-wider">
-            Element
+        <div className="mt-4">
+          <p className="text-xs font-medium text-foreground uppercase tracking-wider text-center">
+            Selected
           </p>
         </div>
       )}

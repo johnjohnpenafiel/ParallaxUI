@@ -173,22 +173,12 @@ function App() {
               {/* LEFT WHITE SPACE */}
               <div className="w-16 bg-background border-r border-border/20"></div>
 
-              {/* LEFT SIDEBAR */}
-              <LeftSidebar
-                elements={elements}
-                addElement={addElement}
-                removeElement={removeElement}
-                onSelectedElement={onSelectedElement}
-                selectedElement={selectedElement}
-                updateElementName={updateElementName}
-              />
-
-              {/* MIDDLE AREA - CANVAS */}
-              <div className="flex-1 bg-muted relative border-l border-border/20">
+              {/* WORK AREA - SPANS TOP, LEFT, AND BOTTOM */}
+              <div className="flex-1 bg-muted relative">
                 {/* CANVAS CONTAINER */}
                 <div className="absolute left-8 top-8">
                   <div>
-                    {/* CONTAINER BOX */}
+                    {/* CANVAS FRAME */}
                     <div
                       className="flex items-center justify-center overflow-hidden border border-border bg-card relative"
                       style={{
@@ -206,7 +196,7 @@ function App() {
                       {/* Inner border for selected area */}
                       <div className="absolute inset-4 border border-border/50 pointer-events-none"></div>
                     </div>
-                    <p className="text-center text-muted-foreground mt-2 text-sm">
+                    <p className="text-center text-muted-foreground mt-2 text-sm font-medium">
                       Canvas
                     </p>
                   </div>
@@ -214,6 +204,19 @@ function App() {
 
                 {/* BOTTOM WHITE SPACE */}
                 <div className="absolute bottom-0 left-0 right-0 h-16 bg-background border-t border-border/20"></div>
+              </div>
+
+              {/* CUT-OFF SECTION WITH ELEMENTS NAVBAR */}
+              <div className="w-80 bg-background border-l border-border/20 rounded-l-lg">
+                {/* ELEMENTS NAVBAR */}
+                <LeftSidebar
+                  elements={elements}
+                  addElement={addElement}
+                  removeElement={removeElement}
+                  onSelectedElement={onSelectedElement}
+                  selectedElement={selectedElement}
+                  updateElementName={updateElementName}
+                />
               </div>
 
               {/* RIGHT SIDEBAR */}
