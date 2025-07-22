@@ -24,7 +24,7 @@ const LeftSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="w-full h-full flex flex-col items-center py-4 rounded-r-lg"
+      className="w-full h-full flex flex-col items-center py-4 rounded-r-lg rounded-br-lg"
       style={{ backgroundColor: "oklch(0.23 0 0)" }}
       aria-label="Elements navbar"
     >

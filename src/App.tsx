@@ -174,10 +174,7 @@ function App() {
               <div className="w-8 bg-background border-r border-border/20"></div>
 
               {/* WORK AREA - SPANS TOP, LEFT, AND BOTTOM */}
-              <div
-                className="flex-1 bg-muted relative rounded-l-lg"
-                style={{ height: "calc(100vh - 64px - 32px)" }}
-              >
+              <div className="flex-1 bg-muted relative rounded-l-lg rounded-bl-lg">
                 {/* CANVAS CONTAINER */}
                 <div className="absolute left-8 top-8">
                   <div>
@@ -208,9 +205,8 @@ function App() {
 
               {/* CUT-OFF SECTION WITH ELEMENTS NAVBAR */}
               <div
-                className="w-20 border-l border-border/20 rounded-r-lg"
+                className="w-20 border-l border-border/20 rounded-r-lg rounded-br-lg"
                 style={{
-                  height: "calc(100vh - 64px - 32px)",
                   backgroundColor: "oklch(0.23 0 0)", // Slightly darker than muted (0.269)
                 }}
               >
@@ -232,10 +228,10 @@ function App() {
                 exportDesign={exportDesign}
                 setCanvasSize={setCanvasSize}
               />
-
-              {/* BOTTOM WHITE SPACE - PRIMARY ELEMENT ON TOP */}
-              <div className="absolute bottom-0 left-0 right-0 h-8 bg-background border-t border-border/20 z-10"></div>
             </div>
+
+            {/* BOTTOM WHITE SPACE - SEPARATE FROM MAIN CONTENT */}
+            <div className="h-8 bg-background border-t border-border/20"></div>
           </div>
         )}
         <Analytics />
