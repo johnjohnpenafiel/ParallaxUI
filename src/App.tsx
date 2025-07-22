@@ -137,22 +137,42 @@ function App() {
         {!canvasSize ? (
           <CanvasForm setCanvasSize={setCanvasSize} />
         ) : (
-          <div className="flex flex-col h-screen">
+          <div className="flex flex-col h-screen bg-background">
             {/* TOP BAR */}
-            <div className="flex items-center justify-between px-6 py-4 bg-secondary border-b border-border">
-              <h1 className="text-xl font-semibold text-foreground">
-                PARALLAX UI
-              </h1>
+            <div className="flex items-center justify-between px-6 py-4 bg-background border-b border-border">
+              <div className="flex items-center space-x-4">
+                <button className="text-foreground hover:text-muted-foreground transition-colors">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <h1 className="text-xl font-semibold text-foreground">
+                  PARALLAX UI
+                </h1>
+              </div>
               <button
                 onClick={exportDesign}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                className="px-4 py-2 bg-foreground text-background rounded-md hover:bg-muted-foreground transition-colors font-medium"
               >
                 Export
               </button>
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <div className="flex flex-1 overflow-hidden">
+            <div className="flex flex-1 overflow-hidden bg-background">
+              {/* LEFT WHITE SPACE */}
+              <div className="w-16 bg-background border-r border-border/20"></div>
+
               {/* LEFT SIDEBAR */}
               <LeftSidebar
                 elements={elements}
@@ -164,28 +184,36 @@ function App() {
               />
 
               {/* MIDDLE AREA - CANVAS */}
-              <div className="flex-1 flex items-center justify-center bg-muted p-8">
-                <div>
-                  {/* CONTAINER BOX */}
-                  <div
-                    className="flex items-center justify-center overflow-hidden"
-                    style={{
-                      height: containerSize.height,
-                      width: containerSize.width,
-                      backgroundColor: "#696969",
-                    }}
-                  >
-                    <TiltBox
-                      elements={elements}
-                      selectedElement={selectedElement}
-                      canvasSize={canvasSize}
-                      forDesignOnly={forDesignOnly}
-                    />
+              <div className="flex-1 bg-muted relative border-l border-border/20">
+                {/* CANVAS CONTAINER */}
+                <div className="absolute left-8 top-8">
+                  <div>
+                    {/* CONTAINER BOX */}
+                    <div
+                      className="flex items-center justify-center overflow-hidden border border-border bg-card relative"
+                      style={{
+                        height: containerSize.height,
+                        width: containerSize.width,
+                      }}
+                    >
+                      <TiltBox
+                        elements={elements}
+                        selectedElement={selectedElement}
+                        canvasSize={canvasSize}
+                        forDesignOnly={forDesignOnly}
+                      />
+
+                      {/* Inner border for selected area */}
+                      <div className="absolute inset-4 border border-border/50 pointer-events-none"></div>
+                    </div>
+                    <p className="text-center text-muted-foreground mt-2 text-sm">
+                      Canvas
+                    </p>
                   </div>
-                  <p className="text-center text-muted-foreground mt-2">
-                    {`${containerSize.width} x ${containerSize.height}`}
-                  </p>
                 </div>
+
+                {/* BOTTOM WHITE SPACE */}
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-background border-t border-border/20"></div>
               </div>
 
               {/* RIGHT SIDEBAR */}

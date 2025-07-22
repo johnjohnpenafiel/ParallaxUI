@@ -16,12 +16,12 @@ const TiltBox = ({
 }: Props) => {
   return (
     <Tilt
-      perspective={1000} // 1000 default value - how far the object wrapped is away from the user.
-      scale={1} // 1 default value - dynamicly scales up/down the component size
+      perspective={1000}
+      scale={1}
       glareEnable={false}
-      glareMaxOpacity={0.45} // 0 cancells glare effect
-      transitionSpeed={400} // 400 default value - ease in/out speed
-      tiltReverse={false} // Reverse tilt
+      glareMaxOpacity={0.45}
+      transitionSpeed={400}
+      tiltReverse={false}
       style={{
         height: `${canvasSize.height}px`,
         width: `${canvasSize.width}px`,
@@ -53,10 +53,12 @@ const TiltBox = ({
               translateY(${element.y}px)
               translateZ(${element.depth}px)
               `,
+              borderRadius: "2px",
             }}
           />
         );
       })}
+
       {forDesignOnly ? (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <p className="text-center text-[#888888]">

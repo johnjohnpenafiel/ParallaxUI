@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 
 import { ElementType } from "../App";
 
-import ElementList from "./ElementList";
-
 interface Props {
   elements: ElementType[];
   selectedElement: ElementType | null;
@@ -26,27 +24,48 @@ const LeftSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="fixed w-[240px] left-0 h-screen overflow-hidden p-4 bg-background shadow-md rounded-tr-md rounded-br-md"
-      aria-label="Layer list"
+      className="w-16 h-full bg-background border-r border-border flex flex-col items-center py-4"
+      aria-label="Elements navbar"
     >
-      <header className="flex items-center my-2">
-        <span className="text-[1.3rem] mr-1">
-          <MdAnimation />
-        </span>
-        <h1 className="text-lg font-medium tracking-wider whitespace-nowrap">
-          ParallaxUI
-        </h1>
-      </header>
-      <Button className="w-full mt-6 mb-2" onClick={addElement}>
-        Add Element
-      </Button>
-      <ElementList
-        elements={elements}
-        selectedElement={selectedElement}
-        onSelectedElement={onSelectedElement}
-        removeElement={removeElement}
-        updateElementName={updateElementName}
-      />
+      {/* CREATE ELEMENT SECTION */}
+      <div className="flex flex-col items-center space-y-4">
+        <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          Create Element
+        </h3>
+        <Button
+          className="w-12 h-12 bg-foreground text-background hover:bg-muted-foreground rounded-md p-0"
+          onClick={addElement}
+        >
+          <span className="text-xl font-bold">+</span>
+        </Button>
+      </div>
+
+      {/* ELEMENT LAYERS */}
+      <div className="flex flex-col items-center space-y-2 mt-8">
+        {elements.map((element, index) => (
+          <div
+            key={element.uid}
+            className={`w-8 h-8 cursor-pointer border-2 transition-all duration-200 ${
+              selectedElement?.uid === element.uid
+                ? "border-foreground bg-foreground/20"
+                : "border-border bg-card"
+            }`}
+            onClick={() => onSelectedElement(element)}
+            title={element.name}
+          >
+            {/* Element preview - showing as square for now */}
+          </div>
+        ))}
+      </div>
+
+      {/* SELECTED ELEMENT LABEL */}
+      {selectedElement && (
+        <div className="mt-8">
+          <p className="text-xs font-medium text-foreground uppercase tracking-wider">
+            Element
+          </p>
+        </div>
+      )}
     </aside>
   );
 };

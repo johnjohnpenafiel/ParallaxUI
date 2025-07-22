@@ -34,31 +34,36 @@ const RightSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="fixed w-[350px] right-0 h-screen bg-background p-4 overflow-hidden rounded-tl-md rounded-bl-md"
-      aria-label="Element configuration"
+      className="w-80 h-full bg-background border-l border-border p-4 overflow-y-auto"
+      aria-label="Properties panel"
     >
       {selectedElement ? (
         <>
-          <Button
-            variant="default"
-            size="icon"
-            className="p-1"
-            onClick={() => setCanvasSize(null)}
-            aria-label="Go back"
-          >
-            <FaArrowLeft size={20} />
-          </Button>
-          <ExportModal
-            embedCode={embedCode}
-            handleExportClick={handleExportClick}
-          />
+          <div className="flex items-center justify-between mb-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="p-1"
+              onClick={() => setCanvasSize(null)}
+              aria-label="Go back"
+            >
+              <FaArrowLeft size={16} />
+            </Button>
+            <ExportModal
+              embedCode={embedCode}
+              handleExportClick={handleExportClick}
+            />
+          </div>
+
           <ElementForm
             selectedElement={selectedElement}
             handleElementSubmit={handleElementSubmit}
           />
         </>
       ) : (
-        <p className="text-center m-5 mt-18">Add an element to start</p>
+        <p className="text-center text-muted-foreground mt-8">
+          Add an element to start
+        </p>
       )}
     </aside>
   );
