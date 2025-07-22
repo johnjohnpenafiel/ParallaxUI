@@ -53,7 +53,6 @@ const TiltBox = ({
               `,
               borderRadius: "2px",
               cursor: "pointer",
-              transition: "all 0.2s ease-in-out",
             }}
             className={isSelected ? "ring-2 ring-blue-500 ring-opacity-50" : ""}
           />
