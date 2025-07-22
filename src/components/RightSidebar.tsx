@@ -34,7 +34,7 @@ const RightSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="w-80 h-full bg-background border-l border-border p-4 overflow-y-auto"
+      className="w-80 h-full bg-background p-4 overflow-y-auto"
       aria-label="Properties panel"
     >
       {selectedElement ? (

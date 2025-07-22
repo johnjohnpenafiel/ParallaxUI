@@ -11,6 +11,7 @@ import { ElementFormData } from "./components/ElementForm";
 import CanvasForm from "./components/CanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
+import { Button } from "./components/ui/button";
 
 export type CanvasType = {
   width: number;
@@ -139,39 +140,20 @@ function App() {
         ) : (
           <div className="flex flex-col h-screen bg-background">
             {/* TOP BAR */}
-            <div className="flex items-center justify-between px-6 py-2 bg-background border-b border-border">
-              <div className="flex items-center space-x-4">
-                <button className="text-foreground hover:text-muted-foreground transition-colors">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <h1 className="text-xl font-semibold text-foreground">
-                  PARALLAX UI
-                </h1>
-              </div>
-              <button
+            <div className="flex items-center justify-between px-6 py-2 bg-background">
+              <h1 className="text-xl font-bold text-foreground">PARALLAX UI</h1>
+              <Button
                 onClick={exportDesign}
-                className="px-4 py-2 bg-foreground text-background rounded-md hover:bg-muted-foreground transition-colors font-medium"
+                className="bg-foreground text-background hover:bg-muted-foreground"
               >
                 Export
-              </button>
+              </Button>
             </div>
 
             {/* MAIN CONTENT AREA */}
             <div className="flex flex-1 overflow-hidden bg-background relative">
               {/* LEFT WHITE SPACE */}
-              <div className="w-8 bg-background border-r border-border/20"></div>
+              <div className="w-8 bg-background"></div>
 
               {/* WORK AREA - SPANS TOP, LEFT, AND BOTTOM */}
               <div className="flex-1 bg-muted relative rounded-l-lg rounded-bl-lg">
@@ -205,7 +187,7 @@ function App() {
 
               {/* CUT-OFF SECTION WITH ELEMENTS NAVBAR */}
               <div
-                className="w-20 border-l border-border/20 rounded-r-lg rounded-br-lg"
+                className="w-20 rounded-r-lg rounded-br-lg"
                 style={{
                   backgroundColor: "oklch(0.23 0 0)", // Slightly darker than muted (0.269)
                 }}
@@ -231,7 +213,7 @@ function App() {
             </div>
 
             {/* BOTTOM WHITE SPACE - SEPARATE FROM MAIN CONTENT */}
-            <div className="h-8 bg-background border-t border-border/20"></div>
+            <div className="h-8 bg-background"></div>
           </div>
         )}
         <Analytics />
