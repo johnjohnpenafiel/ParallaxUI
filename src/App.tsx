@@ -139,7 +139,7 @@ function App() {
         ) : (
           <div className="flex flex-col h-screen bg-background">
             {/* TOP BAR */}
-            <div className="flex items-center justify-between px-6 py-4 bg-background border-b border-border">
+            <div className="flex items-center justify-between px-6 py-2 bg-background border-b border-border">
               <div className="flex items-center space-x-4">
                 <button className="text-foreground hover:text-muted-foreground transition-colors">
                   <svg
@@ -169,12 +169,15 @@ function App() {
             </div>
 
             {/* MAIN CONTENT AREA */}
-            <div className="flex flex-1 overflow-hidden bg-background">
+            <div className="flex flex-1 overflow-hidden bg-background relative">
               {/* LEFT WHITE SPACE */}
-              <div className="w-16 bg-background border-r border-border/20"></div>
+              <div className="w-8 bg-background border-r border-border/20"></div>
 
               {/* WORK AREA - SPANS TOP, LEFT, AND BOTTOM */}
-              <div className="flex-1 bg-muted relative">
+              <div
+                className="flex-1 bg-muted relative rounded-l-lg"
+                style={{ height: "calc(100vh - 64px - 32px)" }}
+              >
                 {/* CANVAS CONTAINER */}
                 <div className="absolute left-8 top-8">
                   <div>
@@ -201,13 +204,16 @@ function App() {
                     </p>
                   </div>
                 </div>
-
-                {/* BOTTOM WHITE SPACE */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-background border-t border-border/20"></div>
               </div>
 
               {/* CUT-OFF SECTION WITH ELEMENTS NAVBAR */}
-              <div className="w-80 bg-background border-l border-border/20 rounded-l-lg">
+              <div
+                className="w-20 border-l border-border/20 rounded-r-lg"
+                style={{
+                  height: "calc(100vh - 64px - 32px)",
+                  backgroundColor: "oklch(0.23 0 0)", // Slightly darker than muted (0.269)
+                }}
+              >
                 {/* ELEMENTS NAVBAR */}
                 <LeftSidebar
                   elements={elements}
@@ -226,6 +232,9 @@ function App() {
                 exportDesign={exportDesign}
                 setCanvasSize={setCanvasSize}
               />
+
+              {/* BOTTOM WHITE SPACE - PRIMARY ELEMENT ON TOP */}
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-background border-t border-border/20 z-10"></div>
             </div>
           </div>
         )}

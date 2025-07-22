@@ -24,7 +24,8 @@ const LeftSidebar = ({
   // -------------------------------------------------------------------------------------
   return (
     <aside
-      className="w-full h-full bg-background flex flex-col items-center py-4"
+      className="w-full h-full flex flex-col items-center py-4 rounded-r-lg"
+      style={{ backgroundColor: "oklch(0.23 0 0)" }}
       aria-label="Elements navbar"
     >
       {/* CREATE ELEMENT SECTION */}
@@ -33,10 +34,10 @@ const LeftSidebar = ({
           Create Element
         </h3>
         <Button
-          className="w-12 h-12 bg-foreground text-background hover:bg-muted-foreground rounded-md p-0 transition-all duration-200"
+          className="w-10 h-10 bg-foreground text-background hover:bg-muted-foreground rounded-md p-0 transition-all duration-200"
           onClick={addElement}
         >
-          <span className="text-xl font-bold">+</span>
+          <span className="text-lg font-bold">+</span>
         </Button>
       </div>
 
@@ -45,10 +46,10 @@ const LeftSidebar = ({
         {elements.map((element, index) => (
           <div
             key={element.uid}
-            className={`w-10 h-10 cursor-pointer border-2 transition-all duration-200 relative group ${
+            className={`w-8 h-8 cursor-pointer border-2 transition-all duration-200 relative group ${
               selectedElement?.uid === element.uid
                 ? "border-foreground bg-foreground/20 shadow-md"
-                : "border-border bg-card hover:border-muted-foreground"
+                : "border-border bg-background hover:border-muted-foreground"
             }`}
             onClick={() => onSelectedElement(element)}
             title={`${element.name} (${element.width}x${element.height})`}
