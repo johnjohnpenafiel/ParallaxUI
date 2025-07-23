@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import { Analytics } from "@vercel/analytics/react";
 
-import LeftSidebar from "./components/LeftSidebar";
-import RightSidebar from "./components/RightSidebar";
+import ElementsPanel from "./components/ElementsPanel";
+import PropertiesPanel from "./components/PropertiesPanel";
 import TiltBox from "./components/TiltBox";
 import "./App.css";
 
@@ -196,7 +196,7 @@ function App() {
                 }}
               >
                 {/* ELEMENTS NAVBAR */}
-                <LeftSidebar
+                <ElementsPanel
                   elements={elements}
                   addElement={addElement}
                   removeElement={removeElement}
@@ -207,7 +207,7 @@ function App() {
               </div>
 
               {/* RIGHT SIDEBAR */}
-              <RightSidebar
+              <PropertiesPanel
                 selectedElement={selectedElement}
                 handleElementSubmit={handleElementSubmit}
                 exportDesign={exportDesign}

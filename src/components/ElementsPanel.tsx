@@ -1,5 +1,3 @@
-import { MdAnimation } from "react-icons/md";
-
 import { Button } from "@/components/ui/button";
 
 import { ElementType } from "../App";
@@ -13,7 +11,7 @@ interface Props {
   updateElementName: (uid: number, newName: string) => void;
 }
 
-const LeftSidebar = ({
+const ElementsPanel = ({
   elements,
   selectedElement,
   addElement,
@@ -66,4 +64,4 @@ const LeftSidebar = ({
   );
 };
 
-export default LeftSidebar;
+export default ElementsPanel;

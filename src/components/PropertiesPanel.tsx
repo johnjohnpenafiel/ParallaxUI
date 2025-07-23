@@ -15,7 +15,7 @@ interface Props {
   setCanvasSize: (size: CanvasType | null) => void;
 }
 
-const RightSidebar = ({
+const PropertiesPanel = ({
   selectedElement,
   handleElementSubmit,
   exportDesign,
@@ -70,4 +70,4 @@ const RightSidebar = ({
   );
 };
 
-export default RightSidebar;
+export default PropertiesPanel;
