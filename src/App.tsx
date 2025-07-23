@@ -140,11 +140,14 @@ function App() {
         ) : (
           <div className="flex flex-col h-screen bg-background">
             {/* TOP BAR */}
-            <div className="flex items-center justify-between px-6 py-2 bg-background">
-              <h1 className="text-xl font-bold text-foreground">PARALLAX UI</h1>
+            <div className="flex items-center justify-between px-8 py-2 bg-background">
+              <h1 className="text-lg font-semibold text-foreground">
+                PARALLAX UI
+              </h1>
               <Button
                 onClick={exportDesign}
-                className="bg-foreground text-background hover:bg-muted-foreground"
+                size="sm"
+                className="bg-foreground text-background hover:bg-muted-foreground text-xs px-3 py-1"
               >
                 Export
               </Button>

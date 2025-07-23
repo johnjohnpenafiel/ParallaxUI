@@ -141,23 +141,24 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
   };
 
   return (
-    <div className="overflow-auto">
+    <div className="w-full max-w-full">
       <form
         onSubmit={handleSubmit((data) => {
           handleElementSubmit(selectedElement.uid, data);
           reset();
         })}
+        className="w-full"
       >
         <Separator />
 
         {/* POSITION SECTION */}
-        <div className="my-6">
+        <div className="my-6 w-full">
           <h3 className="text-sm font-bold text-foreground">Position</h3>
           <p className="my-2 text-xs text-muted-foreground">Position</p>
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-4 w-full">
             {/* X AXIS */}
-            <div className="flex my-2 items-center">
-              <div className="flex items-center space-x-4 w-full px-3">
+            <div className="flex items-center space-x-3 w-full min-w-0">
+              <div className="flex-1 min-w-0">
                 <Slider
                   value={[formValues.x]}
                   onValueChange={(val) => handleSliderChange(val[0], "x")}
@@ -166,37 +167,37 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                   step={1}
                   className="w-full"
                 />
-                <div className="relative">
-                  <Input
-                    value={formValues.x.toString()}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
+              </div>
+              <div className="relative flex-shrink-0">
+                <Input
+                  value={formValues.x.toString()}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (!isNaN(value) && value >= 0 && value <= 500) {
+                      handleSliderChange(value, "x");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const value = Number(e.currentTarget.value);
                       if (!isNaN(value) && value >= 0 && value <= 500) {
                         handleSliderChange(value, "x");
                       }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.currentTarget.value);
-                        if (!isNaN(value) && value >= 0 && value <= 500) {
-                          handleSliderChange(value, "x");
-                        }
-                      }
-                    }}
-                    id="x"
-                    type="number"
-                    aria-labelledby="input-slider"
-                    className="w-16 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white/80 text-sm font-medium">
-                    X
-                  </span>
-                </div>
+                    }
+                  }}
+                  id="x"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  className="w-12 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
+                />
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-white/80 text-xs font-medium">
+                  X
+                </span>
               </div>
             </div>
             {/* Y AXIS */}
-            <div className="flex my-2 items-center">
-              <div className="flex items-center space-x-4 w-full px-3">
+            <div className="flex items-center space-x-3 w-full min-w-0">
+              <div className="flex-1 min-w-0">
                 <Slider
                   value={[formValues.y]}
                   onValueChange={(val) => handleSliderChange(val[0], "y")}
@@ -205,37 +206,37 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                   step={1}
                   className="w-full"
                 />
-                <div className="relative">
-                  <Input
-                    value={formValues.y.toString()}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
+              </div>
+              <div className="relative flex-shrink-0">
+                <Input
+                  value={formValues.y.toString()}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (!isNaN(value) && value >= 0 && value <= 500) {
+                      handleSliderChange(value, "y");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const value = Number(e.currentTarget.value);
                       if (!isNaN(value) && value >= 0 && value <= 500) {
                         handleSliderChange(value, "y");
                       }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.currentTarget.value);
-                        if (!isNaN(value) && value >= 0 && value <= 500) {
-                          handleSliderChange(value, "y");
-                        }
-                      }
-                    }}
-                    id="y"
-                    type="number"
-                    aria-labelledby="input-slider"
-                    className="w-16 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white/80 text-sm font-medium">
-                    Y
-                  </span>
-                </div>
+                    }
+                  }}
+                  id="y"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  className="w-12 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
+                />
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-white/80 text-xs font-medium">
+                  Y
+                </span>
               </div>
             </div>
             {/* Z AXIS (DEPTH) */}
-            <div className="flex my-2 items-center">
-              <div className="flex items-center space-x-4 w-full px-3">
+            <div className="flex items-center space-x-3 w-full min-w-0">
+              <div className="flex-1 min-w-0">
                 <Slider
                   value={[formValues.depth]}
                   onValueChange={(val) => handleSliderChange(val[0], "depth")}
@@ -244,45 +245,45 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                   step={1}
                   className="w-full"
                 />
-                <div className="relative">
-                  <Input
-                    value={formValues.depth.toString()}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
+              </div>
+              <div className="relative flex-shrink-0">
+                <Input
+                  value={formValues.depth.toString()}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (!isNaN(value) && value >= 0 && value <= 500) {
+                      handleSliderChange(value, "depth");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const value = Number(e.currentTarget.value);
                       if (!isNaN(value) && value >= 0 && value <= 500) {
                         handleSliderChange(value, "depth");
                       }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.currentTarget.value);
-                        if (!isNaN(value) && value >= 0 && value <= 500) {
-                          handleSliderChange(value, "depth");
-                        }
-                      }
-                    }}
-                    id="depth"
-                    type="number"
-                    aria-labelledby="input-slider"
-                    className="w-16 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white/80 text-sm font-medium">
-                    Z
-                  </span>
-                </div>
+                    }
+                  }}
+                  id="depth"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  className="w-12 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
+                />
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-white/80 text-xs font-medium">
+                  Z
+                </span>
               </div>
             </div>
           </div>
         </div>
         <Separator />
         {/* LAYOUT SECTION */}
-        <div className="my-4">
+        <div className="my-4 w-full">
           <h3 className="text-sm font-bold text-foreground">Layout</h3>
           <p className="my-2 text-xs text-muted-foreground">Dimensions</p>
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-4 w-full">
             {/* WIDTH */}
-            <div className="flex my-2 items-center">
-              <div className="flex items-center space-x-4 w-full px-3">
+            <div className="flex items-center space-x-3 w-full min-w-0">
+              <div className="flex-1 min-w-0">
                 <Slider
                   value={[formValues.width]}
                   onValueChange={(val) => handleSliderChange(val[0], "width")}
@@ -291,38 +292,38 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                   step={1}
                   className="w-full"
                 />
-                <div className="relative">
-                  <Input
-                    value={formValues.width.toString()}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
+              </div>
+              <div className="relative flex-shrink-0">
+                <Input
+                  value={formValues.width.toString()}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (!isNaN(value) && value >= 0 && value <= 500) {
+                      handleSliderChange(value, "width");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const value = Number(e.currentTarget.value);
                       if (!isNaN(value) && value >= 0 && value <= 500) {
                         handleSliderChange(value, "width");
                       }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.currentTarget.value);
-                        if (!isNaN(value) && value >= 0 && value <= 500) {
-                          handleSliderChange(value, "width");
-                        }
-                      }
-                    }}
-                    id="width"
-                    type="number"
-                    aria-labelledby="input-slider"
-                    className="w-16 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white/80 text-sm font-medium">
-                    W
-                  </span>
-                </div>
+                    }
+                  }}
+                  id="width"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  className="w-12 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
+                />
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-white/80 text-xs font-medium">
+                  W
+                </span>
               </div>
             </div>
 
             {/* HEIGHT */}
-            <div className="flex my-2 items-center">
-              <div className="flex items-center space-x-4 w-full px-3">
+            <div className="flex items-center space-x-3 w-full min-w-0">
+              <div className="flex-1 min-w-0">
                 <Slider
                   value={[formValues.height]}
                   onValueChange={(val) => handleSliderChange(val[0], "height")}
@@ -331,32 +332,32 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                   step={1}
                   className="w-full"
                 />
-                <div className="relative">
-                  <Input
-                    value={formValues.height.toString()}
-                    onChange={(e) => {
-                      const value = Number(e.target.value);
+              </div>
+              <div className="relative flex-shrink-0">
+                <Input
+                  value={formValues.height.toString()}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+                    if (!isNaN(value) && value >= 0 && value <= 500) {
+                      handleSliderChange(value, "height");
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const value = Number(e.currentTarget.value);
                       if (!isNaN(value) && value >= 0 && value <= 500) {
                         handleSliderChange(value, "height");
                       }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const value = Number(e.currentTarget.value);
-                        if (!isNaN(value) && value >= 0 && value <= 500) {
-                          handleSliderChange(value, "height");
-                        }
-                      }
-                    }}
-                    id="height"
-                    type="number"
-                    aria-labelledby="input-slider"
-                    className="w-16 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
-                  />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-white/80 text-sm font-medium">
-                    H
-                  </span>
-                </div>
+                    }
+                  }}
+                  id="height"
+                  type="number"
+                  aria-labelledby="input-slider"
+                  className="w-12 h-7 text-white text-xs font-medium bg-white/8 border-white/20 rounded-md px-1.5 py-0.5 focus:border-white/60 focus:ring-2 focus:ring-white/20 hover:border-white/40"
+                />
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-white/80 text-xs font-medium">
+                  H
+                </span>
               </div>
             </div>
           </div>
@@ -364,16 +365,16 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
 
         <Separator />
         {/* APPEARANCE SECTION */}
-        <div className="my-4">
+        <div className="my-4 w-full">
           <h3 className="text-sm font-bold text-foreground">Appearance</h3>
           <p className="my-2 text-xs text-muted-foreground">Colors</p>
-          <div>
+          <div className="w-full">
             {/* COLOR */}
-            <div>
-              <div>
+            <div className="w-full">
+              <div className="w-full">
                 <Button
                   variant="secondary"
-                  className="mb-4 bg-gray-700 text-white hover:bg-gray-600"
+                  className="mb-4 bg-gray-700 text-white hover:bg-gray-600 w-full"
                   onClick={() => setShowColorPicker(true)}
                 >
                   Color Picker
@@ -385,7 +386,8 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                 {showColorPicker && (
                   <div
                     ref={colorPickerRef}
-                    className="fixed top-[500px] right-[350px] z-10 bg-white shadow-2xl p-4 rounded-md"
+                    className="absolute z-10 bg-white shadow-2xl p-4 rounded-md"
+                    style={{ top: "100%", left: "0", right: "0" }}
                   >
                     {/* Add close button */}
                     <div
