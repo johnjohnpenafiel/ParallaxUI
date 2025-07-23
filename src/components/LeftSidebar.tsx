@@ -62,15 +62,6 @@ const LeftSidebar = ({
           </div>
         ))}
       </div>
-
-      {/* SELECTED ELEMENT LABEL */}
-      {selectedElement && (
-        <div className="mt-4">
-          <p className="text-xs font-medium text-foreground uppercase tracking-wider text-center">
-            Selected
-          </p>
-        </div>
-      )}
     </aside>
   );
 };

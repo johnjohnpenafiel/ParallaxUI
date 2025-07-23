@@ -39,15 +39,16 @@ const RightSidebar = ({
     >
       {selectedElement ? (
         <>
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col space-y-3 mb-6">
             <Button
               variant="ghost"
-              size="icon"
-              className="p-1"
+              size="sm"
+              className="self-start p-2"
               onClick={() => setCanvasSize(null)}
               aria-label="Go back"
             >
-              <FaArrowLeft size={16} />
+              <FaArrowLeft size={14} />
+              <span className="ml-2 text-sm">Back</span>
             </Button>
             <ExportModal
               embedCode={embedCode}

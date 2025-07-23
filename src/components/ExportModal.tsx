@@ -18,7 +18,11 @@ const ExportModal = ({ embedCode, handleExportClick }: ExportModalProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full mb-4 mt-8" onClick={handleExportClick}>
+        <Button
+          size="sm"
+          className="w-full text-sm px-4 py-2"
+          onClick={handleExportClick}
+        >
           Export Design
         </Button>
       </DialogTrigger>

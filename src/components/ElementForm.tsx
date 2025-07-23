@@ -371,7 +371,7 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
           <div className="w-full">
             {/* COLOR */}
             <div className="w-full">
-              <div className="w-full">
+              <div className="w-full relative">
                 <Button
                   variant="secondary"
                   className="mb-4 bg-gray-700 text-white hover:bg-gray-600 w-full"
@@ -386,8 +386,12 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
                 {showColorPicker && (
                   <div
                     ref={colorPickerRef}
-                    className="absolute z-10 bg-white shadow-2xl p-4 rounded-md"
-                    style={{ top: "100%", left: "0", right: "0" }}
+                    className="fixed z-50 bg-white shadow-2xl p-4 rounded-md border border-border"
+                    style={{
+                      top: "75%",
+                      left: "68%",
+                      transform: "translate(-50%, -50%)",
+                    }}
                   >
                     {/* Add close button */}
                     <div
