@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 
 import TiltBox from "./components/TiltBox";
 
-import { LayerType } from "./App";
+import { ElementType } from "./App";
 
 interface DesignType {
-  layers: LayerType[];
+  elements: ElementType[];
   containerSize: { width: number; height: number };
   canvasSize: { width: number; height: number };
 }
@@ -45,7 +45,7 @@ function Preview() {
 
   if (!design) return <div>Loading...</div>;
 
-  const { layers, containerSize, canvasSize } = design;
+  const { elements, containerSize, canvasSize } = design;
 
   return (
     <div
@@ -58,7 +58,11 @@ function Preview() {
       }}
     >
       {/* not passing forDesignOnly prop so it is taken as a false/undefined */}
-      <TiltBox layers={layers} selectedLayer={null} canvasSize={canvasSize} />
+      <TiltBox
+        elements={elements}
+        selectedElement={null}
+        canvasSize={canvasSize}
+      />
     </div>
   );
 }
