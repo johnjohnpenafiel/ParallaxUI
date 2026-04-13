@@ -24,7 +24,7 @@ interface Props {
 }
 
 const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
-  const { register, handleSubmit, reset, getValues, setValue } =
+  const { handleSubmit, reset, getValues, setValue } =
     useForm<ElementFormData>({});
 
   const colorPickerRef = useRef<HTMLDivElement>(null);
@@ -77,32 +77,6 @@ const ElementForm = ({ handleElementSubmit, selectedElement }: Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showColorPicker]);
-
-  const handleKeyPress = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    field: keyof ElementFormData
-  ) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      const formData = getValues();
-
-      const updatedData: ElementFormData = {
-        ...formData,
-        [field]:
-          field === "color"
-            ? e.currentTarget.value
-            : Number(e.currentTarget.value),
-        height: Number(formData.height),
-        width: Number(formData.width),
-        depth: Number(formData.depth),
-        x: Number(formData.x),
-        y: Number(formData.y),
-      };
-
-      handleElementSubmit(selectedElement.uid, updatedData);
-      reset(updatedData);
-    }
-  };
 
   const handleSliderChange = (
     newValue: number,

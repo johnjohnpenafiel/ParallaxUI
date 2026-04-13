@@ -15,9 +15,7 @@ const ElementsPanel = ({
   elements,
   selectedElement,
   addElement,
-  removeElement,
   onSelectedElement,
-  updateElementName,
 }: Props) => {
   // -------------------------------------------------------------------------------------
   return (
@@ -41,7 +39,7 @@ const ElementsPanel = ({
 
       {/* ELEMENT LAYERS */}
       <div className="flex flex-col items-center space-y-3 mt-8 flex-1 overflow-y-auto">
-        {elements.map((element, index) => (
+        {elements.map((element) => (
           <div
             key={element.uid}
             className={`w-8 h-8 cursor-pointer border-2 transition-all duration-200 relative group ${
