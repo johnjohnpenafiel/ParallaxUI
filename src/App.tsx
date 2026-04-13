@@ -11,7 +11,6 @@ import { ElementFormData } from "./components/ElementForm";
 import CanvasForm from "./components/CanvasForm";
 import { calculateMaxSize } from "./utils/calculateMaxSize";
 import { MobileScreen } from "./utils/MobileScreen";
-import { Button } from "./components/ui/button";
 
 export type CanvasType = {
   width: number;
@@ -29,10 +28,7 @@ export type ElementType = {
   y: number;
 };
 
-// FRONTEND URLs in App.tsx [exportDesign function],
-const production_base_url = "http://parallaxui.com";
-
-//const development_base_url = "http://localhost:5173";
+const production_base_url = import.meta.env.VITE_BASE_URL || "http://parallaxui.com";
 
 // SET ALWAYS TO TRUE, BUT UNDEFINED ON PREVIEW.TSX
 const forDesignOnly = true;
@@ -144,13 +140,6 @@ function App() {
               <h1 className="text-lg font-semibold text-foreground">
                 PARALLAX UI
               </h1>
-              <Button
-                onClick={exportDesign}
-                size="sm"
-                className="bg-foreground text-background hover:bg-muted-foreground text-xs px-3 py-1"
-              >
-                Export
-              </Button>
             </div>
 
             {/* MAIN CONTENT AREA */}

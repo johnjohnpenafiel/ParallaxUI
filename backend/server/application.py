@@ -17,6 +17,9 @@ load_dotenv(env_file)
 
 # ENVIROMENT VARIABLES
 DATABASE = os.environ.get("DB_URI")
+# Render uses postgres:// but SQLAlchemy requires postgresql://
+if DATABASE and DATABASE.startswith("postgres://"):
+    DATABASE = DATABASE.replace("postgres://", "postgresql+psycopg2://", 1)
 API_URL = os.environ.get("API_URL")
 DEBUG = os.environ.get("FLASK_DEBUG")
 PORT = os.environ.get("FLASK_RUN_PORT")

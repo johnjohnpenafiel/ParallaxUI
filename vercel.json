@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/designs/:path*",
-      "destination": "http://localhost:5555/designs/:path*"
+      "destination": "https://parallaxui-api.onrender.com/designs/:path*"
     },
     {
       "source": "/(.*)",
