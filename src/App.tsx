@@ -103,7 +103,7 @@ function App() {
 
       const { id } = await response.json();
 
-      return `<iframe src="${production_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}"></iframe>`;
+      return `<iframe src="${production_base_url}/embed/${id}" width="${containerSize.width}" height="${containerSize.height}" style="border:none;background:transparent;" allowtransparency="true"></iframe>`;
     } catch (error) {
       console.error("Error exporting design:", error);
       return null;
