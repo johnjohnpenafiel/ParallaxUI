@@ -45,7 +45,32 @@ function Preview() {
     if (id) fetchDesign();
   }, [id]);
 
-  if (!design) return <div>Loading...</div>;
+  if (!design) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "transparent",
+        }}
+      >
+        <div
+          style={{
+            width: "32px",
+            height: "32px",
+            border: "3px solid rgba(128, 128, 128, 0.25)",
+            borderTopColor: "rgba(128, 128, 128, 0.9)",
+            borderRadius: "50%",
+            animation: "parallaxui-spin 0.8s linear infinite",
+          }}
+        />
+        <style>{`@keyframes parallaxui-spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
 
   const { elements, containerSize, canvasSize } = design;
 
