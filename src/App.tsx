@@ -36,6 +36,10 @@ const forDesignOnly = true;
 function App() {
   // const [darkMode, setDarkMode] = useState(true);
 
+  useEffect(() => {
+    document.body.classList.add("dark");
+  }, []);
+
   const [canvasSize, setCanvasSize] = useState<CanvasType | null>(null);
   const [elements, setElements] = useState<ElementType[]>([]);
   const [selectedElement, setSelectedElement] = useState<ElementType | null>(
