@@ -15,15 +15,6 @@ function Preview() {
   const { id } = useParams();
   const [design, setDesign] = useState<DesignType | null>(null);
 
-  useEffect(() => {
-    document.body.style.margin = "0";
-    document.body.style.padding = "0";
-    document.body.style.background = "transparent";
-    document.documentElement.style.margin = "0";
-    document.documentElement.style.padding = "0";
-    document.documentElement.style.background = "transparent";
-  }, []);
-
   // FETCH DESIGN DATA FROM BACKEND
   useEffect(() => {
     const fetchDesign = async () => {

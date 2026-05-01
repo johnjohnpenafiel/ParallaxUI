@@ -148,8 +148,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html, body {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
   /* Hide number input arrows */
   input[type="number"]::-webkit-inner-spin-button,
